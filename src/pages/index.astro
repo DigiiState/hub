@@ -1,0 +1,60 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="DigiiState | Maryland Digital Real Estate Brokerage">
+	<main class="max-w-4xl mx-auto px-6 py-20">
+		<header class="mb-20">
+			<div class="flex items-center justify-between">
+				<h1 class="text-3xl font-extrabold tracking-tighter text-slate-900">
+					Digii<span>State</span>
+				</h1>
+				<nav class="space-x-8 text-sm font-semibold uppercase tracking-widest text-slate-500">
+					<a href="#territories" class="hover:text-blue-600">Territories</a>
+					<a href="#about" class="hover:text-blue-600">About</a>
+					<a href="mailto:admin@digiistate.com" class="text-blue-600">Inquire</a>
+				</nav>
+			</div>
+		</header>
+
+		<section class="mb-32">
+			<h2 class="text-5xl md:text-7xl font-black text-slate-900 leading-tight mb-8">
+				We capture local market share. <br/>
+				<span class="text-blue-600">You serve the neighbors.</span>
+			</h2>
+			<p class="text-xl text-slate-600 max-w-2xl leading-relaxed">
+				DigiiState is a premier digital real estate brokerage. We build, rank, and rent high-intent local service assets across Maryland's most exclusive enclaves.
+			</p>
+		</section>
+
+		<section id="territories" class="mb-32">
+			<h3 class="text-sm font-bold uppercase tracking-widest text-slate-400 mb-12">Active Maryland Territories</h3>
+			<div class="grid md:grid-cols-2 gap-8">
+				<div class="p-8 border border-slate-200 rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow">
+					<div class="text-xs font-bold text-red-600 uppercase mb-2">Phoenix / Clarksville</div>
+					<h4 class="text-2xl font-bold mb-4">Septic Services MD</h4>
+					<p class="text-slate-500 mb-6">Dominant search position for high-intent emergency septic leads in Howard/Baltimore Counties.</p>
+					<span class="inline-block px-4 py-2 rounded-full bg-slate-100 text-slate-900 text-xs font-bold uppercase">Active Lease</span>
+				</div>
+
+				<div class="p-8 border border-slate-200 rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow">
+					<div class="text-xs font-bold text-blue-600 uppercase mb-2">Gibson Island / Annapolis</div>
+					<h4 class="text-2xl font-bold mb-4">Tree Experts MD</h4>
+					<p class="text-slate-500 mb-6">Primary lead channel for luxury estate tree removal and emergency storm damage care.</p>
+					<span class="inline-block px-4 py-2 rounded-full bg-blue-600 text-white text-xs font-bold uppercase">Available for Lease</span>
+				</div>
+			</div>
+		</section>
+
+		<footer class="border-t border-slate-200 pt-10 text-slate-400 text-sm flex justify-between items-center">
+			<p>&copy; 2026 DigiiState. All rights reserved.</p>
+			<p>Maryland Territory Expansion Agency</p>
+		</footer>
+	</main>
+</Layout>
+
+<style>
+	span {
+		color: #3b82f6;
+	}
+</style>
