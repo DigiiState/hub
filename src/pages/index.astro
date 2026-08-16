@@ -3,11 +3,11 @@ import Layout from '../layouts/Layout.astro';
 
 // National Territory Data
 const territories = [
-	{ name: "Phoenix MD Septic", status: "Occupied", niche: "Septic", lat: "35%", left: "85%", state: "MD" },
-	{ name: "Austin TX Junk Removal", status: "Open", niche: "Junk", lat: "70%", left: "45%", state: "TX" },
-	{ name: "Miami FL Water Damage", status: "Occupied", niche: "Water", lat: "85%", left: "80%", state: "FL" },
-	{ name: "Seattle WA Tree Service", status: "Open", niche: "Tree", lat: "15%", left: "15%", state: "WA" },
-	{ name: "Chicago IL DUI Law", status: "Open", niche: "Law", lat: "35%", left: "60%", state: "IL" },
+	{ name: "Phoenix MD Septic", status: "Occupied", niche: "Septic", top: "38%", left: "86%", state: "MD" },
+	{ name: "Austin TX Junk Removal", status: "Open", niche: "Junk", top: "68%", left: "48%", state: "TX" },
+	{ name: "Miami FL Water Damage", status: "Occupied", niche: "Water", top: "85%", left: "82%", state: "FL" },
+	{ name: "Seattle WA Tree Service", status: "Open", niche: "Tree", top: "18%", left: "12%", state: "WA" },
+	{ name: "Chicago IL DUI Law", status: "Open", niche: "Law", top: "35%", left: "62%", state: "IL" },
 ];
 
 const liveLeads = [
@@ -18,145 +18,233 @@ const liveLeads = [
 ];
 ---
 
-<Layout title="DigiiState | Premier US Digital Real Estate Brokerage">
-	<main class="bg-slate-950 text-white min-h-screen">
-		<!-- 1. Live Lead Ticker (National) -->
-		<div class="bg-blue-600/10 border-b border-blue-500/20 py-3 overflow-hidden whitespace-nowrap">
-			<div class="inline-block animate-marquee uppercase tracking-widest text-[10px] font-black text-blue-400 px-6">
-				{liveLeads.map(lead => (
-					<span class="mr-12">📡 LIVE NETWORK PULSE: [{lead.time}] {lead.niche} Lead in {lead.city}</span>
-				))}
-				{liveLeads.map(lead => (
-					<span class="mr-12">📡 LIVE NETWORK PULSE: [{lead.time}] {lead.niche} Lead in {lead.city}</span>
-				))}
+<Layout title="DigiiState | National Digital Real Estate Brokerage">
+	<main class="bg-[#020617] text-white min-h-screen selection:bg-blue-500 selection:text-white">
+		
+		<!-- 1. FIXED LIVE TICKER -->
+		<div class="relative w-full bg-blue-600/10 border-b border-blue-500/20 py-3 overflow-hidden">
+			<div class="flex whitespace-nowrap animate-marquee">
+				<div class="flex gap-12 px-6">
+					{liveLeads.map(lead => (
+						<span class="flex items-center gap-2 uppercase tracking-[0.2em] text-[10px] font-black text-blue-400">
+							<span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+							LIVE NETWORK PULSE: [{lead.time}] {lead.niche} Lead in {lead.city}
+						</span>
+					))}
+				</div>
+				<div class="flex gap-12 px-6">
+					{liveLeads.map(lead => (
+						<span class="flex items-center gap-2 uppercase tracking-[0.2em] text-[10px] font-black text-blue-400">
+							<span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+							LIVE NETWORK PULSE: [{lead.time}] {lead.niche} Lead in {lead.city}
+						</span>
+					))}
+				</div>
 			</div>
 		</div>
 
-		<div class="max-w-6xl mx-auto px-6 py-12">
-			<!-- Header -->
-			<header class="flex justify-between items-center mb-24">
-				<div class="text-2xl font-black tracking-tighter italic">
-					Digii<span class="text-blue-500">State</span>
-				</div>
-				<nav class="flex gap-8 text-[10px] uppercase font-bold tracking-widest text-slate-500">
-					<a href="#map" class="hover:text-white transition-colors">US Territories</a>
-					<a href="#apply" class="text-blue-500 hover:text-blue-400 transition-colors border border-blue-500/30 px-4 py-2 rounded-full">Apply For Monopoly</a>
-				</nav>
-			</header>
+		<!-- 2. INSTITUTIONAL HERO -->
+		<div class="relative overflow-hidden pt-20 pb-32">
+			<!-- Abstract Background Element -->
+			<div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[800px] h-[800px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+			<div class="absolute bottom-0 left-0 translate-y-1/4 -translate-x-1/4 w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[100px] pointer-events-none"></div>
 
-			<!-- Hero Section (National Reach) -->
-			<section class="mb-32 text-center max-w-4xl mx-auto">
-				<h2 class="text-6xl md:text-8xl font-black mb-8 leading-[0.9] tracking-tighter">
-					WE DOMINATE THE <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-indigo-400">SEARCH.</span><br/>
-					YOU SCALE THE REVENUE.
-				</h2>
-				<p class="text-slate-400 text-xl leading-relaxed mb-12 max-w-2xl mx-auto">
-					The nation's premier digital real estate brokerage. We build, rank, and rent hyper-local high-intent search assets across all 50 states.
-				</p>
-				<div class="flex flex-col md:flex-row justify-center gap-4">
-					<a href="#map" class="bg-blue-600 hover:bg-blue-700 text-white px-10 py-5 font-black uppercase tracking-widest text-xs transition-all rounded shadow-xl shadow-blue-600/20">Explore US Territories</a>
-					<a href="#apply" class="bg-white/5 hover:bg-white/10 text-white border border-white/10 px-10 py-5 font-black uppercase tracking-widest text-xs transition-all rounded">Partner Portal</a>
-				</div>
-			</section>
+			<div class="max-w-6xl mx-auto px-6 relative z-10">
+				<header class="flex justify-between items-center mb-32">
+					<div class="text-2xl font-black tracking-tighter flex items-center gap-1">
+						<div class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center text-sm not-italic">D</div>
+						Digii<span class="text-blue-500">State</span>
+					</div>
+					<nav class="hidden md:flex gap-10 text-[11px] uppercase font-bold tracking-[0.2em] text-slate-500">
+						<a href="#map" class="hover:text-white transition-colors">US Territories</a>
+						<a href="#economics" class="hover:text-white transition-colors">Economics</a>
+						<a href="#apply" class="text-blue-500 hover:text-blue-400 transition-colors border-b-2 border-blue-500/0 hover:border-blue-500 pb-1">Partner Portal</a>
+					</nav>
+					<a href="#apply" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded text-[10px] font-black uppercase tracking-widest transition-all">
+						Secure Territory
+					</a>
+				</header>
 
-			<!-- 2. National Control Map -->
-			<section id="map" class="mb-40">
-				<div class="text-center mb-12">
-					<h3 class="text-sm font-black uppercase tracking-[0.3em] text-blue-500 mb-4">National Control Map</h3>
-					<p class="text-slate-500">Real-time occupancy status of DigiiState assets across the USA.</p>
+				<div class="max-w-4xl">
+					<h2 class="text-6xl md:text-[90px] font-black mb-10 leading-[0.85] tracking-[-0.04em] uppercase">
+						WE DOMINATE THE <br/>
+						<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-400 to-blue-600">SEARCH SPACE.</span>
+					</h2>
+					<p class="text-slate-400 text-xl md:text-2xl leading-relaxed mb-12 max-w-2xl font-medium">
+						Institutional digital real estate. We acquire, rank, and lease exclusive high-intent search assets across all 50 states.
+					</p>
+					<div class="flex flex-col sm:flex-row gap-6">
+						<div class="flex flex-col">
+							<span class="text-3xl font-black text-white">$2.4M+</span>
+							<span class="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Asset Value Managed</span>
+						</div>
+						<div class="w-px h-12 bg-slate-800 hidden sm:block"></div>
+						<div class="flex flex-col">
+							<span class="text-3xl font-black text-white">2,400+</span>
+							<span class="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Monthly Qualified Leads</span>
+						</div>
+						<div class="w-px h-12 bg-slate-800 hidden sm:block"></div>
+						<div class="flex flex-col">
+							<span class="text-3xl font-black text-white">98%</span>
+							<span class="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Partner Retention</span>
+						</div>
+					</div>
 				</div>
+			</div>
+		</div>
+
+		<!-- 3. ACTUAL MAP VISUAL -->
+		<section id="map" class="py-32 border-t border-slate-900 bg-slate-950/50">
+			<div class="max-w-6xl mx-auto px-6 text-center">
+				<h3 class="text-[10px] font-black uppercase tracking-[0.4em] text-blue-500 mb-6">National Occupancy Control</h3>
+				<h4 class="text-4xl font-black mb-20 uppercase">US Territory Availability</h4>
 				
-				<div class="relative bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-12 overflow-hidden shadow-2xl">
-					<div class="aspect-[16/9] w-full bg-[url('https://upload.wikimedia.org/wikipedia/commons/3/32/Blank_US_Map_with_borders.svg')] bg-contain bg-center bg-no-repeat opacity-20 grayscale invert contrast-125 brightness-150"></div>
-					
-					<!-- National Markers -->
-					{territories.map(t => (
-						<div 
-							class={`absolute w-3 h-3 md:w-4 md:h-4 rounded-full border-2 border-white shadow-[0_0_15px_rgba(255,255,255,0.5)] cursor-pointer hover:scale-125 transition-transform group`}
-							style={`top: ${t.lat}; left: ${t.left}; background-color: ${t.status === 'Occupied' ? '#f59e0b' : '#10b981'}`}
-						>
-							<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-48 bg-slate-900 border border-slate-700 p-4 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
-								<div class="text-[10px] font-black uppercase text-blue-500 mb-1">{t.niche}</div>
-								<div class="font-bold text-sm mb-2">{t.name}</div>
-								<div class={`text-[10px] font-bold uppercase ${t.status === 'Occupied' ? 'text-orange-500' : 'text-green-500'}`}>
-									{t.status === 'Occupied' ? '🔒 LEASED' : '🔓 AVAILABLE'}
+				<div class="relative bg-[#020617] border border-slate-800 rounded-[40px] p-8 md:p-20 shadow-2xl">
+					<div class="relative aspect-[16/9] w-full">
+						<!-- Custom SVG US Map -->
+						<svg viewBox="0 0 1000 589" class="w-full h-full opacity-20 fill-slate-700 stroke-slate-800 stroke-[0.5]" xmlns="http://www.w3.org/2000/svg">
+							<path d="M968.12,185.08 L958.01,177.01 L942.87,175 L933.28,162.89 L924.71,165.91 L921.68,155.82 L904,151.28 L897.44,142.2 L897.44,129.59 L881.3,131.61 L874.24,142.2 L863.64,142.2 L859.6,155.32 L840.43,158.85 L840.43,165.91 L831.35,166.41 L823.28,155.82 L814.71,155.32 L807.64,142.2 L794.52,142.2 L787.46,153.3 L778.38,150.28 L773.34,142.2 L756.19,142.2 L756.19,150.28 L749.12,150.28 L745.09,142.2 L737.52,142.2 L730.46,145.22 L722.89,142.2 L715.32,142.2 L708.26,145.22 L700.69,142.2 L689.59,145.22 L682.02,142.2 L664.87,142.2 L657.31,145.22 L649.74,142.2 L634.61,142.2 L627.04,145.22 L619.47,142.2 L604.34,142.2 L596.77,145.22 L589.21,142.2 L574.07,142.2 L566.5,145.22 L558.94,142.2 L543.81,142.2 L536.24,145.22 L528.67,142.2 L513.54,142.2 L505.97,145.22 L498.41,142.2 L483.27,142.2 L475.7,145.22 L468.14,142.2 L453,142.2 L445.43,145.22 L437.87,142.2 L422.73,142.2 L415.17,145.22 L407.6,142.2 L392.47,142.2 L384.9,145.22 L377.34,142.2 L362.2,142.2 L354.64,145.22 L347.07,142.2 L331.94,142.2 L324.37,145.22 L316.8,142.2 L301.67,142.2 L294.1,145.22 L286.54,142.2 L271.4,142.2 L263.84,145.22 L256.27,142.2 L241.14,142.2 L233.57,145.22 L226,142.2 L210.87,142.2 L203.3,145.22 L195.74,142.2 L180.6,142.2 L173.04,145.22 L165.47,142.2 L150.34,142.2 L142.77,145.22 L135.21,142.2 L120.07,142.2 L112.51,145.22 L104.94,142.2 L89.81,142.2 L82.24,145.22 L74.67,142.2 L59.54,142.2 L51.97,145.22 L44.41,142.2 L29.27,142.2 L21.71,145.22 L14.14,142.2 L0,142.2 L0,589 L1000,589 L1000,185.08 L968.12,185.08 Z"></path>
+						</svg>
+
+						<!-- National Markers -->
+						{territories.map(t => (
+							<div 
+								class="absolute group cursor-pointer"
+								style={`top: ${t.top}; left: ${t.left};`}
+							>
+								<div class={`w-4 h-4 rounded-full border-2 border-white shadow-[0_0_20px_rgba(59,130,246,0.5)] transition-all duration-300 group-hover:scale-150 ${t.status === 'Occupied' ? 'bg-amber-500 shadow-amber-500/50' : 'bg-emerald-500 shadow-emerald-500/50'}`}></div>
+								
+								<!-- Tooltip -->
+								<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-56 p-5 bg-[#0f172a] border border-slate-700 rounded-2xl opacity-0 group-hover:opacity-100 transition-all pointer-events-none z-50 shadow-2xl scale-95 group-hover:scale-100">
+									<div class="flex justify-between items-start mb-3">
+										<span class="text-[9px] font-black uppercase tracking-widest text-blue-400 bg-blue-400/10 px-2 py-0.5 rounded">{t.niche}</span>
+										<span class={`text-[9px] font-black uppercase tracking-widest ${t.status === 'Occupied' ? 'text-amber-500' : 'text-emerald-500'}`}>{t.status === 'Occupied' ? 'Leased' : 'Open'}</span>
+									</div>
+									<div class="font-bold text-base mb-1">{t.name}</div>
+									<div class="text-[10px] text-slate-500 font-medium uppercase tracking-widest">{t.state} Operations Base</div>
 								</div>
 							</div>
+						))}
+					</div>
+					
+					<!-- Legend -->
+					<div class="mt-16 flex justify-center gap-12">
+						<div class="flex items-center gap-3">
+							<div class="w-3 h-3 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.4)]"></div>
+							<span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Available Territories</span>
 						</div>
-					))}
+						<div class="flex items-center gap-3">
+							<div class="w-3 h-3 rounded-full bg-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.4)]"></div>
+							<span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Leased (Exclusive)</span>
+						</div>
+					</div>
 				</div>
-			</section>
+			</div>
+		</section>
 
-			<!-- 3. The "PPC Trap" Contrast -->
-			<section class="mb-40 py-24 border-y border-slate-800">
-				<div class="grid md:grid-cols-2 gap-16 items-center">
+		<!-- 4. ECONOMICS SECTION -->
+		<section id="economics" class="py-32 bg-[#020617]">
+			<div class="max-w-6xl mx-auto px-6">
+				<div class="grid md:grid-cols-2 gap-24 items-center">
 					<div>
-						<h3 class="text-4xl font-black tracking-tighter mb-6 uppercase italic">Escape the <span class="text-red-500">PPC Trap.</span></h3>
-						<p class="text-slate-400 leading-relaxed mb-6">
-							Google Ads is a tax on your growth. You pay for every click—even the ones that don't call. When you stop paying, the leads stop.
+						<h3 class="text-[10px] font-black uppercase tracking-[0.4em] text-red-500 mb-6">Market Arbitrage</h3>
+						<h4 class="text-5xl font-black mb-10 leading-tight uppercase italic">The PPC Tax <br/> vs. <span class="text-blue-500">Digital Equity</span></h4>
+						<p class="text-slate-400 text-lg mb-10 leading-relaxed">
+							Standard marketing agencies sell you their time. Google sells you temporary clicks. DigiiState builds long-term search equity in a territory and leases the exclusive rights to you.
 						</p>
-						<p class="text-slate-200 font-bold leading-relaxed">
-							DigiiState gives you the "Digital Deed." You own the territory. No bidding wars. No click fraud. Just exclusive, high-intent volume at a flat predictable rate.
-						</p>
+						<ul class="space-y-6">
+							<li class="flex items-start gap-4">
+								<div class="mt-1 w-5 h-5 rounded bg-red-500/10 flex items-center justify-center text-red-500 text-xs font-bold">✕</div>
+								<div>
+									<b class="text-white uppercase text-sm block mb-1">Google Ads (PPC)</b>
+									<span class="text-slate-500 text-sm">Competitive bidding wars, rising click costs, and instant lead shutoff if you stop paying.</span>
+								</div>
+							</li>
+							<li class="flex items-start gap-4">
+								<div class="mt-1 w-5 h-5 rounded bg-blue-500/10 flex items-center justify-center text-blue-500 text-xs font-bold">✓</div>
+								<div>
+									<b class="text-white uppercase text-sm block mb-1">DigiiState Monopoly</b>
+									<span class="text-slate-500 text-sm">Flat-fee weekly rent, 100% exclusivity, and a pre-ranked asset that dominates your competition.</span>
+								</div>
+							</li>
+						</ul>
 					</div>
-					<div class="grid grid-cols-2 gap-4">
-						<div class="p-8 bg-white/5 border border-white/10 rounded-2xl">
-							<div class="text-red-500 font-black text-2xl mb-2">PPC</div>
-							<p class="text-xs text-slate-500 uppercase font-bold tracking-widest">Variable Cost<br/>Shared Leads<br/>Instant Shutoff</p>
+
+					<div class="bg-gradient-to-br from-blue-600 to-indigo-700 p-10 rounded-[32px] shadow-2xl shadow-blue-500/20 relative overflow-hidden">
+						<div class="absolute -top-20 -right-20 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+						<h5 class="text-xs font-black uppercase tracking-widest text-white/60 mb-8 text-center">Typical Territory ROI</h5>
+						<div class="space-y-8">
+							<div class="flex justify-between items-end border-b border-white/10 pb-4">
+								<span class="text-sm font-bold uppercase text-white/80">Avg. Revenue / Lead</span>
+								<span class="text-2xl font-black">$2,400</span>
+							</div>
+							<div class="flex justify-between items-end border-b border-white/10 pb-4">
+								<span class="text-sm font-bold uppercase text-white/80">Qualified Leads / Mo</span>
+								<span class="text-2xl font-black">15-20</span>
+							</div>
+							<div class="flex justify-between items-end">
+								<span class="text-sm font-bold uppercase text-white/80">Weekly Lease</span>
+								<span class="text-3xl font-black text-white">$312.50</span>
+							</div>
 						</div>
-						<div class="p-8 bg-blue-600 border border-blue-400 rounded-2xl">
-							<div class="text-white font-black text-2xl mb-2">DIGII</div>
-							<p class="text-xs text-white/70 uppercase font-bold tracking-widest">Flat Weekly Rent<br/>100% Exclusive<br/>Equity Build</p>
+						<div class="mt-10 bg-white text-blue-600 py-4 rounded-xl font-black text-center text-xs uppercase tracking-widest">
+							8x - 12x Projected Return
 						</div>
 					</div>
 				</div>
-			</section>
+			</div>
+		</section>
 
-			<!-- 4. Monopoly Application -->
-			<section id="apply" class="grid md:grid-cols-2 gap-20 items-center pb-20">
-				<div>
-					<h3 class="text-4xl font-black tracking-tighter mb-8 uppercase italic">Secure Your <span class="text-blue-500 underline decoration-4">US Monopoly.</span></h3>
-					<p class="text-slate-400 leading-relaxed mb-8">
-						DigiiState is expanding into all major US metro areas. We only partner with one provider per niche per city. Apply now to secure your territory before your competition locks you out.
-					</p>
-					<ul class="space-y-4 font-bold text-sm uppercase tracking-widest text-slate-300">
-						<li class="flex items-center gap-3"><span class="text-blue-500 text-xl">⚡</span> Exclusive Regional Rights</li>
-						<li class="flex items-center gap-3"><span class="text-blue-500 text-xl">⚡</span> AI-Triaged Opportunities</li>
-						<li class="flex items-center gap-3"><span class="text-blue-500 text-xl">⚡</span> Weekly Profit Analytics</li>
-					</ul>
-				</div>
-
-				<div class="bg-slate-900 border border-slate-800 p-10 rounded-3xl shadow-2xl">
-					<h4 class="text-xs font-black uppercase tracking-[0.2em] text-blue-500 mb-8">Territory Application</h4>
-					<form class="space-y-6">
-						<div>
-							<label class="block text-[10px] font-black uppercase text-slate-500 mb-2 tracking-widest">Business Name</label>
-							<input type="text" class="w-full bg-slate-950 border border-slate-800 p-4 rounded-xl outline-none focus:border-blue-500 transition-colors" placeholder="Company Legal Name" />
-						</div>
-						<div class="grid grid-cols-2 gap-4">
+		<!-- 5. APPLICATION SECTION -->
+		<section id="apply" class="py-32 border-t border-slate-900">
+			<div class="max-w-4xl mx-auto px-6 text-center">
+				<h4 class="text-5xl font-black mb-8 leading-none tracking-tighter uppercase italic">Secure Your <span class="text-blue-500">US Monopoly.</span></h4>
+				<p class="text-slate-400 text-lg mb-20 max-w-xl mx-auto leading-relaxed">
+					We only partner with one provider per city. Apply now to secure your exclusive rights before the territory is occupied.
+				</p>
+				
+				<div class="bg-slate-900/50 border border-slate-800 p-10 md:p-16 rounded-[40px] text-left">
+					<form class="grid md:grid-cols-2 gap-8">
+						<div class="space-y-6">
 							<div>
-								<label class="block text-[10px] font-black uppercase text-slate-500 mb-2 tracking-widest">Target State</label>
-								<input type="text" class="w-full bg-slate-950 border border-slate-800 p-4 rounded-xl outline-none focus:border-blue-500 transition-colors" placeholder="e.g. TX, MD, FL" />
+								<label class="block text-[10px] font-black uppercase text-slate-500 mb-3 tracking-widest">Company Name</label>
+								<input type="text" class="w-full bg-slate-950 border border-slate-800 p-4 rounded-2xl outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all" placeholder="Legal Entity Name" />
 							</div>
 							<div>
-								<label class="block text-[10px] font-black uppercase text-slate-500 mb-2 tracking-widest">Target City</label>
-								<input type="text" class="w-full bg-slate-950 border border-slate-800 p-4 rounded-xl outline-none focus:border-blue-500 transition-colors" placeholder="e.g. Dallas" />
+								<label class="block text-[10px] font-black uppercase text-slate-500 mb-3 tracking-widest">Contact Email</label>
+								<input type="email" class="w-full bg-slate-950 border border-slate-800 p-4 rounded-2xl outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all" placeholder="owner@company.com" />
 							</div>
 						</div>
-						<div>
-							<label class="block text-[10px] font-black uppercase text-slate-500 mb-2 tracking-widest">Estimated Ad Spend</label>
-							<input type="text" class="w-full bg-slate-950 border border-slate-800 p-4 rounded-xl outline-none focus:border-blue-500 transition-colors" placeholder="$2,500 - $10,000" />
+						<div class="space-y-6">
+							<div>
+								<label class="block text-[10px] font-black uppercase text-slate-500 mb-3 tracking-widest">Target Territory</label>
+								<input type="text" class="w-full bg-slate-950 border border-slate-800 p-4 rounded-2xl outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all" placeholder="e.g. Dallas, TX" />
+							</div>
+							<div>
+								<label class="block text-[10px] font-black uppercase text-slate-500 mb-3 tracking-widest">Est. Monthly Ad Spend</label>
+								<input type="text" class="w-full bg-slate-950 border border-slate-800 p-4 rounded-2xl outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all" placeholder="$2,500 - $10,000" />
+							</div>
 						</div>
-						<button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-5 font-black uppercase tracking-widest text-xs transition-all rounded-xl shadow-xl shadow-blue-600/20">Submit US Application</button>
+						<button class="md:col-span-2 w-full bg-blue-600 hover:bg-blue-700 text-white py-6 font-black uppercase tracking-widest text-sm transition-all rounded-2xl shadow-2xl shadow-blue-600/20">
+							Submit Expansion Application
+						</button>
 					</form>
 				</div>
-			</section>
+			</div>
+		</section>
 
-			<footer class="mt-40 pt-10 border-t border-slate-800 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-slate-600">
-				<div>&copy; 2026 DigiiState USA</div>
-				<div>National Territory Expansion Agency</div>
-			</footer>
-		</div>
+		<footer class="py-20 border-t border-slate-900">
+			<div class="max-w-6xl mx-auto px-6 flex flex-col md:row justify-between items-center gap-8">
+				<div class="text-xl font-black tracking-tighter italic opacity-50">
+					Digii<span class="text-blue-500">State</span>
+				</div>
+				<div class="flex gap-12 text-[10px] font-black uppercase tracking-[0.2em] text-slate-700">
+					<span>&copy; 2026 DigiiState USA</span>
+					<span>National Brokerage Operations</span>
+					<a href="#" class="hover:text-blue-500 transition-colors">Privacy Policy</a>
+				</div>
+			</div>
+		</footer>
 	</main>
 </Layout>
 
@@ -166,7 +254,6 @@ const liveLeads = [
 		100% { transform: translateX(-50%); }
 	}
 	.animate-marquee {
-		display: inline-block;
 		animation: marquee 40s linear infinite;
 	}
 </style>

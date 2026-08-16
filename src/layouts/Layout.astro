@@ -10,13 +10,16 @@ const { title } = Astro.props;
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="DigiiState - Maryland's Premier Digital Real Estate Brokerage" />
+		<meta name="description" content="DigiiState - Premier US Digital Real Estate Brokerage. We build, rank, and rent hyper-local high-intent search assets across all 50 states." />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body class="bg-slate-50 text-slate-900 font-sans">
+	<body class="bg-[#020617] text-white font-['Inter',_sans-serif]">
 		<slot />
 	</body>
 </html>
@@ -25,5 +28,8 @@ const { title } = Astro.props;
 		--accent: 59, 130, 246;
 		--accent-light: 224, 204, 250;
 		--accent-dark: 15, 23, 42;
+	}
+	html {
+		scroll-behavior: smooth;
 	}
 </style>
