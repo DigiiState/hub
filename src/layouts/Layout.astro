@@ -19,7 +19,7 @@ const { title } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body class="bg-[#020617] text-white font-['Inter',_sans-serif] selection:bg-blue-500 selection:text-white antialiased">
+	<body class="bg-white text-slate-950 font-['Inter',_sans-serif] selection:bg-blue-600 selection:text-white antialiased">
 		<slot />
 	</body>
 </html>
@@ -30,9 +30,7 @@ const { title } = Astro.props;
 	@tailwind utilities;
 
 	:root {
-		--accent: 59, 130, 246;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 15, 23, 42;
+		--accent: 37, 99, 235;
 	}
 
 	body {
@@ -45,13 +43,13 @@ const { title } = Astro.props;
 		width: 8px;
 	}
 	::-webkit-scrollbar-track {
-		background: #020617;
+		background: #f8fafc;
 	}
 	::-webkit-scrollbar-thumb {
-		background: #1e293b;
+		background: #cbd5e1;
 		border-radius: 10px;
 	}
 	::-webkit-scrollbar-thumb:hover {
-		background: #334155;
+		background: #94a3b8;
 	}
 </style>
