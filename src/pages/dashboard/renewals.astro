@@ -1,0 +1,74 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const renewals = [
+	{ name: "DigiiState.com", type: "Domain", status: "Active", date: "Aug 13, 2027", cost: "$12.00", provider: "Cloudflare" },
+	{ name: "Make.com Core", type: "Subscription", status: "Active", date: "Sept 14, 2026", cost: "$10.50", provider: "Make.com" },
+	{ name: "Twilio Platform", type: "Credit", status: "Low Balance", date: "N/A", cost: "$20.00", provider: "Twilio" },
+	{ name: "phoenixmdseptic.com", type: "Domain", status: "Active", date: "Aug 15, 2027", cost: "$10.46", provider: "Cloudflare" },
+	{ name: "monktonsepticpumping.com", type: "Domain", status: "Active", date: "Aug 16, 2027", cost: "$10.46", provider: "Cloudflare" },
+	{ name: "huntvalleyseptic.com", type: "Domain", status: "Active", date: "Aug 16, 2027", cost: "$10.46", provider: "Cloudflare" },
+	{ name: "clarksvillewaterdamage.com", type: "Domain", status: "Active", date: "Aug 16, 2027", cost: "$10.46", provider: "Cloudflare" },
+];
+---
+
+<Layout title="Renewal Tracker | DigiiState OS">
+	<main class="min-h-screen bg-slate-50 flex">
+		<aside class="w-64 bg-slate-950 text-white flex flex-col p-6 fixed h-full">
+			<div class="text-xl font-black tracking-tighter italic mb-12">Digii<span class="text-blue-500">State</span></div>
+			<nav class="flex-1 space-y-1">
+				<a href="/dashboard" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"><span>📊</span> Dashboard</a>
+				<a href="/dashboard/territories" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"><span>🗺️</span> Territories</a>
+				<a href="/dashboard/leads" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"><span>📞</span> Lead Ledger</a>
+				<a href="/dashboard/renewals" class="flex items-center gap-3 px-4 py-3 bg-blue-600 rounded-xl text-xs font-bold uppercase tracking-widest"><span>⏳</span> Renewals</a>
+				<a href="/dashboard/settings" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"><span>⚙️</span> Settings</a>
+			</nav>
+		</aside>
+
+		<div class="flex-1 ml-64 p-10">
+			<header class="flex justify-between items-end mb-12">
+				<div>
+					<h1 class="text-3xl font-black text-slate-950 uppercase tracking-tight">Renewal Tracker</h1>
+					<p class="text-slate-400 text-sm font-medium">Monitoring 22 Operational Assets</p>
+				</div>
+				<div class="bg-amber-50 border border-amber-100 px-6 py-3 rounded-2xl flex items-center gap-4">
+					<div class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></div>
+					<span class="text-[10px] font-black uppercase text-amber-700 tracking-widest">Upcoming Renewal: Make.com (Sept 14)</span>
+				</div>
+			</header>
+
+			<div class="bg-white border border-slate-200 rounded-[40px] shadow-sm overflow-hidden">
+				<table class="w-full text-left text-sm">
+					<thead>
+						<tr class="bg-slate-50 text-[10px] uppercase font-black tracking-widest text-slate-400 border-b border-slate-100">
+							<th class="px-8 py-4">Asset / Service</th>
+							<th class="px-8 py-4">Type</th>
+							<th class="px-8 py-4">Provider</th>
+							<th class="px-8 py-4">Renewal Date</th>
+							<th class="px-8 py-4">Est. Cost</th>
+							<th class="px-8 py-4">Status</th>
+						</tr>
+					</thead>
+					<tbody class="divide-y divide-slate-50">
+						{renewals.map(item => (
+							<tr class="hover:bg-slate-50 transition-colors group">
+								<td class="px-8 py-6">
+									<b class="text-slate-950 block">{item.name}</b>
+								</td>
+								<td class="px-8 py-6 text-xs text-slate-500 font-bold uppercase">{item.type}</td>
+								<td class="px-8 py-6 text-xs text-slate-500 font-bold">{item.provider}</td>
+								<td class="px-8 py-6 font-bold text-slate-950">{item.date}</td>
+								<td class="px-8 py-6 font-black text-slate-950 font-mono">{item.cost}</td>
+								<td class="px-8 py-6">
+									<span class={`text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-lg ${item.status === 'Active' ? 'bg-emerald-50 text-emerald-600' : 'bg-amber-50 text-amber-600'}`}>
+										{item.status}
+									</span>
+								</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</main>
+</Layout>
