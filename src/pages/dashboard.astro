@@ -10,12 +10,12 @@ const portfolioStats = {
 };
 
 const territories = [
-	{ name: "Phoenix MD Septic", domain: "phoenixmdseptic.com", leads: 8, status: "Leased", rent: "$312.50", niche: "Septic" },
-	{ name: "Clarksville Septic", domain: "clarksvillesepticpros.pages.dev", leads: 5, status: "Ranking", rent: "$312.50", niche: "Septic" },
-	{ name: "Gibson Island Tree", domain: "gibson-island-tree-removal.pages.dev", leads: 3, status: "Ranking", rent: "$312.50", niche: "Tree" },
-	{ name: "Annapolis Tree", domain: "annapolis-tree-pros.pages.dev", leads: 12, status: "Available", rent: "$312.50", niche: "Tree" },
-	{ name: "Clarksville Water", domain: "clarksville-water-damage.pages.dev", leads: 4, status: "Ranking", rent: "$312.50", niche: "Water" },
-	{ name: "Annapolis DUI Law", domain: "annapolis-dui-defense.pages.dev", leads: 2, status: "Available", rent: "$625.00", niche: "Law" },
+	{ name: "Phoenix MD Septic", domain: "phoenixmdseptic.com", leads: 8, status: "Leased", rent: "$312.50", niche: "Septic", ranking: "#1" },
+	{ name: "Clarksville Septic", domain: "clarksvillesepticpros.pages.dev", leads: 5, status: "Ranking", rent: "$312.50", niche: "Septic", ranking: "#8" },
+	{ name: "Gibson Island Tree", domain: "gibson-island-tree-removal.pages.dev", leads: 3, status: "Ranking", rent: "$312.50", niche: "Tree", ranking: "#14" },
+	{ name: "Annapolis Tree", domain: "annapolis-tree-pros.pages.dev", leads: 12, status: "Available", rent: "$312.50", niche: "Tree", ranking: "#22" },
+	{ name: "Clarksville Water", domain: "clarksville-water-damage.pages.dev", leads: 4, status: "Ranking", rent: "$312.50", niche: "Water", ranking: "#11" },
+	{ name: "Annapolis DUI Law", domain: "annapolis-dui-defense.pages.dev", leads: 2, status: "Available", rent: "$625.00", niche: "Law", ranking: "#45" },
 ];
 
 const recentLeads = [
@@ -153,8 +153,11 @@ const recentLeads = [
 									<div class="font-bold text-sm text-slate-950 group-hover:text-blue-600 transition-colors">{t.name}</div>
 									<div class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">{t.niche} • {t.leads} Leads</div>
 								</div>
-								<div class={`text-[9px] font-black uppercase px-2 py-1 rounded-lg ${t.status === 'Leased' ? 'bg-amber-50 text-amber-600' : 'bg-slate-100 text-slate-500'}`}>
-									{t.status}
+								<div class="flex flex-col items-end">
+									<div class={`text-[9px] font-black uppercase px-2 py-1 rounded-lg ${t.status === 'Leased' ? 'bg-amber-50 text-amber-600' : 'bg-slate-100 text-slate-500'}`}>
+										{t.status}
+									</div>
+									<div class="text-xs font-black text-emerald-500 mt-1">{t.ranking}</div>
 								</div>
 							</div>
 						))}
