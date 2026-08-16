@@ -150,14 +150,16 @@ const recentLeads = [
 						{territories.map(t => (
 							<div class="flex justify-between items-center group cursor-pointer">
 								<div>
-									<div class="font-bold text-sm text-slate-950 group-hover:text-blue-600 transition-colors">{t.name}</div>
+									<div class="font-bold text-sm text-slate-950 group-hover:text-blue-600 transition-colors flex items-center gap-2">
+										{t.name}
+										<span class="text-[10px] font-black text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-100">{t.ranking}</span>
+									</div>
 									<div class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">{t.niche} • {t.leads} Leads</div>
 								</div>
 								<div class="flex flex-col items-end">
 									<div class={`text-[9px] font-black uppercase px-2 py-1 rounded-lg ${t.status === 'Leased' ? 'bg-amber-50 text-amber-600' : 'bg-slate-100 text-slate-500'}`}>
 										{t.status}
 									</div>
-									<div class="text-xs font-black text-emerald-500 mt-1">{t.ranking}</div>
 								</div>
 							</div>
 						))}
