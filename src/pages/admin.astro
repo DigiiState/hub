@@ -26,8 +26,9 @@ import Layout from '../layouts/Layout.astro';
 
 				<div id="error" class="text-[10px] font-bold text-red-500 uppercase text-center hidden">Invalid Protocol Initiation Key</div>
 
-				<button type="submit" class="w-full bg-slate-950 text-white py-5 rounded-[24px] font-black uppercase tracking-[0.3em] text-xs transition-all shadow-xl hover:bg-blue-600 active:scale-95">
-					Initialize System
+				<button type="submit" id="submitBtn" class="w-full bg-slate-950 text-white py-5 rounded-[24px] font-black uppercase tracking-[0.3em] text-xs transition-all shadow-xl hover:bg-blue-600 active:scale-95 flex items-center justify-center gap-3">
+					<span id="btnText">Initialize System</span>
+					<div id="spinner" class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin hidden"></div>
 				</button>
 			</form>
 
@@ -44,15 +45,25 @@ import Layout from '../layouts/Layout.astro';
 	const form = document.getElementById('loginForm');
 	const keyInput = document.getElementById('passKey') as HTMLInputElement;
 	const error = document.getElementById('error');
+	const btnText = document.getElementById('btnText');
+	const spinner = document.getElementById('spinner');
 
 	form?.addEventListener('submit', (e) => {
 		e.preventDefault();
-		// Temporary security bypass for pilot launch
-		// The key is your DigiiState founding date: 08152026
-		if (keyInput.value === '08152026') {
-			window.location.href = '/dashboard';
-		} else {
-			error?.classList.remove('hidden');
-		}
+		
+		error?.classList.add('hidden');
+		btnText!.textContent = 'AUTHORIZING...';
+		spinner?.classList.remove('hidden');
+
+		setTimeout(() => {
+			if (keyInput.value === '08152026') {
+				// Use absolute path for reliability on Cloudflare
+				window.location.href = '/dashboard/';
+			} else {
+				error?.classList.remove('hidden');
+				btnText!.textContent = 'Initialize System';
+				spinner?.classList.add('hidden');
+			}
+		}, 800);
 	});
 </script>
