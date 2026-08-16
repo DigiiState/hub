@@ -50,7 +50,7 @@ import Layout from '../layouts/Layout.astro';
 		// Temporary security bypass for pilot launch
 		// The key is your DigiiState founding date: 08152026
 		if (keyInput.value === '08152026') {
-			window.location.href = 'https://digiistate-hub.pages.dev/dashboard';
+			window.location.href = '/dashboard';
 		} else {
 			error?.classList.remove('hidden');
 		}
