@@ -1,0 +1,54 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const recentLeads = [
+	{ id: "L-9021", site: "Phoenix Septic", type: "Emergency", time: "14m ago", phone: "(410) 555-0199", status: "Qualified" },
+	{ id: "L-9020", site: "Dallas Roofing", type: "Routine", time: "1h ago", phone: "(214) 555-9821", status: "Unassigned" },
+	{ id: "L-9019", site: "Annapolis Law", type: "Intake", time: "3h ago", phone: "(443) 555-0102", status: "Forwarded" },
+];
+---
+
+<Layout title="Lead Ledger | DigiiState OS">
+	<main class="min-h-screen bg-slate-50 flex">
+		<aside class="w-64 bg-slate-950 text-white flex flex-col p-6 fixed h-full">
+			<div class="text-xl font-black tracking-tighter italic mb-12">Digii<span class="text-blue-500">State</span></div>
+			<nav class="flex-1 space-y-1">
+				<a href="/dashboard" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"><span>📊</span> Dashboard</a>
+				<a href="/dashboard/territories" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"><span>🗺️</span> Territories</a>
+				<a href="/dashboard/leads" class="flex items-center gap-3 px-4 py-3 bg-blue-600 rounded-xl text-xs font-bold uppercase tracking-widest"><span>📞</span> Lead Ledger</a>
+				<a href="/dashboard/renters" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"><span>💳</span> Renters</a>
+			</nav>
+		</aside>
+
+		<div class="flex-1 ml-64 p-10">
+			<h1 class="text-3xl font-black text-slate-950 uppercase tracking-tight mb-12">Lead Ledger</h1>
+			<div class="bg-white border border-slate-200 rounded-[40px] shadow-sm overflow-hidden">
+				<table class="w-full text-left">
+					<thead class="bg-slate-50 border-b border-slate-100">
+						<tr class="text-[10px] font-black uppercase text-slate-400 tracking-widest">
+							<th class="px-8 py-4">Lead ID</th>
+							<th class="px-8 py-4">Territory</th>
+							<th class="px-8 py-4">Status</th>
+							<th class="px-8 py-4">Action</th>
+						</tr>
+					</thead>
+					<tbody class="divide-y divide-slate-50">
+						{recentLeads.map(lead => (
+							<tr class="hover:bg-slate-50 transition-colors group">
+								<td class="px-8 py-6 font-mono text-[11px] font-bold text-slate-400">{lead.id}</td>
+								<td class="px-8 py-6">
+									<b class="text-slate-950 block">{lead.site}</b>
+									<span class="text-[10px] text-slate-400 font-bold uppercase">{lead.time}</span>
+								</td>
+								<td class="px-8 py-6 text-xs font-bold text-slate-600">{lead.status}</td>
+								<td class="px-8 py-6">
+									<button class="text-blue-600 hover:text-blue-800 font-black text-[10px] uppercase tracking-widest">Listen &rarr;</button>
+								</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</main>
+</Layout>
