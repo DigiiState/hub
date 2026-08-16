@@ -1,0 +1,58 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Admin Login | DigiiState HQ">
+	<main class="min-h-screen bg-slate-50 flex items-center justify-center p-6">
+		<div class="max-w-md w-full bg-white border border-slate-200 p-10 rounded-[40px] shadow-2xl">
+			<div class="text-center mb-12">
+				<div class="text-2xl font-[900] tracking-tighter italic text-slate-950 mb-2">
+					Digii<span class="text-blue-600">State</span>
+				</div>
+				<p class="text-xs font-black uppercase tracking-[0.2em] text-slate-400">Institutional Access Only</p>
+			</div>
+
+			<form class="space-y-8" id="loginForm">
+				<div class="space-y-4">
+					<div class="relative">
+						<label class="block text-[10px] font-black uppercase text-slate-400 mb-2 tracking-[0.2em]">Operator ID</label>
+						<input type="email" class="w-full bg-slate-50 border-b-2 border-slate-200 py-3 text-lg outline-none focus:border-blue-600 transition-all font-bold text-slate-950 px-4 rounded-t-xl" placeholder="admin@digiistate.com" value="info@digiistate.com" readonly />
+					</div>
+					<div class="relative">
+						<label class="block text-[10px] font-black uppercase text-slate-400 mb-2 tracking-[0.2em]">Security Key</label>
+						<input type="password" id="passKey" class="w-full bg-slate-50 border-b-2 border-slate-200 py-3 text-lg outline-none focus:border-blue-600 transition-all font-bold text-slate-950 px-4 rounded-t-xl" placeholder="••••••••" required />
+					</div>
+				</div>
+
+				<div id="error" class="text-[10px] font-bold text-red-500 uppercase text-center hidden">Invalid Protocol Initiation Key</div>
+
+				<button type="submit" class="w-full bg-slate-950 text-white py-5 rounded-[24px] font-black uppercase tracking-[0.3em] text-xs transition-all shadow-xl hover:bg-blue-600 active:scale-95">
+					Initialize System
+				</button>
+			</form>
+
+			<div class="mt-12 pt-8 border-t border-slate-100 text-center">
+				<p class="text-[9px] text-slate-400 uppercase tracking-widest leading-loose">
+					Secure session is monitored by Digiistate HQ. System usage is subject to brokerage governance protocols.
+				</p>
+			</div>
+		</div>
+	</main>
+</Layout>
+
+<script>
+	const form = document.getElementById('loginForm');
+	const keyInput = document.getElementById('passKey') as HTMLInputElement;
+	const error = document.getElementById('error');
+
+	form?.addEventListener('submit', (e) => {
+		e.preventDefault();
+		// Temporary security bypass for pilot launch
+		// The key is your DigiiState founding date: 08152026
+		if (keyInput.value === '08152026') {
+			window.location.href = 'https://digiistate-hub.pages.dev/dashboard';
+		} else {
+			error?.classList.remove('hidden');
+		}
+	});
+</script>
