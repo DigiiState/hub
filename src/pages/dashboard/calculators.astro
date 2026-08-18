@@ -1,0 +1,173 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Strategic Calculators | DigiiState OS">
+	<main class="min-h-screen bg-slate-50 flex">
+		<!-- Sidebar -->
+		<aside class="w-64 bg-slate-950 text-white flex flex-col p-6 fixed h-full">
+			<div class="text-xl font-black tracking-tighter italic mb-12">Digii<span class="text-blue-500">State</span></div>
+			<nav class="flex-1 space-y-1">
+				<a href="/dashboard" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"><span>📊</span> Dashboard</a>
+				<a href="/dashboard/territories" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"><span>🗺️</span> Territories</a>
+				<a href="/dashboard/leads" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"><span>📞</span> Lead Ledger</a>
+				<a href="/dashboard/calculators" class="flex items-center gap-3 px-4 py-3 bg-blue-600 rounded-xl text-xs font-bold uppercase tracking-widest"><span>🧮</span> Calculators</a>
+				<a href="/dashboard/payouts" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"><span>💰</span> Payouts</a>
+				<a href="/dashboard/renewals" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"><span>⏳</span> Renewals</a>
+				<a href="/dashboard/settings" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"><span>⚙️</span> Settings</a>
+			</nav>
+		</aside>
+
+		<div class="flex-1 ml-64 p-10">
+			<header class="mb-12">
+				<h1 class="text-3xl font-black text-slate-950 uppercase tracking-tight">Strategic Calculators</h1>
+				<p class="text-slate-400 text-sm font-medium">Ippei-Kanehara 2026 Profit Logic Models</p>
+			</header>
+
+			<div class="grid lg:grid-cols-2 gap-8">
+				<!-- 1. The Monopoly Justifier (7% Logic) -->
+				<div class="bg-white border border-slate-200 rounded-[40px] shadow-sm p-10">
+					<div class="flex items-center justify-between mb-8">
+						<h3 class="text-xs font-black uppercase tracking-widest text-slate-400">The 7% Market Justifier</h3>
+						<span class="px-3 py-1 bg-amber-50 text-amber-600 text-[10px] font-black rounded-full uppercase tracking-widest">Sales Tool</span>
+					</div>
+					
+					<div class="space-y-8">
+						<div class="space-y-4">
+							<div class="flex justify-between text-[10px] font-black uppercase text-slate-500 tracking-widest">
+								<span>Monthly Leads</span>
+								<span id="label-leads" class="text-blue-600">20</span>
+							</div>
+							<input type="range" id="input-leads" min="5" max="100" value="20" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600" />
+						</div>
+
+						<div class="space-y-4">
+							<div class="flex justify-between text-[10px] font-black uppercase text-slate-500 tracking-widest">
+								<span>Avg. Job Value</span>
+								<span id="label-job" class="text-blue-600">$2,400</span>
+							</div>
+							<input type="range" id="input-job" min="500" max="10000" step="100" value="2400" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600" />
+						</div>
+
+						<div class="space-y-4">
+							<div class="flex justify-between text-[10px] font-black uppercase text-slate-500 tracking-widest">
+								<span>Close Rate</span>
+								<span id="label-close" class="text-blue-600">25%</span>
+							</div>
+							<input type="range" id="input-close" min="5" max="100" value="25" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600" />
+						</div>
+
+						<div class="mt-12 bg-slate-950 p-8 rounded-[32px] text-center relative overflow-hidden">
+							<div class="absolute top-0 right-0 w-24 h-24 bg-blue-600/10 rounded-full blur-2xl"></div>
+							<div class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Fair Market Value (7%)</div>
+							<div id="result-market" class="text-4xl font-black text-white mb-6">$840.00</div>
+							<div class="pt-6 border-t border-white/5">
+								<div class="text-[10px] font-black text-amber-500 uppercase tracking-widest mb-1">DigiiState Monopoly Lease</div>
+								<div class="text-2xl font-black text-white">$1,250.00</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- 2. The 90% Success Path (Empire Scaling) -->
+				<div class="bg-white border border-slate-200 rounded-[40px] shadow-sm p-10">
+					<div class="flex items-center justify-between mb-8">
+						<h3 class="text-xs font-black uppercase tracking-widest text-slate-400">The 90% Success Path</h3>
+						<span class="px-3 py-1 bg-emerald-50 text-emerald-600 text-[10px] font-black rounded-full uppercase tracking-widest">Empire Growth</span>
+					</div>
+
+					<div class="space-y-8">
+						<div class="space-y-4">
+							<div class="flex justify-between text-[10px] font-black uppercase text-slate-500 tracking-widest">
+								<span>Total Assets Managed</span>
+								<span id="label-assets" class="text-emerald-600">20</span>
+							</div>
+							<input type="range" id="input-assets" min="1" max="150" value="20" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-emerald-500" />
+						</div>
+
+						<div class="space-y-4">
+							<div class="flex justify-between text-[10px] font-black uppercase text-slate-500 tracking-widest">
+								<span>Estimated Success Rate</span>
+								<span id="label-success" class="text-emerald-600">90%</span>
+							</div>
+							<input type="range" id="input-success" min="50" max="100" value="90" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-emerald-500" />
+						</div>
+
+						<div class="mt-12 p-8 bg-emerald-50 border-2 border-emerald-100 rounded-[32px] text-center">
+							<div class="text-[10px] font-black text-emerald-600 uppercase tracking-widest mb-2">Projected Monthly Revenue</div>
+							<div id="result-revenue" class="text-5xl font-black text-slate-950 mb-2">$22,500</div>
+							<div class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter italic">Based on $1,250 avg weekly lease equivalent</div>
+						</div>
+
+						<div class="grid grid-cols-2 gap-4">
+							<div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+								<span class="text-[9px] font-black text-slate-400 uppercase tracking-widest block mb-1">Annual Gross</span>
+								<div id="result-annual" class="text-xl font-black text-slate-950">$270,000</div>
+							</div>
+							<div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+								<span class="text-[9px] font-black text-slate-400 uppercase tracking-widest block mb-1">Retained Net (Est)</span>
+								<div id="result-net" class="text-xl font-black text-blue-600">$209,250</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</Layout>
+
+<script>
+	// 1. Justifier Logic
+	const iLeads = document.getElementById('input-leads') as HTMLInputElement;
+	const iJob = document.getElementById('input-job') as HTMLInputElement;
+	const iClose = document.getElementById('input-close') as HTMLInputElement;
+	const lLeads = document.getElementById('label-leads');
+	const lJob = document.getElementById('label-job');
+	const lClose = document.getElementById('label-close');
+	const rMarket = document.getElementById('result-market');
+
+	function updateJustifier() {
+		const leads = parseInt(iLeads.value);
+		const job = parseInt(iJob.value);
+		const close = parseInt(iClose.value) / 100;
+		lLeads!.textContent = leads.toString();
+		lJob!.textContent = `$${job.toLocaleString()}`;
+		lClose!.textContent = `${(close * 100).toFixed(0)}%`;
+		
+		const marketVal = (leads * job * close * 0.07);
+		rMarket!.textContent = `$${marketVal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+	}
+
+	// 2. Empire Logic
+	const iAssets = document.getElementById('input-assets') as HTMLInputElement;
+	const iSuccess = document.getElementById('input-success') as HTMLInputElement;
+	const lAssets = document.getElementById('label-assets');
+	const lSuccess = document.getElementById('label-success');
+	const rRev = document.getElementById('result-revenue');
+	const rAnn = document.getElementById('result-annual');
+	const rNet = document.getElementById('result-net');
+
+	function updateEmpire() {
+		const assets = parseInt(iAssets.value);
+		const success = parseInt(iSuccess.value) / 100;
+		lAssets!.textContent = assets.toString();
+		lSuccess!.textContent = `${(success * 100).toFixed(0)}%`;
+
+		const monthly = (assets * success * 1250);
+		const annual = monthly * 12;
+		const net = annual * 0.775; // Rough estimate after tax/ops
+
+		rRev!.textContent = `$${monthly.toLocaleString(undefined, {maximumFractionDigits: 0})}`;
+		rAnn!.textContent = `$${annual.toLocaleString(undefined, {maximumFractionDigits: 0})}`;
+		rNet!.textContent = `$${net.toLocaleString(undefined, {maximumFractionDigits: 0})}`;
+	}
+
+	iLeads.addEventListener('input', updateJustifier);
+	iJob.addEventListener('input', updateJustifier);
+	iClose.addEventListener('input', updateJustifier);
+	iAssets.addEventListener('input', updateEmpire);
+	iSuccess.addEventListener('input', updateEmpire);
+
+	updateJustifier();
+	updateEmpire();
+</script>
