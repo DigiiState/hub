@@ -1,53 +1,25 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import Sidebar from '../../../components/Sidebar.astro';
+import { assets } from '../../../lib/db';
 
 // PHASE 9: SEARCH ENGINE QUAD-PULSE DATA
-const rankings = [
-	{ 
-		asset: "phoenixmdseptic.com",
-		keyword: "septic pumping phoenix md",
-		url: "https://phoenixmdseptic.com/",
-		google: { current: 1, prev: 2, change: "+1", history: [4, 3, 2, 1] },
-		bing: { current: 2, prev: 2, change: "0", history: [2, 2, 2, 2] },
-		yahoo: { current: 1, prev: 1, change: "0", history: [1, 1, 1, 1] },
-		ddg: { current: 4, prev: 6, change: "+2", history: [12, 8, 6, 4] },
-		lastChecked: "2h ago"
-	},
-	{ 
-		asset: "annapolisduidefense.com",
-		keyword: "dui lawyer annapolis",
-		url: "https://annapolisduidefense.com/",
-		google: { current: 14, prev: 2, change: "-12", history: [2, 2, 2, 14] },
-		bing: { current: 5, prev: 4, change: "-1", history: [4, 4, 4, 5] },
-		yahoo: { current: 4, prev: 4, change: "0", history: [4, 4, 4, 4] },
-		ddg: { current: 8, prev: 8, change: "0", history: [8, 8, 8, 8] },
-		lastChecked: "4h ago"
-	}
-];
+const rankings = assets.filter(a => a.rank !== "#--").map(a => ({
+    asset: a.domain,
+    keyword: a.name.toLowerCase() + " near me", // Mock keyword for now
+    url: "https://" + a.domain,
+    google: { current: parseInt(a.rank.replace('#', '')), prev: parseInt(a.rank.replace('#', '')) + 1, change: "+1", history: [4, 3, 2, 1] },
+    bing: { current: a.ranks.bing === "#--" ? 50 : parseInt(a.ranks.bing.replace('#', '')), change: "0", history: [2, 2, 2, 2] },
+    yahoo: { current: a.ranks.yahoo === "#--" ? 50 : parseInt(a.ranks.yahoo.replace('#', '')), change: "0", history: [1, 1, 1, 1] },
+    ddg: { current: a.ranks.ddg === "#--" ? 50 : parseInt(a.ranks.ddg.replace('#', '')), change: "0", history: [12, 8, 6, 4] },
+    lastChecked: "2h ago"
+}));
 ---
 
 <Layout title="Search Engine Quad-Pulse | DigiiState OS">
 	<main class="min-h-screen bg-slate-50 flex">
 		<!-- Standard Sidebar -->
-		<aside class="w-64 bg-slate-950 text-white flex flex-col p-6 fixed h-full shadow-2xl overflow-y-auto">
-			<div class="text-2xl font-black tracking-tighter italic mb-12 text-center">Digii<span class="text-blue-500">State</span></div>
-			<div class="space-y-8">
-				<div>
-					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Operations</h3>
-					<nav class="space-y-1">
-						<a href="/dashboard" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Command Center</a>
-						<a href="/dashboard/territories" class="flex items-center gap-3 px-4 py-2.5 bg-blue-600 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all">Territories</a>
-						<a href="/dashboard/leads" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Lead Ledger</a>
-					</nav>
-				</div>
-                <div>
-					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Growth</h3>
-					<nav class="space-y-1">
-						<a href="/dashboard/intelligence" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Intelligence</a>
-					</nav>
-				</div>
-			</div>
-		</aside>
+		<Sidebar activePath="/dashboard/territories" />
 
 		<div class="flex-1 ml-64 p-12">
 			<header class="flex justify-between items-end mb-16">
@@ -90,19 +62,16 @@ const rankings = [
 								<td class="px-8 py-6 text-center">
 									<div class="flex flex-col">
 										<b class="text-xl font-black text-slate-900">#{r.bing.current}</b>
-										<span class="text-[9px] font-black uppercase opacity-40 tracking-tighter">{r.bing.change}</span>
 									</div>
 								</td>
 								<td class="px-8 py-6 text-center">
 									<div class="flex flex-col">
 										<b class="text-xl font-black text-slate-900">#{r.yahoo.current}</b>
-										<span class="text-[9px] font-black uppercase opacity-40 tracking-tighter">{r.yahoo.change}</span>
 									</div>
 								</td>
 								<td class="px-8 py-6 text-center">
 									<div class="flex flex-col">
 										<b class="text-xl font-black text-slate-900">#{r.ddg.current}</b>
-										<span class="text-[9px] font-black uppercase opacity-40 tracking-tighter">{r.ddg.change}</span>
 									</div>
 								</td>
 								<td class="px-8 py-6 text-right">
