@@ -1,5 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Sidebar from '../../components/Sidebar.astro';
+
 
 // PHASE 11: ALERT CENTER DATA
 const alerts = {
@@ -22,25 +24,7 @@ const alerts = {
 <Layout title="Alert Center | DigiiState OS">
 	<main class="min-h-screen bg-slate-50 flex">
 		<!-- Standard Sidebar -->
-		<aside class="w-64 bg-slate-950 text-white flex flex-col p-6 fixed h-full shadow-2xl overflow-y-auto">
-			<div class="text-2xl font-black tracking-tighter italic mb-12 text-center">Digii<span class="text-blue-500">State</span></div>
-			<div class="space-y-8">
-				<div>
-					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Operations</h3>
-					<nav class="space-y-1">
-						<a href="/dashboard" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Command Center</a>
-						<a href="/dashboard/portfolio" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Portfolio</a>
-					</nav>
-				</div>
-                <div>
-					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Infrastructure</h3>
-					<nav class="space-y-1">
-						<a href="/dashboard/infrastructure" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Infrastructure</a>
-						<a href="/dashboard/alerts" class="flex items-center gap-3 px-4 py-2.5 bg-blue-600 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all">Alerts</a>
-					</nav>
-				</div>
-			</div>
-		</aside>
+		<Sidebar activePath="/dashboard/alerts" />
 
 		<div class="flex-1 ml-64 p-12">
 			<header class="flex justify-between items-end mb-16">

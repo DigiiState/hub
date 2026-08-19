@@ -57,6 +57,8 @@ import Layout from '../layouts/Layout.astro';
 
 		setTimeout(() => {
 			if (keyInput.value === '08152026') {
+				// Set authentication cookie for middleware protection
+				document.cookie = "DS_AUTH=08152026; path=/; max-age=86400; SameSite=Lax";
 				// Use absolute path for reliability on Cloudflare
 				window.location.href = '/dashboard/';
 			} else {

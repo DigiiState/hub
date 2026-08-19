@@ -1,0 +1,68 @@
+---
+const { activePath } = Astro.props;
+
+const nav = [
+  {
+    group: "Operations",
+    items: [
+      { label: "Command Center", path: "/dashboard" },
+      { label: "Portfolio", path: "/dashboard/portfolio" },
+      { label: "Territories", path: "/dashboard/territories" },
+      { label: "Digital Vault", path: "/dashboard/vault" },
+      { label: "Lead Ledger", path: "/dashboard/leads" },
+      { label: "Renters", path: "/dashboard/renters" },
+    ]
+  },
+  {
+    group: "Growth",
+    items: [
+      { label: "Acquisitions", path: "/dashboard/acquisitions" },
+      { label: "Intelligence", path: "/dashboard/intelligence" },
+    ]
+  },
+  {
+    group: "Finance",
+    items: [
+      { label: "Financials", path: "/dashboard/financials" },
+      { label: "Payouts", path: "/dashboard/payouts" },
+      { label: "Calculators", path: "/dashboard/calculators" },
+    ]
+  },
+  {
+    group: "Infrastructure",
+    items: [
+      { label: "Infrastructure", path: "/dashboard/infrastructure" },
+      { label: "Alerts", path: "/dashboard/alerts" },
+    ]
+  }
+];
+---
+
+<aside class="w-64 bg-slate-950 text-white flex flex-col p-6 fixed h-full shadow-2xl overflow-y-auto">
+  <div class="text-2xl font-black tracking-tighter italic mb-12 text-center">Digii<span class="text-blue-500">State</span></div>
+  <div class="space-y-8 flex-1">
+    {nav.map(group => (
+      <div>
+        <h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">{group.group}</h3>
+        <nav class="space-y-1">
+          {group.items.map(item => (
+            <a 
+              href={item.path} 
+              class={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${activePath === item.path ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
+      </div>
+    ))}
+  </div>
+  <div class="pt-8 border-t border-white/10">
+    <a 
+      href="/dashboard/settings" 
+      class={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${activePath === '/dashboard/settings' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}
+    >
+      Settings
+    </a>
+  </div>
+</aside>

@@ -1,81 +1,67 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Sidebar from '../../components/Sidebar.astro';
 
 const territories = [
-	{ name: "Phoenix MD Septic", domain: "phoenixmdseptic.com", status: "Leased", owner: "Young Septic Services", ranking: "#1" },
-	{ name: "Clarksville Septic", domain: "clarksvillesepticpros.com", status: "Ranking", owner: "None", ranking: "#8" },
-	{ name: "Gibson Island Tree", domain: "gibsonislandtreeremoval.com", status: "Ranking", owner: "None", ranking: "#14" },
+	{ id: "DEED-PHX-001", name: "Phoenix MD Septic", domain: "phoenixmdseptic.com", status: "Leased", owner: "Young Septic Services", ranking: "#1", health: 94 },
+	{ id: "DEED-CLX-002", name: "Clarksville Septic", domain: "clarksvillesepticpros.com", status: "Ranking", owner: "None", ranking: "#8", health: 78 },
+	{ id: "DEED-GIB-003", name: "Gibson Island Tree", domain: "gibsonislandtreeremoval.com", status: "Ranking", owner: "None", ranking: "#14", health: 64 },
+    { id: "DEED-ANN-004", name: "Annapolis Tree", domain: "annapolistreepros.com", status: "Available", owner: "None", ranking: "#22", health: 82 },
 ];
 ---
 
 <Layout title="Territory Manager | DigiiState OS">
 	<main class="min-h-screen bg-slate-50 flex">
-		<aside class="w-64 bg-slate-950 text-white flex flex-col p-6 fixed h-full shadow-2xl overflow-y-auto">
-			<div class="text-2xl font-black tracking-tighter italic mb-12">Digii<span class="text-blue-500">State</span></div>
-			<div class="space-y-8">
-				<div>
-					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Operations</h3>
-					<nav class="space-y-1">
-						<a href="/dashboard" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard">Command Center</a>
-						<a href="/dashboard/portfolio" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/portfolio">Portfolio</a>
-						<a href="/dashboard/territories" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/territories">Territories</a>
-						<a href="/dashboard/vault" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/vault">Digital Vault</a>
-						<a href="/dashboard/leads" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/leads">Lead Ledger</a>
-						<a href="/dashboard/renters" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/renters">Renters</a>
-					</nav>
-				</div>
-				<div>
-					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Growth</h3>
-					<nav class="space-y-1">
-						<a href="/dashboard/acquisitions" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/acquisitions">Acquisitions</a>
-						<a href="/dashboard/intelligence" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/intelligence">Intelligence</a>
-					</nav>
-				</div>
-				<div>
-					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Finance</h3>
-					<nav class="space-y-1">
-						<a href="/dashboard/financials" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/financials">Financials</a>
-						<a href="/dashboard/payouts" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/payouts">Payouts</a>
-						<a href="/dashboard/calculators" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/calculators">Calculators</a>
-					</nav>
-				</div>
-				<div>
-					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Infrastructure</h3>
-					<nav class="space-y-1">
-						<a href="/dashboard/infrastructure" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/infrastructure">Infrastructure</a>
-						<a href="/dashboard/alerts" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/alerts">Alerts</a>
-					</nav>
-				</div>
-				<div class="pt-8 border-t border-white/10 mt-auto">
-					<a href="/dashboard/settings" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/settings">Settings</a>
-				</div>
-			</div>
-		</aside>
+		<Sidebar activePath="/dashboard/territories" />
 
-		<div class="flex-1 ml-64 p-10">
-			<h1 class="text-3xl font-black text-slate-950 uppercase tracking-tight mb-12">Territory Manager</h1>
+		<div class="flex-1 ml-64 p-12">
+			<header class="flex justify-between items-end mb-16">
+				<div>
+					<h1 class="text-4xl font-black text-slate-950 uppercase tracking-tighter leading-none">TERRITORIES</h1>
+					<p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.3em] mt-3">Geographic Market Control & Digital Deed Allocation</p>
+				</div>
+				<div class="flex gap-4">
+					<div class="bg-white border border-slate-200 px-6 py-3 rounded-2xl flex items-center gap-3 shadow-sm">
+						<span class="text-[9px] font-black uppercase text-slate-400">Active Markets</span>
+						<b class="text-sm text-slate-950">20</b>
+					</div>
+				</div>
+			</header>
+
 			<div class="bg-white border border-slate-200 rounded-[40px] shadow-sm overflow-hidden">
 				<table class="w-full text-left">
 					<thead class="bg-slate-50 border-b border-slate-100">
 						<tr class="text-[10px] font-black uppercase text-slate-400 tracking-widest">
-							<th class="px-8 py-4">Territory</th>
-							<th class="px-8 py-4">Status</th>
-							<th class="px-8 py-4">Current Renter</th>
-							<th class="px-8 py-4">Rank</th>
+							<th class="px-8 py-5">Health</th>
+							<th class="px-8 py-5">Territory / Digital Deed</th>
+							<th class="px-8 py-5">Status</th>
+							<th class="px-8 py-5">Operator / Renter</th>
+							<th class="px-8 py-5 text-right">Primary Rank</th>
 						</tr>
 					</thead>
 					<tbody class="divide-y divide-slate-50">
 						{territories.map(t => (
-							<tr class="hover:bg-slate-50 transition-colors group">
+							<tr class="hover:bg-slate-50/50 transition-colors group cursor-pointer" onclick={`window.location.href='/dashboard/territories/${t.id}'`}>
 								<td class="px-8 py-6">
-									<b class="text-slate-950 block">{t.name}</b>
-									<span class="text-[10px] text-slate-400 font-bold">{t.domain}</span>
+									<div class={`w-10 h-10 rounded-xl flex items-center justify-center font-black text-[10px] ${t.health >= 80 ? 'bg-emerald-50 text-emerald-600' : t.health >= 60 ? 'bg-amber-50 text-amber-600' : 'bg-red-50 text-red-600'}`}>
+										{t.health}
+									</div>
 								</td>
 								<td class="px-8 py-6">
-									<span class={`text-[9px] font-black uppercase px-2 py-1 rounded-lg ${t.status === 'Leased' ? 'bg-amber-50 text-amber-600' : 'bg-blue-50 text-blue-600'}`}>{t.status}</span>
+									<b class="text-slate-950 block uppercase tracking-tight">{t.name}</b>
+									<span class="text-[9px] text-slate-400 font-mono font-bold uppercase">{t.id} • {t.domain}</span>
 								</td>
-								<td class="px-8 py-6 text-xs font-bold text-slate-600">{t.owner}</td>
-								<td class="px-8 py-6 text-xs font-black text-emerald-500">{t.ranking}</td>
+								<td class="px-8 py-6">
+									<span class={`text-[9px] font-black uppercase px-3 py-1 rounded-full border ${t.status === 'Leased' ? 'bg-emerald-50 border-emerald-100 text-emerald-600' : 'bg-blue-50 border-blue-100 text-blue-600'}`}>
+										{t.status}
+									</span>
+								</td>
+								<td class="px-8 py-6 text-xs font-bold text-slate-600">
+									{t.owner}
+								</td>
+								<td class="px-8 py-6 text-right">
+									<b class="text-emerald-500 font-black">{t.ranking}</b>
+								</td>
 							</tr>
 						))}
 					</tbody>

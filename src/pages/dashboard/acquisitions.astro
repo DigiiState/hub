@@ -1,5 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Sidebar from '../../components/Sidebar.astro';
+
 
 // PHASE 4: TERRITORY ACQUISITION ENGINE
 // Underwriting logic and market analysis tool
@@ -17,27 +19,7 @@ const recentUnderwriting = [
 <Layout title="Acquisitions Engine | DigiiState OS">
 	<main class="min-h-screen bg-slate-50 flex">
 		<!-- Standardized Sidebar (Updated) -->
-		<aside class="w-64 bg-slate-950 text-white flex flex-col p-6 fixed h-full shadow-2xl">
-			<div class="text-2xl font-black tracking-tighter italic mb-12">Digii<span class="text-blue-500">State</span></div>
-			<div class="space-y-8">
-				<div>
-					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Operations</h3>
-					<nav class="space-y-1">
-						<a href="/dashboard" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Command Center</a>
-						<a href="/dashboard/territories" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Portfolio</a>
-						<a href="/dashboard/territories" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Territories</a>
-						<a href="/dashboard/vault" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Digital Vault</a>
-					</nav>
-				</div>
-				<div>
-					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Growth</h3>
-					<nav class="space-y-1">
-						<a href="/dashboard/acquisitions" class="flex items-center gap-3 px-4 py-2.5 bg-blue-600 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all">Acquisitions</a>
-						<a href="/dashboard/intelligence" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Intelligence</a>
-					</nav>
-				</div>
-			</div>
-		</aside>
+		<Sidebar activePath="/dashboard/acquisitions" />
 
 		<div class="flex-1 ml-64 p-12">
 			<header class="flex justify-between items-end mb-16">

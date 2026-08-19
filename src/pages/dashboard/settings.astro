@@ -1,5 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Sidebar from '../../components/Sidebar.astro';
+
 
 const accountSettings = {
 	email: "info@digiistate.com",
@@ -11,47 +13,7 @@ const accountSettings = {
 
 <Layout title="Account Settings | DigiiState OS">
 	<main class="min-h-screen bg-slate-50 flex">
-		<aside class="w-64 bg-slate-950 text-white flex flex-col p-6 fixed h-full shadow-2xl overflow-y-auto">
-			<div class="text-2xl font-black tracking-tighter italic mb-12">Digii<span class="text-blue-500">State</span></div>
-			<div class="space-y-8">
-				<div>
-					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Operations</h3>
-					<nav class="space-y-1">
-						<a href="/dashboard" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard">Command Center</a>
-						<a href="/dashboard/portfolio" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/portfolio">Portfolio</a>
-						<a href="/dashboard/territories" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/territories">Territories</a>
-						<a href="/dashboard/vault" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/vault">Digital Vault</a>
-						<a href="/dashboard/leads" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/leads">Lead Ledger</a>
-						<a href="/dashboard/renters" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/renters">Renters</a>
-					</nav>
-				</div>
-				<div>
-					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Growth</h3>
-					<nav class="space-y-1">
-						<a href="/dashboard/acquisitions" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/acquisitions">Acquisitions</a>
-						<a href="/dashboard/intelligence" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/intelligence">Intelligence</a>
-					</nav>
-				</div>
-				<div>
-					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Finance</h3>
-					<nav class="space-y-1">
-						<a href="/dashboard/financials" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/financials">Financials</a>
-						<a href="/dashboard/payouts" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/payouts">Payouts</a>
-						<a href="/dashboard/calculators" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/calculators">Calculators</a>
-					</nav>
-				</div>
-				<div>
-					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Infrastructure</h3>
-					<nav class="space-y-1">
-						<a href="/dashboard/infrastructure" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/infrastructure">Infrastructure</a>
-						<a href="/dashboard/alerts" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/alerts">Alerts</a>
-					</nav>
-				</div>
-				<div class="pt-8 border-t border-white/10 mt-auto">
-					<a href="/dashboard/settings" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/settings">Settings</a>
-				</div>
-			</div>
-		</aside>
+		<Sidebar activePath="/dashboard/settings" />
 
 		<div class="flex-1 ml-64 p-10">
 			<h1 class="text-3xl font-black text-slate-950 uppercase tracking-tight mb-12">Account Settings</h1>
