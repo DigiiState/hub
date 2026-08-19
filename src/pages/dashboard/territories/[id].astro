@@ -1,6 +1,28 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 
+export function getStaticPaths() {
+  return [
+    { params: { id: 'DEED-PHX-001' } },
+    { params: { id: 'DEED-CLX-002' } },
+    { params: { id: 'DEED-GIB-003' } },
+    { params: { id: 'DEED-ANN-004' } },
+    { params: { id: 'DEED-CLX-005' } },
+    { params: { id: 'DEED-ANN-006' } },
+    { params: { id: 'DEED-MON-007' } },
+    { params: { id: 'DEED-HNT-008' } },
+    { params: { id: 'DEED-BET-009' } },
+    { params: { id: 'DEED-SEV-010' } },
+    { params: { id: 'DEED-ELL-011' } },
+    { params: { id: 'DEED-SIL-012' } },
+    { params: { id: 'DEED-ROC-013' } },
+    { params: { id: 'DEED-TOW-014' } },
+    { params: { id: 'DEED-TRA-015' } }
+  ];
+}
+
+const { id } = Astro.params;
+
 // PHASE 5: DIGITAL DEED DATA
 const asset = {
 	id: "DEED-PHX-001",
