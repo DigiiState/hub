@@ -11,17 +11,17 @@ const territories = [
 ];
 
 const liveLeads = [
-	{ time: "4m ago", niche: "SEPTIC", city: "PHOENIX, MD", ticker: "DIGII.MD.PHX", val: "+$450.00" },
-	{ time: "28m ago", niche: "ROOFING", city: "DALLAS, TX", ticker: "DIGII.TX.DAL", val: "+$2,800.00" },
-	{ time: "1h ago", niche: "LAW", city: "ANNAPOLIS, MD", ticker: "DIGII.MD.ANN", val: "+$1,500.00" },
-	{ time: "3h ago", niche: "WATER", city: "TAMPA, FL", ticker: "DIGII.FL.TPA", val: "+$9,200.00" },
+	{ time: "4m ago", niche: "SEPTIC", city: "PHOENIX, MD", ticker: "LEAD.MD.PHX", val: "+$450.00" },
+	{ time: "28m ago", niche: "ROOFING", city: "DALLAS, TX", ticker: "LEAD.TX.DAL", val: "+$2,800.00" },
+	{ time: "1h ago", niche: "LAW", city: "ANNAPOLIS, MD", ticker: "LEAD.MD.ANN", val: "+$1,500.00" },
+	{ time: "3h ago", niche: "WATER", city: "TAMPA, FL", ticker: "LEAD.FL.TPA", val: "+$9,200.00" },
 ];
 ---
 
-<Layout title="DigiiState Terminal | Global Digital Real Estate Data">
+<Layout title="DigiiState | Premier US Lead Generation & Marketing Agency">
 	<main class="relative bg-white border-t-4 border-[#0040ff]">
 		
-		<!-- 1. BLOOMBERG TICKER -->
+		<!-- 1. LIVE LEAD TICKER -->
 		<div class="fixed top-1 left-0 w-full z-[100] bg-white border-y border-slate-200 py-1 overflow-hidden h-8">
 			<div class="flex whitespace-nowrap animate-marquee">
 				<div class="flex gap-12 px-6 items-center">
@@ -53,16 +53,16 @@ const liveLeads = [
 						Digii<span class="text-[#0040ff]">State</span>
 					</div>
 					<nav class="hidden lg:flex gap-8 text-[11px] font-bold uppercase tracking-wider text-slate-500">
-						<a href="#map" class="hover:text-[#0040ff] transition-colors">Markets</a>
-						<a href="#economics" class="hover:text-[#0040ff] transition-colors">Yields</a>
-						<a href="#apply" class="hover:text-[#0040ff] transition-colors">Acquisitions</a>
+						<a href="#map" class="hover:text-[#0040ff] transition-colors">Network</a>
+						<a href="#economics" class="hover:text-[#0040ff] transition-colors">Performance</a>
+						<a href="/about" class="hover:text-[#0040ff] transition-colors">Agency</a>
 					</nav>
 				</div>
 				<div class="flex items-center gap-4">
-					<a href="/admin" class="text-[11px] font-bold uppercase text-slate-500 hover:text-black">Terminal Login</a>
+					<a href="/admin" class="text-[11px] font-bold uppercase text-slate-500 hover:text-black">Partner Login</a>
 					<div class="h-4 w-px bg-slate-200 mx-2"></div>
 					<a href="#apply" class="bg-[#0040ff] text-white px-5 py-2 font-bold text-[11px] uppercase tracking-wider hover:bg-blue-700 transition-colors">
-						Apply for Territory
+						Apply for Partnership
 					</a>
 				</div>
 			</header>
@@ -72,20 +72,20 @@ const liveLeads = [
 				<div class="lg:col-span-7">
 					<div class="inline-block px-2 py-1 bg-slate-100 text-[10px] font-bold text-slate-600 uppercase mb-6">Market Update: Aug 2026</div>
 					<h1 class="text-6xl md:text-8xl font-bold mb-8 leading-[0.9] tracking-tighter text-[#0f172a]">
-						DIGITAL REAL ESTATE <br/>
-						<span class="text-[#0040ff]">INDEX DOMINANCE.</span>
+						USA LEAD GEN <br/>
+						<span class="text-[#0040ff]">& MARKETING.</span>
 					</h1>
 					<p class="text-slate-500 text-xl leading-relaxed mb-10 max-w-xl">
-						Acquiring and leasing institutional-grade search territories across 50 US states. Exclusive data-driven lead acquisition protocols.
+						DigiiState is a premier marketing agency. We build, rank, and manage high-density lead generation assets across all 50 states to drive rapid business expansion.
 					</p>
 					
 					<div class="grid grid-cols-3 gap-8 pt-8 border-t border-slate-100">
 						<div>
-							<span class="text-[10px] font-bold text-slate-400 uppercase block mb-1">AUM Portfolio</span>
+							<span class="text-[10px] font-bold text-slate-400 uppercase block mb-1">Lead Portfolio</span>
 							<span class="text-3xl font-bold text-slate-900">$2.4M+</span>
 						</div>
 						<div>
-							<span class="text-[10px] font-bold text-slate-400 uppercase block mb-1">Monthly Flow</span>
+							<span class="text-[10px] font-bold text-slate-400 uppercase block mb-1">Monthly Leads</span>
 							<span class="text-3xl font-bold text-slate-900">2.4K</span>
 						</div>
 						<div>
@@ -98,7 +98,7 @@ const liveLeads = [
 				<div class="lg:col-span-5">
 					<div class="border border-slate-200 p-8 bg-slate-50">
 						<div class="flex justify-between items-center mb-6">
-							<h3 class="text-xs font-bold uppercase text-slate-900">Territory Performance</h3>
+							<h3 class="text-xs font-bold uppercase text-slate-900">Market Performance</h3>
 							<span class="text-[10px] font-mono text-emerald-600 font-bold">UP +12.4%</span>
 						</div>
 						<div class="space-y-4 font-['IBM_Plex_Mono'] text-xs">
@@ -120,7 +120,7 @@ const liveLeads = [
 							</div>
 						</div>
 						<button class="w-full mt-8 border border-slate-300 py-3 text-[10px] font-bold uppercase tracking-widest hover:bg-white transition-colors">
-							View Full Terminal
+							View Full Network
 						</button>
 					</div>
 				</div>
@@ -130,12 +130,12 @@ const liveLeads = [
 			<section id="map" class="pt-20 border-t border-slate-100">
 				<div class="flex justify-between items-end mb-12">
 					<div>
-						<h3 class="text-[10px] font-bold uppercase tracking-widest text-[#0040ff] mb-2">US Territory Monitor</h3>
-						<h2 class="text-4xl font-bold uppercase text-slate-900">National Occupancy</h2>
+						<h3 class="text-[10px] font-bold uppercase tracking-widest text-[#0040ff] mb-2">US Lead Network Monitor</h3>
+						<h2 class="text-4xl font-bold uppercase text-slate-900">National Lead Flow</h2>
 					</div>
 					<div class="flex gap-4 text-[10px] font-bold uppercase tracking-widest text-slate-400">
 						<span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Open</span>
-						<span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-500"></span> Leased</span>
+						<span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-500"></span> Partnered</span>
 					</div>
 				</div>
 				
@@ -164,44 +164,44 @@ const liveLeads = [
 			<!-- 4. YIELD LOGIC -->
 			<section id="economics" class="py-24 grid md:grid-cols-2 gap-20 border-t border-slate-100">
 				<div>
-					<h3 class="text-[10px] font-bold uppercase tracking-widest text-[#0040ff] mb-2">Alpha Arbitrage</h3>
-					<h2 class="text-4xl font-bold uppercase text-slate-900 mb-8 leading-tight">SEARCH EQUITY <br/>VS. PPC TAXATION.</h2>
+					<h3 class="text-[10px] font-bold uppercase tracking-widest text-[#0040ff] mb-2">Expansion Logic</h3>
+					<h2 class="text-4xl font-bold uppercase text-slate-900 mb-8 leading-tight">PRE-QUALIFIED LEADS <br/>VS. PPC TAXATION.</h2>
 					<p class="text-slate-500 leading-relaxed mb-8">
-						Google Ads sells temporary clicks. We build permanent digital deeds. Our assets provide 100% exclusive local search volume at a predictable weekly rate.
+						Google Ads sells temporary clicks. We build high-performing marketing assets. Our network provide 100% exclusive local lead flow at a predictable weekly rate.
 					</p>
 					<div class="space-y-4 text-xs font-bold uppercase tracking-wider">
 						<div class="flex items-center gap-3 text-red-500">
-							<span class="w-4 h-px bg-red-500"></span> [X] GOOGLE ADS: VARIABLE / SHARED / TEMPORARY
+							<span class="w-4 h-px bg-red-500"></span> [X] GOOGLE ADS: VARIABLE / SHARED / UNQUALIFIED
 						</div>
 						<div class="flex items-center gap-3 text-emerald-600">
-							<span class="w-4 h-px bg-emerald-600"></span> [✓] DIGIISTATE: FIXED / EXCLUSIVE / PERMANENT
+							<span class="w-4 h-px bg-emerald-600"></span> [✓] DIGIISTATE: FIXED / EXCLUSIVE / PRE-QUALIFIED
 						</div>
 					</div>
 				</div>
 				<div class="bg-slate-50 p-10 border border-slate-200">
-					<h4 class="text-[10px] font-bold text-slate-400 uppercase mb-10 text-center tracking-[0.2em]">Institutional Yield Target</h4>
+					<h4 class="text-[10px] font-bold text-slate-400 uppercase mb-10 text-center tracking-[0.2em]">Target Marketing Performance</h4>
 					<div class="space-y-8 font-['IBM_Plex_Mono']">
 						<div class="flex justify-between border-b border-slate-200 pb-4">
 							<span class="text-slate-500 text-xs">AVG REV / CONV</span>
 							<span class="text-xl font-bold">$2,400.00</span>
 						</div>
 						<div class="flex justify-between border-b border-slate-200 pb-4">
-							<span class="text-slate-500 text-xs">FLOW / MONTH</span>
+							<span class="text-slate-500 text-xs">LEADS / MONTH</span>
 							<span class="text-xl font-bold">15-20</span>
 						</div>
 						<div class="flex justify-between">
-							<span class="text-slate-500 text-xs uppercase">Weekly Lease</span>
+							<span class="text-slate-500 text-xs uppercase">Weekly Performance Fee</span>
 							<span class="text-3xl font-bold text-[#0040ff]">$312.50</span>
 						</div>
 					</div>
 				</div>
 			</section>
 
-			<!-- 5. ACQUISITION -->
+			<!-- 5. PARTNERSHIP APPLICATION -->
 			<section id="apply" class="py-24 border-t border-slate-900 pt-32">
 				<div class="max-w-4xl mx-auto text-center mb-16">
-					<h2 class="text-5xl font-bold uppercase tracking-tighter text-slate-950 mb-6">Territory Acquisition Protocol</h2>
-					<p class="text-slate-500 text-lg max-w-2xl mx-auto">Exclusive rights are limited to one provider per niche per city. Submit credentials below for territory approval.</p>
+					<h2 class="text-5xl font-bold uppercase tracking-tighter text-slate-950 mb-6">Partnership Protocol</h2>
+					<p class="text-slate-500 text-lg max-w-2xl mx-auto">Exclusive lead flow is limited to one partner per niche per city. Submit credentials below for partnership approval.</p>
 				</div>
 				
 				<div class="max-w-4xl mx-auto border border-slate-200 p-12 bg-slate-50">
@@ -218,23 +218,23 @@ const liveLeads = [
 						</div>
 						<div class="space-y-8">
 							<div class="border-b border-slate-200 py-2">
-								<label class="block text-[10px] font-bold uppercase text-slate-400 mb-2">Target Territory</label>
+								<label class="block text-[10px] font-bold uppercase text-slate-400 mb-2">Target Market</label>
 								<input type="text" class="w-full bg-transparent outline-none font-bold text-slate-950" placeholder="City, State" />
 							</div>
 							<div class="border-b border-slate-200 py-2">
-								<label class="block text-[10px] font-bold uppercase text-slate-400 mb-2">Current AUM Spend</label>
+								<label class="block text-[10px] font-bold uppercase text-slate-400 mb-2">Current Marketing Spend</label>
 								<input type="text" class="w-full bg-transparent outline-none font-bold text-slate-950" placeholder="$2,500 - $10k" />
 							</div>
 						</div>
 						<button class="md:col-span-2 bg-[#0040ff] text-white py-6 font-bold uppercase tracking-[0.3em] text-xs hover:bg-blue-700 transition-all">
-							Initiate Acquisition Protocol
+							Apply for Partnership
 						</button>
 					</form>
 				</div>
 			</section>
 
 			<footer class="mt-32 pt-12 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-8 text-[10px] font-bold uppercase tracking-widest text-slate-400">
-				<div>&copy; 2026 DIGIISTATE DATA CORP</div>
+				<div>&copy; 2026 DIGIISTATE AGENCY CORP</div>
 				<div class="flex gap-12">
 					<a href="#" class="hover:text-black">Governance</a>
 					<a href="#" class="hover:text-black">Terms of Service</a>

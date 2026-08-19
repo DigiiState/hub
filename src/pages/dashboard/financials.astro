@@ -1,0 +1,146 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// PHASE 13: FINANCIAL DATA
+const financials = {
+	monthlyRentRoll: 3750.00,
+	accountsReceivable: 625.00,
+	capitalInvested: 199.40,
+	infrastructureOpex: 60.50,
+	developmentSpend: 156.90,
+	seoSpend: 20.00,
+	noi: 3689.50,
+	annualizedNOI: 44274.00,
+	portfolioValue: 21000.00,
+	portfolioROI: "10,500%",
+    rdTaxCredit: 105.12 // Estimated 67% capture of Dev Spend
+};
+
+const revenueStream = [
+	{ label: "Territory Lease (Monopoly)", amount: 3750.00, percent: "82%" },
+	{ label: "Pay Per Lead (Performance)", amount: 540.00, percent: "12%" },
+	{ label: "Setup & Acquisition Fees", amount: 250.00, percent: "6%" }
+];
+---
+
+<Layout title="Financial Command Center | DigiiState OS">
+	<main class="min-h-screen bg-slate-50 flex">
+		<!-- Standard Sidebar -->
+		<aside class="w-64 bg-slate-950 text-white flex flex-col p-6 fixed h-full shadow-2xl">
+			<div class="text-2xl font-black tracking-tighter italic mb-12 text-center">Digii<span class="text-blue-500">State</span></div>
+			<div class="space-y-8">
+				<div>
+					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Operations</h3>
+					<nav class="space-y-1">
+						<a href="/dashboard" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Command Center</a>
+						<a href="/dashboard/portfolio" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Portfolio</a>
+					</nav>
+				</div>
+                <div>
+					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Finance</h3>
+					<nav class="space-y-1">
+						<a href="/dashboard/financials" class="flex items-center gap-3 px-4 py-2.5 bg-blue-600 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all">Financials</a>
+						<a href="/dashboard/payouts" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Payouts</a>
+					</nav>
+				</div>
+			</div>
+		</aside>
+
+		<div class="flex-1 ml-64 p-12">
+			<header class="flex justify-between items-end mb-16">
+				<div>
+					<h1 class="text-4xl font-[900] text-slate-950 uppercase tracking-tighter leading-none">FINANCIALS</h1>
+					<p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.3em] mt-3">Institutional Yield & Cash Flow Governance</p>
+				</div>
+				<div class="flex gap-4">
+					<div class="bg-emerald-50 border border-emerald-100 px-6 py-3 rounded-2xl flex items-center gap-3 shadow-sm">
+						<span class="text-[9px] font-black uppercase text-emerald-600">Net Operating Income</span>
+						<b class="text-sm text-slate-950">${financials.noi.toLocaleString()}</b>
+					</div>
+				</div>
+			</header>
+
+			<!-- P&L OVERVIEW (Phase 13) -->
+			<div class="grid grid-cols-3 gap-8 mb-12">
+				<div class="bg-white p-10 rounded-[48px] shadow-sm border border-slate-200">
+					<span class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-4 block">Monthly Rent Roll</span>
+					<div class="text-4xl font-black text-slate-950">${financials.monthlyRentRoll.toLocaleString()}</div>
+					<div class="text-[10px] font-bold text-amber-500 mt-4 uppercase">A/R: ${financials.accountsReceivable.toLocaleString()} Pending</div>
+				</div>
+				<div class="bg-slate-950 text-white p-10 rounded-[48px] shadow-2xl relative overflow-hidden">
+					<div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl"></div>
+					<span class="text-[9px] font-black text-blue-500 uppercase tracking-widest mb-4 block">Portfolio Equity</span>
+					<div class="text-4xl font-black text-white">${financials.portfolioValue.toLocaleString()}</div>
+					<div class="text-[10px] font-bold text-emerald-400 mt-4 uppercase italic">719% Unrealized ROI</div>
+				</div>
+				<div class="bg-white p-10 rounded-[48px] shadow-sm border border-slate-200">
+					<span class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-4 block">Annualized NOI</span>
+					<div class="text-4xl font-black text-slate-950">${financials.annualizedNOI.toLocaleString()}</div>
+					<div class="text-[10px] font-bold text-blue-600 mt-4 uppercase tracking-tighter">Projected Pro-Forma</div>
+				</div>
+			</div>
+
+			<div class="grid lg:grid-cols-2 gap-12">
+				<!-- Revenue Streams -->
+				<div class="bg-white border border-slate-200 rounded-[48px] p-12 shadow-sm">
+					<h3 class="text-xs font-black uppercase tracking-[0.4em] text-slate-400 mb-10 italic">Revenue attribution</h3>
+					<div class="space-y-8">
+						{revenueStream.map(r => (
+							<div class="flex justify-between items-center py-2 border-b border-slate-50 group">
+								<div>
+									<b class="text-sm text-slate-950 uppercase block">{r.label}</b>
+									<span class="text-[9px] text-slate-400 font-black uppercase">{r.percent} of Total Inflow</span>
+								</div>
+								<b class="text-lg font-black text-slate-950">${r.amount.toLocaleString()}</b>
+							</div>
+						))}
+					</div>
+				</div>
+
+				<!-- Capital Investment Tracking -->
+				<div class="bg-white border border-slate-200 rounded-[48px] p-12 shadow-sm">
+					<h3 class="text-xs font-black uppercase tracking-[0.4em] text-slate-400 mb-10 italic">Capital Deployment</h3>
+					<div class="space-y-6">
+						<div class="flex justify-between items-center py-4 border-b border-slate-50">
+							<span class="text-xs font-bold text-slate-500 uppercase">Acquisition Spend (Domains)</span>
+							<b class="text-sm text-slate-950">$156.90</b>
+						</div>
+						<div class="flex justify-between items-center py-4 border-b border-slate-50">
+							<span class="text-xs font-bold text-slate-500 uppercase">Infrastructure (Make/Hub)</span>
+							<b class="text-sm text-slate-950">$22.50</b>
+						</div>
+						<div class="flex justify-between items-center py-4 border-b border-slate-50">
+							<span class="text-xs font-bold text-slate-500 uppercase">Comm Credits (Twilio)</span>
+							<b class="text-sm text-slate-950">$20.00</b>
+						</div>
+						<div class="flex justify-between items-center pt-4">
+							<span class="text-xs font-black text-blue-600 uppercase tracking-widest">Total Invested Capital</span>
+							<b class="text-2xl font-black text-slate-950">${financials.capitalInvested.toLocaleString()}</b>
+						</div>
+					</div>
+				</div>
+
+				<!-- PHASE 14: R&D TAX CREDIT CAPTURE -->
+				<div class="bg-blue-600 text-white rounded-[48px] p-12 shadow-2xl lg:col-span-2 relative overflow-hidden mt-8">
+					<div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl translate-x-32 -translate-y-32"></div>
+					<div class="flex flex-col md:flex-row justify-between items-center gap-12">
+						<div class="max-w-md">
+							<h3 class="text-xs font-black uppercase tracking-[0.4em] text-blue-200 mb-6 italic">Fiscal Efficiency</h3>
+							<h2 class="text-3xl font-black uppercase tracking-tighter leading-none mb-6">Section 41 R&D <br/>Tax Credit Capture</h2>
+							<p class="text-blue-100 text-sm leading-relaxed">
+								Our programmatic SEO development and AI triage engineering qualify for federal R&D tax credits. We track all technical hours to maximize recapture at end-of-year.
+							</p>
+						</div>
+						<div class="text-center md:text-right">
+							<span class="text-[9px] font-black uppercase text-blue-200 block mb-4 tracking-widest">Est. Recapture (YTD)</span>
+							<div class="text-6xl font-black tracking-tighter">${financials.rdTaxCredit.toLocaleString()}</div>
+							<div class="mt-6">
+								<button class="bg-white text-blue-600 px-8 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-xl">Download Audit Report</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</Layout>

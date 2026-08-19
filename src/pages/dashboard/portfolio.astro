@@ -1,0 +1,135 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// PHASE 6: LIFECYCLE STAGES DEFINITION
+const lifecycleStages = [
+	"Research", "Underwriting", "Acq. Approved", "Domain Acquired", 
+	"Development", "Indexed", "Ranking", "Generating Leads", 
+	"Lease Ready", "Available", "Leased", "Stabilized", 
+	"Expansion", "Distressed", "Exit / Sale", "Retired"
+];
+
+// PORTFOLIO MASTER DATA (PHASE 5 & 6)
+const assets = [
+	{ id: "DEED-PHX-001", domain: "phoenixmdseptic.com", city: "Phoenix", state: "MD", health: 94, stage: "Leased", rank: "#1", leads: 31, capital: "$10.46" },
+	{ id: "DEED-CLX-002", domain: "clarksvillesepticpros.com", city: "Clarksville", state: "MD", health: 78, stage: "Ranking", rank: "#8", leads: 12, capital: "$10.46" },
+	{ id: "DEED-GIB-003", domain: "gibsonislandtreeremoval.com", city: "Gibson Island", state: "MD", health: 64, stage: "Development", rank: "#24", leads: 0, capital: "$10.46" },
+	{ id: "DEED-ANN-004", domain: "annapolistreepros.com", city: "Annapolis", state: "MD", health: 88, stage: "Lease Ready", rank: "#3", leads: 42, capital: "$10.46" },
+	{ id: "DEED-CLX-005", domain: "clarksvillewaterdamage.com", city: "Clarksville", state: "MD", health: 91, stage: "Stabilized", rank: "#2", leads: 28, capital: "$10.46" },
+	{ id: "DEED-ANN-006", domain: "annapolisduidefense.com", city: "Annapolis", state: "MD", health: 42, stage: "Distressed", rank: "#52", leads: 2, capital: "$10.46" },
+    { id: "DEED-MON-007", domain: "monktonsepticpumping.com", city: "Monkton", state: "MD", health: 50, stage: "Development", rank: "#--", leads: 0, capital: "$10.46" },
+    { id: "DEED-HNT-008", domain: "huntvalleyseptic.com", city: "Hunt Valley", state: "MD", health: 50, stage: "Development", rank: "#--", leads: 0, capital: "$10.46" },
+    { id: "DEED-BET-009", domain: "bethesdawaterpros.com", city: "Bethesda", state: "MD", health: 50, stage: "Development", rank: "#--", leads: 0, capital: "$10.46" },
+    { id: "DEED-SEV-010", domain: "severnaparktreeremoval.com", city: "Severna Park", state: "MD", health: 50, stage: "Development", rank: "#--", leads: 0, capital: "$10.46" },
+    { id: "DEED-ELL-011", domain: "ellicottcitytreepros.com", city: "Ellicott City", state: "MD", health: 50, stage: "Development", rank: "#--", leads: 0, capital: "$10.46" },
+    { id: "DEED-SIL-012", domain: "silverspringroofingexperts.com", city: "Silver Spring", state: "MD", health: 50, stage: "Development", rank: "#--", leads: 0, capital: "$10.46" },
+    { id: "DEED-ROC-013", domain: "rockvilleroofingpros.com", city: "Rockville", state: "MD", health: 50, stage: "Development", rank: "#--", leads: 0, capital: "$10.46" },
+    { id: "DEED-TOW-014", domain: "towsonduiattorney.com", city: "Towson", state: "MD", health: 50, stage: "Development", rank: "#--", leads: 0, capital: "$10.46" },
+    { id: "DEED-TRA-015", domain: "marylandtrafficdefensepros.com", city: "Maryland", state: "MD", health: 50, stage: "Development", rank: "#--", leads: 0, capital: "$10.46" }
+];
+---
+
+<Layout title="Asset Portfolio | DigiiState OS">
+	<main class="min-h-screen bg-slate-50 flex">
+		<!-- Standard Sidebar -->
+		<aside class="w-64 bg-slate-950 text-white flex flex-col p-6 fixed h-full shadow-2xl overflow-y-auto">
+			<div class="text-2xl font-black tracking-tighter italic mb-12 text-center">Digii<span class="text-blue-500">State</span></div>
+			<div class="space-y-8">
+				<div>
+					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Operations</h3>
+					<nav class="space-y-1">
+						<a href="/dashboard" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Command Center</a>
+						<a href="/dashboard/portfolio" class="flex items-center gap-3 px-4 py-2.5 bg-blue-600 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all">Portfolio</a>
+						<a href="/dashboard/territories" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Territories</a>
+						<a href="/dashboard/vault" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Digital Vault</a>
+						<a href="/dashboard/leads" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Lead Ledger</a>
+						<a href="/dashboard/renters" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Renters</a>
+					</nav>
+				</div>
+                <div>
+					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Growth</h3>
+					<nav class="space-y-1">
+						<a href="/dashboard/acquisitions" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Acquisitions</a>
+						<a href="/dashboard/intelligence" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Intelligence</a>
+					</nav>
+				</div>
+                <div>
+					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Finance</h3>
+					<nav class="space-y-1">
+						<a href="/dashboard/financials" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Financials</a>
+						<a href="/dashboard/payouts" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Payouts</a>
+					</nav>
+				</div>
+			</div>
+		</aside>
+
+		<div class="flex-1 ml-64 p-12">
+			<header class="flex justify-between items-end mb-16">
+				<div>
+					<h1 class="text-4xl font-[900] text-slate-950 uppercase tracking-tighter leading-none">PORTFOLIO</h1>
+					<p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.3em] mt-3">Institutional Asset Ledger & Lifecycle Status</p>
+				</div>
+				<div class="flex gap-4">
+					<div class="bg-white border border-slate-200 px-6 py-3 rounded-2xl flex items-center gap-3 shadow-sm">
+						<span class="text-[9px] font-black uppercase text-slate-400">Total Portfolio Value</span>
+						<b class="text-sm text-blue-600">$21,000.00</b>
+					</div>
+				</div>
+			</header>
+
+			<!-- Institutional Portfolio Grid -->
+			<div class="bg-white border border-slate-200 rounded-[40px] shadow-sm overflow-hidden">
+				<table class="w-full text-left text-sm">
+					<thead>
+						<tr class="bg-slate-50 text-[9px] font-black uppercase tracking-widest text-slate-400 border-b border-slate-100">
+							<th class="px-8 py-5">Health</th>
+							<th class="px-8 py-5">Digital Property / ID</th>
+							<th class="px-8 py-5">Lifecycle Stage</th>
+							<th class="px-8 py-5">Rank / Leads</th>
+							<th class="px-8 py-5">Cap. Invested</th>
+							<th class="px-8 py-5 text-right">Action</th>
+						</tr>
+					</thead>
+					<tbody class="divide-y divide-slate-50">
+						{assets.map(a => (
+							<tr class="hover:bg-slate-50/50 transition-colors group">
+								<td class="px-8 py-6">
+									<div class={`w-10 h-10 rounded-xl flex items-center justify-center font-black text-[10px] ${a.health >= 80 ? 'bg-emerald-50 text-emerald-600' : a.health >= 60 ? 'bg-amber-50 text-amber-600' : 'bg-red-50 text-red-600'}`}>
+										{a.health}
+									</div>
+								</td>
+								<td class="px-8 py-6">
+									<b class="text-slate-950 block uppercase tracking-tight italic">{a.domain}</b>
+									<span class="text-[9px] text-slate-400 font-mono font-bold uppercase">{a.id}</span>
+								</td>
+								<td class="px-8 py-6">
+									<div class="flex flex-col gap-1">
+										<div class="flex items-center gap-2">
+											<span class={`w-1.5 h-1.5 rounded-full ${a.stage === 'Leased' ? 'bg-emerald-500' : a.stage === 'Ranking' ? 'bg-blue-500' : 'bg-amber-500'}`}></span>
+											<span class="text-[9px] font-black uppercase text-slate-600">{a.stage}</span>
+										</div>
+										<div class="w-24 h-1 bg-slate-100 rounded-full overflow-hidden">
+											<div class="h-full bg-blue-600" style={`width: ${(lifecycleStages.indexOf(a.stage) + 1) / lifecycleStages.length * 100}%`}></div>
+										</div>
+									</div>
+								</td>
+								<td class="px-8 py-6">
+									<div class="flex flex-col">
+										<b class="text-emerald-500 font-black">{a.rank}</b>
+										<span class="text-[10px] text-slate-400 font-bold uppercase">{a.leads} Leads (30d)</span>
+									</div>
+								</td>
+								<td class="px-8 py-6 font-black text-slate-950 font-mono text-xs">
+									{a.capital}
+								</td>
+								<td class="px-8 py-6 text-right">
+									<a href={`/dashboard/territories/1`} class="text-blue-600 hover:text-blue-800 font-black text-[10px] uppercase tracking-widest">View Deed &rarr;</a>
+								</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</main>
+</Layout>

@@ -1,0 +1,110 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// PHASE 11: ALERT CENTER DATA
+const alerts = {
+	critical: [
+		{ id: "AL-001", type: "Ranking Collapse", target: "annapolisduidefense.com", impact: "High", message: "Google Rank dropped from #2 to #45 in 24 hours.", action: "Audit Backlinks" },
+		{ id: "AL-002", type: "Domain Expiration", target: "phoenixmdseptic.com", impact: "Total Loss", message: "Registry renewal failed. 48h until asset suspension.", action: "Force Renewal" },
+		{ id: "AL-003", type: "Site Offline", target: "clarksvillesepticpros.com", impact: "No Leads", message: "Server returning 522 Timeout from Cloudflare edge.", action: "Re-Deploy" }
+	],
+	warning: [
+		{ id: "AL-101", type: "Lease Expiry", target: "Young Septic Services", message: "Monopoly agreement expires in 14 days.", action: "Send Renewal" },
+		{ id: "AL-102", type: "Margin Decay", target: "Gibson Island Tree", message: "Infrastructure cost allocation exceeded 15% threshold.", action: "Optimize API" }
+	],
+	milestones: [
+		{ id: "AL-201", type: "Google #1", target: "phoenixmdseptic.com", message: "Dominant search position achieved for core keyword." },
+		{ id: "AL-202", type: "Breakeven", target: "annapolisduidefense.com", message: "Asset has recovered 100% of initial capital investment." }
+	]
+};
+---
+
+<Layout title="Alert Center | DigiiState OS">
+	<main class="min-h-screen bg-slate-50 flex">
+		<!-- Standard Sidebar -->
+		<aside class="w-64 bg-slate-950 text-white flex flex-col p-6 fixed h-full shadow-2xl overflow-y-auto">
+			<div class="text-2xl font-black tracking-tighter italic mb-12 text-center">Digii<span class="text-blue-500">State</span></div>
+			<div class="space-y-8">
+				<div>
+					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Operations</h3>
+					<nav class="space-y-1">
+						<a href="/dashboard" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Command Center</a>
+						<a href="/dashboard/portfolio" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Portfolio</a>
+					</nav>
+				</div>
+                <div>
+					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Infrastructure</h3>
+					<nav class="space-y-1">
+						<a href="/dashboard/infrastructure" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Infrastructure</a>
+						<a href="/dashboard/alerts" class="flex items-center gap-3 px-4 py-2.5 bg-blue-600 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all">Alerts</a>
+					</nav>
+				</div>
+			</div>
+		</aside>
+
+		<div class="flex-1 ml-64 p-12">
+			<header class="flex justify-between items-end mb-16">
+				<div>
+					<h1 class="text-4xl font-[900] text-slate-950 uppercase tracking-tighter leading-none">ALERT CENTER</h1>
+					<p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.3em] mt-3">Portfolio Anomaly Detection & Risk Management</p>
+				</div>
+				<div class="bg-red-50 border border-red-100 px-6 py-3 rounded-2xl flex items-center gap-3 shadow-sm">
+					<div class="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping"></div>
+					<span class="text-[9px] font-black uppercase text-red-600">3 Critical Alerts Active</span>
+				</div>
+			</header>
+
+			<!-- Critical Failures -->
+			<div class="space-y-4 mb-20">
+				<h3 class="text-xs font-black uppercase tracking-[0.4em] text-red-600 border-l-4 border-red-600 pl-4 mb-8">System Critical</h3>
+				{alerts.critical.map(a => (
+					<div class="bg-white border border-slate-200 rounded-[32px] p-10 flex justify-between items-center shadow-lg border-l-[12px] border-l-red-500 group hover:border-red-300 transition-all">
+						<div>
+							<div class="flex items-center gap-4 mb-2">
+								<b class="text-xl text-slate-950 uppercase tracking-tighter italic">{a.type}</b>
+								<span class="text-[10px] text-slate-400 font-mono font-bold tracking-widest">{a.id}</span>
+							</div>
+							<p class="text-slate-600 font-medium italic mb-6">“{a.message}”</p>
+							<div class="flex gap-6 text-[9px] font-black uppercase tracking-[0.2em] text-slate-400">
+								<span>Target: {a.target}</span>
+								<span>Impact: {a.impact}</span>
+							</div>
+						</div>
+						<button class="bg-red-600 text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-[11px] shadow-2xl shadow-red-600/30 hover:bg-slate-950 transition-all active:scale-95">
+							{a.action} &rarr;
+						</button>
+					</div>
+				))}
+			</div>
+
+			<!-- Warnings & Milestones -->
+			<div class="grid lg:grid-cols-2 gap-12">
+				<div class="space-y-6">
+					<h3 class="text-xs font-black uppercase tracking-[0.4em] text-amber-500 border-l-4 border-amber-500 pl-4 mb-8">Risk Warnings</h3>
+					{alerts.warning.map(w => (
+						<div class="bg-white border border-slate-200 rounded-[32px] p-8 shadow-sm">
+							<b class="text-slate-950 uppercase block mb-3">{w.type} | {w.target}</b>
+							<p class="text-sm text-slate-500 leading-relaxed mb-6 italic">“{w.message}”</p>
+							<button class="text-[10px] font-black uppercase tracking-widest text-blue-600 hover:text-blue-800 transition-colors">{w.action} &rarr;</button>
+						</div>
+					))}
+				</div>
+
+				<div class="space-y-6">
+					<h3 class="text-xs font-black uppercase tracking-[0.4em] text-emerald-500 border-l-4 border-emerald-500 pl-4 mb-8">Performance Milestones</h3>
+					{alerts.milestones.map(m => (
+						<div class="bg-slate-950 text-white border border-white/5 rounded-[32px] p-8 shadow-2xl relative overflow-hidden">
+							<div class="absolute top-0 right-0 w-24 h-24 bg-emerald-500/10 rounded-full blur-3xl"></div>
+							<div class="flex items-center gap-3 mb-4">
+								<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+								<b class="text-xs uppercase tracking-widest text-emerald-400">{m.type}</b>
+							</div>
+							<b class="text-lg uppercase tracking-tight block mb-2">{m.target}</b>
+							<p class="text-xs text-slate-500 font-medium italic">“{m.message}”</p>
+						</div>
+					))}
+				</div>
+			</div>
+		</div>
+	</main>
+</Layout>

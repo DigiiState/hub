@@ -1,56 +1,167 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 
-const recentLeads = [
-	{ id: "L-9021", site: "Phoenix Septic", type: "Emergency", time: "14m ago", phone: "(410) 555-0199", status: "Qualified" },
-	{ id: "L-9020", site: "Dallas Roofing", type: "Routine", time: "1h ago", phone: "(214) 555-9821", status: "Unassigned" },
-	{ id: "L-9019", site: "Annapolis Law", type: "Intake", time: "3h ago", phone: "(443) 555-0102", status: "Forwarded" },
+// PHASE 10: ENHANCED LEAD LEDGER DATA
+const leads = [
+	{ 
+		id: "L-9021", 
+		date: "Aug 16, 2:14 PM",
+		asset: "phoenixmdseptic.com",
+		territory: "Phoenix, MD",
+		renter: "Young Septic Services",
+		name: "John Harrison",
+		phone: "(410) 555-0199",
+		source: "Google Search",
+		keyword: "emergency septic pump phoenix",
+		duration: "4:12",
+		status: "Qualified",
+		appointment: "Scheduled",
+		jobWon: "Pending",
+		estValue: "$1,200",
+		revenue: "$0.00"
+	},
+	{ 
+		id: "L-9022", 
+		date: "Aug 16, 4:45 PM",
+		asset: "clarksvillesepticpros.com",
+		territory: "Clarksville, MD",
+		renter: "Young Septic Services",
+		name: "Sarah Miller",
+		phone: "(443) 555-9821",
+		source: "Google Map Pack",
+		keyword: "septic riser repair",
+		duration: "2:08",
+		status: "Qualified",
+		appointment: "Booked",
+		jobWon: "Yes",
+		estValue: "$2,800",
+		revenue: "$2,800.00"
+	},
+    { 
+		id: "L-9023", 
+		date: "Aug 16, 6:12 PM",
+		asset: "annapolisduidefense.com",
+		territory: "Annapolis, MD",
+		renter: "Portner & Shure",
+		name: "Confidential",
+		phone: "(410) 555-7788",
+		source: "Direct",
+		keyword: "dui lawyer annapolis",
+		duration: "12:45",
+		status: "Qualified",
+		appointment: "Scheduled",
+		jobWon: "Pending",
+		estValue: "$5,000",
+		revenue: "$0.00"
+	}
 ];
 ---
 
 <Layout title="Lead Ledger | DigiiState OS">
 	<main class="min-h-screen bg-slate-50 flex">
-		<aside class="w-64 bg-slate-950 text-white flex flex-col p-6 fixed h-full">
-			<div class="text-xl font-black tracking-tighter italic mb-12">Digii<span class="text-blue-500">State</span></div>
-			<nav class="flex-1 space-y-1">
-				<a href="/dashboard" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"><span>📊</span> Dashboard</a>
-				<a href="/dashboard/territories" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"><span>🗺️</span> Territories</a>
-				<a href="/dashboard/leads" class="flex items-center gap-3 px-4 py-3 bg-blue-600 rounded-xl text-xs font-bold uppercase tracking-widest"><span>📞</span> Lead Ledger</a>
-				<a href="/dashboard/calculators" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"><span>🧮</span> Calculators</a>
-				<a href="/dashboard/payouts" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"><span>💰</span> Payouts</a>
-				<a href="/dashboard/renewals" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"><span>⏳</span> Renewals</a>
-				<a href="/dashboard/settings" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"><span>⚙️</span> Settings</a>
-			</nav>
+		<!-- Standard Sidebar -->
+		<aside class="w-64 bg-slate-950 text-white flex flex-col p-6 fixed h-full shadow-2xl overflow-y-auto">
+			<div class="text-2xl font-black tracking-tighter italic mb-12 text-center">Digii<span class="text-blue-500">State</span></div>
+			<div class="space-y-8">
+				<div>
+					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Operations</h3>
+					<nav class="space-y-1">
+						<a href="/dashboard" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Command Center</a>
+						<a href="/dashboard/portfolio" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Portfolio</a>
+						<a href="/dashboard/territories" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Territories</a>
+						<a href="/dashboard/vault" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Digital Vault</a>
+						<a href="/dashboard/leads" class="flex items-center gap-3 px-4 py-2.5 bg-blue-600 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all">Lead Ledger</a>
+						<a href="/dashboard/renters" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Renters</a>
+					</nav>
+				</div>
+                <div>
+					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Growth</h3>
+					<nav class="space-y-1">
+						<a href="/dashboard/acquisitions" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Acquisitions</a>
+						<a href="/dashboard/intelligence" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Intelligence</a>
+					</nav>
+				</div>
+                <div>
+					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Finance</h3>
+					<nav class="space-y-1">
+						<a href="/dashboard/financials" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Financials</a>
+						<a href="/dashboard/payouts" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Payouts</a>
+						<a href="/dashboard/calculators" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Calculators</a>
+					</nav>
+				</div>
+			</div>
 		</aside>
 
-		<div class="flex-1 ml-64 p-10">
-			<h1 class="text-3xl font-black text-slate-950 uppercase tracking-tight mb-12">Lead Ledger</h1>
+		<div class="flex-1 ml-64 p-12">
+			<header class="flex justify-between items-end mb-16">
+				<div>
+					<h1 class="text-4xl font-[900] text-slate-950 uppercase tracking-tighter leading-none">LEAD LEDGER</h1>
+					<p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.3em] mt-3">Inquiry Triage & Revenue Attribution</p>
+				</div>
+				<div class="flex gap-4">
+					<div class="bg-white border border-slate-200 px-6 py-3 rounded-2xl flex items-center gap-3 shadow-sm">
+						<span class="text-[9px] font-black uppercase text-slate-400">Total Pipeline Value</span>
+						<b class="text-sm text-emerald-600">$18,400.00</b>
+					</div>
+				</div>
+			</header>
+
+			<!-- Advanced Lead Data Grid -->
 			<div class="bg-white border border-slate-200 rounded-[40px] shadow-sm overflow-hidden">
-				<table class="w-full text-left">
-					<thead class="bg-slate-50 border-b border-slate-100">
-						<tr class="text-[10px] font-black uppercase text-slate-400 tracking-widest">
-							<th class="px-8 py-4">Lead ID</th>
-							<th class="px-8 py-4">Territory</th>
-							<th class="px-8 py-4">Status</th>
-							<th class="px-8 py-4">Action</th>
-						</tr>
-					</thead>
-					<tbody class="divide-y divide-slate-50">
-						{recentLeads.map(lead => (
-							<tr class="hover:bg-slate-50 transition-colors group">
-								<td class="px-8 py-6 font-mono text-[11px] font-bold text-slate-400">{lead.id}</td>
-								<td class="px-8 py-6">
-									<b class="text-slate-950 block">{lead.site}</b>
-									<span class="text-[10px] text-slate-400 font-bold uppercase">{lead.time}</span>
-								</td>
-								<td class="px-8 py-6 text-xs font-bold text-slate-600">{lead.status}</td>
-								<td class="px-8 py-6">
-									<button class="text-blue-600 hover:text-blue-800 font-black text-[10px] uppercase tracking-widest">Listen &rarr;</button>
-								</td>
+				<div class="overflow-x-auto">
+					<table class="w-full text-left text-sm whitespace-nowrap">
+						<thead>
+							<tr class="bg-slate-50 text-[9px] uppercase font-black tracking-widest text-slate-400 border-b border-slate-100">
+								<th class="px-8 py-5">Timestamp / ID</th>
+								<th class="px-8 py-5">Source / Keyword</th>
+								<th class="px-8 py-5">Digital Property</th>
+								<th class="px-8 py-5">Renter</th>
+								<th class="px-8 py-5 text-center">Duration</th>
+								<th class="px-8 py-5">Status</th>
+								<th class="px-8 py-5 text-right">Value (Won)</th>
 							</tr>
-						))}
-					</tbody>
-				</table>
+						</thead>
+						<tbody class="divide-y divide-slate-50">
+							{leads.map(l => (
+								<tr class="hover:bg-slate-50/50 transition-colors group">
+									<td class="px-8 py-6">
+										<b class="text-slate-950 block">{l.date}</b>
+										<span class="text-[9px] text-slate-400 font-mono font-bold uppercase">{l.id}</span>
+									</td>
+									<td class="px-8 py-6">
+										<div class="flex flex-col">
+											<b class="text-slate-900 text-xs">{l.source}</b>
+											<span class="text-[10px] text-blue-500 font-bold italic">"{l.keyword}"</span>
+										</div>
+									</td>
+									<td class="px-8 py-6 text-[10px] font-black text-slate-600 uppercase italic">
+										{l.asset}
+									</td>
+									<td class="px-8 py-6 text-xs font-bold text-slate-600">
+										{l.renter}
+									</td>
+									<td class="px-8 py-6 text-center font-mono text-[10px] font-bold text-slate-400">
+										{l.duration}
+									</td>
+									<td class="px-8 py-6">
+										<div class="flex items-center gap-2">
+											<span class={`px-2 py-0.5 rounded text-[8px] font-black uppercase ${l.status === 'Qualified' ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-100 text-slate-400'}`}>
+												{l.status}
+											</span>
+											{l.appointment && <span class="px-2 py-0.5 bg-blue-50 text-blue-600 rounded text-[8px] font-black uppercase">Appt</span>}
+										</div>
+									</td>
+									<td class="px-8 py-6 text-right">
+										<div class="flex flex-col">
+											<b class="text-slate-950 text-sm">{l.revenue}</b>
+											<span class="text-[9px] text-slate-400 font-bold uppercase">Est: {l.estValue}</span>
+										</div>
+									</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</main>

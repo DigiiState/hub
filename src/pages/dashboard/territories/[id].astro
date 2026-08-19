@@ -1,0 +1,184 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+
+// PHASE 5: DIGITAL DEED DATA
+const asset = {
+	id: "DEED-PHX-001",
+	domain: "phoenixmdseptic.com",
+	vertical: "Septic Pumping",
+	city: "Phoenix",
+	county: "Baltimore",
+	state: "MD",
+	territory: "MD-North-01",
+	registrar: "Cloudflare",
+	regDate: "Aug 15, 2026",
+	expDate: "Aug 15, 2027",
+	autoRenew: true,
+	acqSource: "Direct Registration",
+	purchasePrice: 10.46,
+	hosting: "Cloudflare Pages",
+	platform: "Astro",
+	searchConsole: "Verified",
+	callTracking: "Twilio",
+	trackingNumber: "866-891-9778",
+	devCost: 250.00,
+	seoInvestment: 500.00,
+	totalCapital: 760.46,
+	renter: "Young Septic Services",
+	monthlyRent: 1250.00,
+	healthScore: 94,
+	lifecycleStage: "Leased"
+};
+
+// PHASE 3: HEALTH SCORE WEIGHTING
+const healthMetrics = [
+	{ label: "Search Rankings", score: 92, weight: 20 },
+	{ label: "Lead Volume", score: 88, weight: 15 },
+	{ label: "Revenue", score: 100, weight: 15 },
+	{ label: "SEO Health", score: 95, weight: 15 },
+	{ label: "Lease Status", score: 100, weight: 10 },
+	{ label: "Conversion Rate", score: 82, weight: 10 },
+	{ label: "Profit Margin", score: 98, weight: 10 },
+	{ label: "Technical Health", score: 100, weight: 5 },
+];
+
+// PHASE 6: 16-STAGE LIFECYCLE
+const lifecycleStages = [
+	"Research", "Underwriting", "Acq. Approved", "Domain Acquired", 
+	"Development", "Indexed", "Ranking", "Generating Leads", 
+	"Lease Ready", "Available", "Leased", "Stabilized", 
+	"Expansion", "Distressed", "Exit / Sale", "Retired"
+];
+const currentStageIndex = lifecycleStages.indexOf(asset.lifecycleStage);
+---
+
+<Layout title={`${asset.domain} | Digital Deed`}>
+	<main class="min-h-screen bg-slate-50 flex">
+		<!-- Standard Sidebar -->
+		<aside class="w-64 bg-slate-950 text-white flex flex-col p-6 fixed h-full shadow-2xl">
+			<div class="text-2xl font-black tracking-tighter italic mb-12 text-center">Digii<span class="text-blue-500">State</span></div>
+			<nav class="space-y-1">
+				<a href="/dashboard" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Command Center</a>
+				<a href="/dashboard/territories" class="flex items-center gap-3 px-4 py-2.5 bg-blue-600 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all">Portfolio</a>
+				<a href="/dashboard/leads" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Lead Ledger</a>
+				<a href="/dashboard/payouts" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Financials</a>
+			</nav>
+		</aside>
+
+		<div class="flex-1 ml-64 p-12">
+			<!-- Header -->
+			<header class="flex justify-between items-end mb-16">
+				<div>
+					<div class="flex items-center gap-4 mb-4">
+						<h1 class="text-4xl font-[900] text-slate-950 uppercase tracking-tighter leading-none">{asset.domain}</h1>
+						<div class="px-4 py-1.5 bg-emerald-50 text-emerald-600 border border-emerald-100 rounded-full text-[10px] font-black uppercase tracking-widest">
+							Score: {asset.healthScore} | Performing
+						</div>
+					</div>
+					<p class="text-slate-400 text-sm font-black uppercase tracking-[0.2em]">{asset.vertical} • {asset.city}, {asset.state}</p>
+				</div>
+				<div class="flex gap-4">
+					<button class="bg-white border border-slate-200 px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-500 shadow-sm hover:bg-slate-50 transition-all">Download P&L</button>
+					<button class="bg-blue-600 text-white px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-xl shadow-blue-600/20 active:scale-95 transition-all">Edit Deed</button>
+				</div>
+			</header>
+
+			<!-- PHASE 6: LIFECYCLE TIMELINE -->
+			<section class="bg-white border border-slate-200 rounded-[48px] p-12 mb-12 shadow-sm">
+				<h3 class="text-xs font-black uppercase tracking-[0.4em] text-slate-400 mb-12 text-center">Institutional Asset Lifecycle</h3>
+				<div class="relative px-12">
+					<div class="absolute h-1 bg-slate-100 w-[calc(100%-6rem)] top-1.5 left-12 z-0"></div>
+					<div class="flex justify-between relative z-10">
+						{lifecycleStages.map((stage, i) => (
+							<div class="flex flex-col items-center group">
+								<div class={`w-4 h-4 rounded-full border-4 border-white shadow-sm transition-all duration-500 ${i <= currentStageIndex ? 'bg-blue-600 scale-125' : 'bg-slate-200'}`}></div>
+								<span class={`absolute top-8 text-[7px] font-black uppercase tracking-tighter text-center w-16 opacity-0 group-hover:opacity-100 transition-all ${i === currentStageIndex ? 'opacity-100 text-blue-600' : 'text-slate-400'}`}>
+									{stage}
+								</span>
+							</div>
+						))}
+					</div>
+				</div>
+				<div class="mt-20 grid grid-cols-3 gap-12 text-center">
+					<div>
+						<span class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Current Stage</span>
+						<b class="block text-2xl text-blue-600 uppercase tracking-tighter mt-2">{asset.lifecycleStage}</b>
+					</div>
+					<div>
+						<span class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Days in Stage</span>
+						<b class="block text-2xl text-slate-950 uppercase tracking-tighter mt-2">14 Days</b>
+					</div>
+					<div>
+						<span class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Requirement to Advance</span>
+						<b class="block text-sm text-slate-400 uppercase tracking-widest mt-3 italic">Lease Executed</b>
+					</div>
+				</div>
+			</section>
+
+			<!-- PHASE 3 & 5: HEALTH SCORE & DIGITAL DEED -->
+			<div class="grid lg:grid-cols-2 gap-8">
+				<!-- Health Score Breakdown -->
+				<div class="bg-white border border-slate-200 rounded-[48px] p-12 shadow-sm">
+					<h3 class="text-xs font-black uppercase tracking-[0.4em] text-slate-400 mb-10">Health Score Breakdown</h3>
+					<div class="space-y-6">
+						{healthMetrics.map(m => (
+							<div class="flex flex-col gap-2">
+								<div class="flex justify-between text-[9px] font-black uppercase tracking-widest">
+									<span class="text-slate-500">{m.label} <small class="text-slate-300 font-medium">({m.weight}%)</small></span>
+									<span class={m.score >= 80 ? "text-emerald-500" : "text-amber-500"}>{m.score}/100</span>
+								</div>
+								<div class="h-1.5 bg-slate-50 rounded-full overflow-hidden">
+									<div class={`h-full rounded-full transition-all duration-1000 ${m.score >= 80 ? 'bg-emerald-500' : 'bg-amber-500'}`} style={`width: ${m.score}%`}></div>
+								</div>
+							</div>
+						))}
+					</div>
+				</div>
+
+				<!-- Digital Deed (The Data Vault) -->
+				<div class="bg-slate-950 text-white p-12 rounded-[48px] shadow-2xl relative overflow-hidden">
+					<div class="absolute top-0 right-0 w-48 h-48 bg-blue-600/10 rounded-full blur-[80px]"></div>
+					<h3 class="text-xs font-black uppercase tracking-[0.4em] text-blue-500 mb-10 italic">Official Digital Deed</h3>
+					<div class="grid grid-cols-2 gap-10 font-mono text-[10px]">
+						<div class="space-y-6">
+							<div>
+								<span class="text-slate-500 uppercase block mb-1">Asset ID</span>
+								<b class="text-white">{asset.id}</b>
+							</div>
+							<div>
+								<span class="text-slate-500 uppercase block mb-1">Acquisition Source</span>
+								<b class="text-white">{asset.acqSource}</b>
+							</div>
+							<div>
+								<span class="text-slate-500 uppercase block mb-1">Purchase Price</span>
+								<b class="text-white">${asset.purchasePrice}</b>
+							</div>
+							<div>
+								<span class="text-slate-500 uppercase block mb-1">Capital Invested</span>
+								<b class="text-emerald-400">${asset.totalCapital}</b>
+							</div>
+						</div>
+						<div class="space-y-6">
+							<div>
+								<span class="text-slate-500 uppercase block mb-1">Registrar</span>
+								<b class="text-white">{asset.registrar}</b>
+							</div>
+							<div>
+								<span class="text-slate-500 uppercase block mb-1">Expiry Date</span>
+								<b class="text-amber-500">{asset.expDate}</b>
+							</div>
+							<div>
+								<span class="text-slate-500 uppercase block mb-1">Auto-Renew</span>
+								<b class="text-emerald-400">ENABLED</b>
+							</div>
+							<div>
+								<span class="text-slate-500 uppercase block mb-1">Search Console</span>
+								<b class="text-blue-400 uppercase">Linked</b>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</Layout>

@@ -1,164 +1,285 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-// Mock Data for Pilot Phase
+// EXECUTIVE COMMAND CENTER DATA (Aligned with Directive)
 const portfolioStats = {
-	totalRevenue: "$1,875.00",
-	totalLeads: "142",
-	occupancy: "15%",
-	avgRanking: "#4.2"
+	totalAssets: 20,
+	territories: 20,
+	states: 5,
+	leasedAssets: 3,
+	availableAssets: 17,
+	rankingAssets: 5,
+	monthlyRentRoll: 3750.00,
+	monthlyExpenses: 60.50,
+	monthlyNOI: 3689.50,
+	annualizedRevenue: 45000.00,
+	annualizedNOI: 44274.00,
+	portfolioValue: 20000.00, // Based on $1k/deed
+	leads30d: 142,
+	avgCPL: 0.42,
+	avgHealthScore: 88,
+	prevLeads30d: 128,
+	prevRentRoll: 3125.00
 };
 
-const territories = [
-	{ name: "Phoenix MD Septic", domain: "phoenixmdseptic.com", leads: 8, status: "Leased", rent: "$312.50", niche: "Septic", ranking: "#1" },
-	{ name: "Clarksville Septic", domain: "clarksvillesepticpros.pages.dev", leads: 5, status: "Ranking", rent: "$312.50", niche: "Septic", ranking: "#8" },
-	{ name: "Gibson Island Tree", domain: "gibson-island-tree-removal.pages.dev", leads: 3, status: "Ranking", rent: "$312.50", niche: "Tree", ranking: "#14" },
-	{ name: "Annapolis Tree", domain: "annapolis-tree-pros.pages.dev", leads: 12, status: "Available", rent: "$312.50", niche: "Tree", ranking: "#22" },
-	{ name: "Clarksville Water", domain: "clarksville-water-damage.pages.dev", leads: 4, status: "Ranking", rent: "$312.50", niche: "Water", ranking: "#11" },
-	{ name: "Annapolis DUI Law", domain: "annapolis-dui-defense.pages.dev", leads: 2, status: "Available", rent: "$625.00", niche: "Law", ranking: "#45" },
+// PHASE 14: INSTITUTIONAL HEALTH SCORING ALGORITHM
+const calculateHealth = (asset) => {
+    let score = 50; // Base score for presence
+    if (asset.status === 'Leased') score += 10;
+    
+    const rank = parseInt(asset.ranks.google.replace('#', ''));
+    if (rank <= 1) score += 20;
+    else if (rank <= 3) score += 18;
+    else if (rank <= 10) score += 15;
+    else if (rank <= 20) score += 10;
+    
+    // Lead velocity simulation (to be replaced by live query)
+    const leadVelocity = asset.status === 'Leased' ? 20 : 5;
+    score += Math.min(20, leadVelocity);
+    
+    return Math.min(100, score);
+};
+
+const managementAttention = [
+	{ type: 'warning', message: 'Domain "phoenixmdseptic.com" expires in 60 days.', action: 'Renew Asset' },
+	{ type: 'critical', message: 'Leads declined 12% for "Annapolis DUI Law" in previous 30 days.', action: 'Audit SEO' },
+	{ type: 'positive', message: 'Asset "Clarksville Septic" is now lease ready (#8 Google).', action: 'Trigger Outreach' },
 ];
 
-const recentLeads = [
-	{ id: "L-9021", site: "Phoenix Septic", type: "Emergency", time: "14m ago", phone: "(410) 555-0199", status: "Qualified" },
-	{ id: "L-9020", site: "Dallas Roofing", type: "Routine", time: "1h ago", phone: "(214) 555-9821", status: "Unassigned" },
-	{ id: "L-9019", site: "Annapolis Law", type: "Intake", time: "3h ago", phone: "(443) 555-0102", status: "Forwarded" },
+const territories = [
+	{ 
+		name: "Phoenix Septic", 
+		domain: "phoenixmdseptic.com", 
+		registrar: "Cloudflare",
+		ranks: { google: "#1", bing: "#2", yahoo: "#1", ddg: "#4" },
+		status: "Leased", 
+		health: calculateHealth({ status: 'Leased', ranks: { google: '#1' } })
+	},
+	{ 
+		name: "Clarksville Septic", 
+		domain: "clarksvillesepticpros.com", 
+		registrar: "Cloudflare",
+		ranks: { google: "#2", bing: "#5", yahoo: "#2", ddg: "#8" },
+		status: "Leased", 
+		health: calculateHealth({ status: 'Leased', ranks: { google: '#2' } })
+	},
+	{ 
+		name: "Austin Junk", 
+		domain: "austin-junk.pages.dev", 
+		registrar: "Cloudflare",
+		ranks: { google: "#8", bing: "#12", yahoo: "#9", ddg: "#5" },
+		status: "Ranking", 
+		health: calculateHealth({ status: 'Ranking', ranks: { google: '#8' } })
+	},
+	{ 
+		name: "Annapolis DUI Law", 
+		domain: "annapolisduidefense.com", 
+		registrar: "Cloudflare",
+		ranks: { google: "#11", bing: "#18", yahoo: "#10", ddg: "#14" },
+		status: "Trial", 
+		health: calculateHealth({ status: 'Trial', ranks: { google: '#11' } })
+	},
+	{ 
+		name: "Gibson Island Tree", 
+		domain: "gibsonislandtreeremoval.com", 
+		registrar: "Cloudflare",
+		ranks: { google: "#4", bing: "#8", yahoo: "#3", ddg: "#6" },
+		status: "Ranking", 
+		health: calculateHealth({ status: 'Ranking', ranks: { google: '#4' } })
+	}
 ];
 ---
 
-<Layout title="Admin Dashboard | DigiiState OS">
+<Layout title="Command Center | DigiiState OS">
 	<main class="min-h-screen bg-slate-50 flex">
-		<!-- Sidebar -->
-		<aside class="w-64 bg-slate-950 text-white flex flex-col p-6 fixed h-full">
-			<div class="text-xl font-black tracking-tighter italic mb-12">
-				Digii<span class="text-blue-500">State</span>
-			</div>
-			
-			<nav class="flex-1 space-y-1">
-				<a href="/dashboard" class="flex items-center gap-3 px-4 py-3 bg-blue-600 rounded-xl text-xs font-bold uppercase tracking-widest"><span>📊</span> Dashboard</a>
-				<a href="/dashboard/territories" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"><span>🗺️</span> Territories</a>
-				<a href="/dashboard/leads" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"><span>📞</span> Lead Ledger</a>
-				<a href="/dashboard/calculators" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"><span>🧮</span> Calculators</a>
-				<a href="/dashboard/payouts" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"><span>💰</span> Payouts</a>
-				<a href="/dashboard/renewals" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"><span>⏳</span> Renewals</a>
-				<a href="/dashboard/settings" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"><span>⚙️</span> Settings</a>
-			</nav>
-
-			<div class="pt-8 border-t border-white/10 mt-auto">
-				<div class="flex items-center gap-3 px-4 py-3 text-xs font-bold uppercase text-slate-500 tracking-widest">
-					<div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-					System Online
+		<!-- Standardized Sidebar -->
+		<aside class="w-64 bg-slate-950 text-white flex flex-col p-6 fixed h-full shadow-2xl overflow-y-auto">
+			<div class="text-2xl font-black tracking-tighter italic mb-12">Digii<span class="text-blue-500">State</span></div>
+			<div class="space-y-8">
+				<div>
+					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Operations</h3>
+					<nav class="space-y-1">
+						<a href="/dashboard" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard">Command Center</a>
+						<a href="/dashboard/portfolio" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/portfolio">Portfolio</a>
+						<a href="/dashboard/territories" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/territories">Territories</a>
+						<a href="/dashboard/vault" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/vault">Digital Vault</a>
+						<a href="/dashboard/leads" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/leads">Lead Ledger</a>
+						<a href="/dashboard/renters" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/renters">Renters</a>
+					</nav>
+				</div>
+				<div>
+					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Growth</h3>
+					<nav class="space-y-1">
+						<a href="/dashboard/acquisitions" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/acquisitions">Acquisitions</a>
+						<a href="/dashboard/intelligence" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/intelligence">Intelligence</a>
+					</nav>
+				</div>
+				<div>
+					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Finance</h3>
+					<nav class="space-y-1">
+						<a href="/dashboard/financials" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/financials">Financials</a>
+						<a href="/dashboard/payouts" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/payouts">Payouts</a>
+						<a href="/dashboard/calculators" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/calculators">Calculators</a>
+					</nav>
+				</div>
+				<div>
+					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Infrastructure</h3>
+					<nav class="space-y-1">
+						<a href="/dashboard/infrastructure" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/infrastructure">Infrastructure</a>
+						<a href="/dashboard/alerts" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/alerts">Alerts</a>
+					</nav>
+				</div>
+				<div class="pt-8 border-t border-white/10 mt-auto">
+					<a href="/dashboard/settings" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all" data-path="/dashboard/settings">Settings</a>
 				</div>
 			</div>
 		</aside>
 
-		<!-- Main Content -->
-		<div class="flex-1 ml-64 p-10">
-			<!-- Header -->
-			<header class="flex justify-between items-end mb-12">
+		<div class="flex-1 ml-64 p-12">
+			<!-- Command Center Header -->
+			<header class="flex justify-between items-end mb-16">
 				<div>
-					<h1 class="text-3xl font-black text-slate-950 uppercase tracking-tight">Portfolio Overview</h1>
-					<p class="text-slate-400 text-sm font-medium">Managing 20 US Territories</p>
+					<h1 class="text-4xl font-black text-slate-950 uppercase tracking-tighter leading-none">COMMAND CENTER</h1>
+					<p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.3em] mt-3">Executive Oversight & Portfolio Performance</p>
 				</div>
 				<div class="flex gap-4">
-					<button class="bg-white border border-slate-200 px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-600 hover:bg-slate-50 transition-all shadow-sm">
-						Download Report
-					</button>
-					<button class="bg-blue-600 text-white px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-blue-700 transition-all shadow-xl shadow-blue-600/20">
-						Deploy New Asset
-					</button>
+					<div class="bg-white border border-slate-200 p-6 rounded-3xl flex gap-12 shadow-sm">
+						<div>
+							<span class="text-[9px] font-black text-slate-400 uppercase block mb-1">Portfolio Health</span>
+							<b class="text-xl text-emerald-500">{portfolioStats.avgHealthScore}</b>
+						</div>
+						<div class="w-px h-8 bg-slate-100"></div>
+						<div>
+							<span class="text-[9px] font-black text-slate-400 uppercase block mb-1">Total Assets</span>
+							<b class="text-xl text-slate-950">{portfolioStats.totalAssets}</b>
+						</div>
+					</div>
 				</div>
 			</header>
 
-			<!-- Stats Grid -->
-			<div class="grid grid-cols-4 gap-6 mb-12">
-				<div class="bg-white p-6 rounded-[32px] border border-slate-200 shadow-sm">
-					<span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-4">Weekly Rent Roll</span>
-					<div class="text-3xl font-black text-slate-950">{portfolioStats.totalRevenue}</div>
-					<div class="text-[10px] font-bold text-emerald-500 mt-2 uppercase tracking-tighter">+12% vs last week</div>
+			<!-- 1. MANAGEMENT ATTENTION (Phase 1) -->
+			<section class="mb-16">
+				<div class="flex items-center gap-3 mb-8">
+					<h3 class="text-xs font-black uppercase tracking-[0.2em] text-red-600 border-l-4 border-red-600 pl-4">Management Attention</h3>
+					<span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">3 Issues Requiring Action</span>
 				</div>
-				<div class="bg-white p-6 rounded-[32px] border border-slate-200 shadow-sm">
-					<span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-4">Total Leads (30D)</span>
-					<div class="text-3xl font-black text-slate-950">{portfolioStats.totalLeads}</div>
-					<div class="text-[10px] font-bold text-blue-500 mt-2 uppercase tracking-tighter">Avg $42.10 Cost/Lead</div>
+				<div class="grid gap-4">
+					{managementAttention.map(item => (
+						<div class="bg-white border border-slate-200 rounded-2xl p-5 flex justify-between items-center shadow-sm hover:border-blue-200 transition-all group">
+							<div class="flex items-center gap-4">
+								<div class={`w-2.5 h-2.5 rounded-full ${item.type === 'critical' ? 'bg-red-500 animate-pulse' : item.type === 'warning' ? 'bg-amber-500' : 'bg-emerald-500'}`}></div>
+								<span class="text-sm font-bold text-slate-800">{item.message}</span>
+							</div>
+							<button class="bg-slate-50 text-blue-600 px-4 py-2 rounded-lg font-black text-[10px] uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all">{item.action} &rarr;</button>
+						</div>
+					))}
 				</div>
-				<div class="bg-white p-6 rounded-[32px] border border-slate-200 shadow-sm">
-					<span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-4">Market Occupancy</span>
-					<div class="text-3xl font-black text-slate-950">{portfolioStats.occupancy}</div>
-					<div class="text-[10px] font-bold text-amber-500 mt-2 uppercase tracking-tighter">3 Leased | 17 Available</div>
+			</section>
+
+			<!-- 2. PRIMARY EXECUTIVE METRICS (Phase 1) -->
+			<div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+				<div class="bg-white p-8 rounded-[40px] border border-slate-200 shadow-sm relative overflow-hidden">
+					<div class="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-full translate-x-12 -translate-y-12 blur-2xl"></div>
+					<span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-4">Monthly Rent Roll</span>
+					<div class="text-3xl font-black text-slate-950">${portfolioStats.monthlyRentRoll.toLocaleString()}</div>
+					<div class={`text-[10px] font-bold mt-2 uppercase ${portfolioStats.monthlyRentRoll > portfolioStats.prevRentRoll ? 'text-emerald-500' : 'text-slate-400'}`}>
+						{portfolioStats.monthlyRentRoll > portfolioStats.prevRentRoll ? `+${( (portfolioStats.monthlyRentRoll - portfolioStats.prevRentRoll) / portfolioStats.prevRentRoll * 100 ).toFixed(1)}%` : '0%'} vs prev 30d
+					</div>
 				</div>
-				<div class="bg-white p-6 rounded-[32px] border border-slate-200 shadow-sm">
-					<span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-4">Avg. Search Rank</span>
-					<div class="text-3xl font-black text-slate-950">{portfolioStats.avgRanking}</div>
-					<div class="text-[10px] font-bold text-emerald-500 mt-2 uppercase tracking-tighter">↑ 2 Spots Avg</div>
+				<div class="bg-white p-8 rounded-[40px] border border-slate-200 shadow-sm">
+					<span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-4">Monthly NOI</span>
+					<div class="text-3xl font-black text-slate-950">${portfolioStats.monthlyNOI.toLocaleString()}</div>
+					<div class="text-[10px] font-bold text-slate-400 mt-2 uppercase tracking-tighter">98.4% Operating Margin</div>
+				</div>
+				<div class="bg-white p-8 rounded-[40px] border border-slate-200 shadow-sm">
+					<span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-4">Annualized NOI</span>
+					<div class="text-3xl font-black text-slate-950">${portfolioStats.annualizedNOI.toLocaleString()}</div>
+					<div class="text-[10px] font-bold text-blue-500 mt-2 uppercase tracking-tighter">Projected Yield</div>
+				</div>
+				<div class="bg-white p-8 rounded-[40px] border border-slate-200 shadow-sm">
+					<span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-4">Portfolio Value</span>
+					<div class="text-3xl font-black text-slate-950">${portfolioStats.portfolioValue.toLocaleString()}</div>
+					<div class="text-[10px] font-bold text-emerald-500 mt-2 uppercase tracking-tighter">Based on Market Multiple</div>
 				</div>
 			</div>
 
-			<div class="grid lg:grid-cols-3 gap-8">
-				<!-- Lead Ledger -->
-				<div class="lg:col-span-2 bg-white border border-slate-200 rounded-[40px] shadow-sm overflow-hidden">
-					<div class="px-8 py-6 border-b border-slate-100 flex justify-between items-center">
-						<h3 class="text-xs font-black uppercase tracking-widest text-slate-950">Real-Time Lead Ledger</h3>
-						<span class="px-3 py-1 bg-emerald-50 text-emerald-600 text-[10px] font-black rounded-full uppercase tracking-widest animate-pulse">Live</span>
-					</div>
-					<div class="overflow-x-auto">
-						<table class="w-full text-left text-sm">
-							<thead>
-								<tr class="bg-slate-50 text-[10px] uppercase font-black tracking-widest text-slate-400 border-b border-slate-100">
-									<th class="px-8 py-4">Lead ID</th>
-									<th class="px-8 py-4">Territory</th>
-									<th class="px-8 py-4">Type</th>
-									<th class="px-8 py-4">Status</th>
-									<th class="px-8 py-4 text-right">Action</th>
-								</tr>
-							</thead>
-							<tbody class="divide-y divide-slate-50">
-								{recentLeads.map(lead => (
-									<tr class="hover:bg-slate-50 transition-colors group">
-										<td class="px-8 py-6 font-mono text-[11px] font-bold text-slate-400">{lead.id}</td>
-										<td class="px-8 py-6">
-											<div class="font-bold text-slate-950">{lead.site}</div>
-											<div class="text-[10px] text-slate-400 font-bold uppercase">{lead.time}</div>
-										</td>
-										<td class="px-8 py-6">
-											<span class={`text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-lg ${lead.type === 'Emergency' ? 'bg-red-50 text-red-600' : 'bg-blue-50 text-blue-600'}`}>
-												{lead.type}
-											</span>
-										</td>
-										<td class="px-8 py-6 font-bold text-xs text-slate-600">{lead.status}</td>
-										<td class="px-8 py-6 text-right">
-											<button class="text-blue-600 hover:text-blue-800 font-black text-[10px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">View Record &rarr;</button>
-										</td>
-									</tr>
-								))}
-							</tbody>
-						</table>
+			<!-- 3. INVENTORY & SCALE (Phase 1) -->
+			<div class="grid md:grid-cols-3 gap-6 mb-16">
+				<div class="bg-slate-950 text-white p-10 rounded-[48px] shadow-2xl relative overflow-hidden">
+					<div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl"></div>
+					<h3 class="text-xs font-black uppercase tracking-[0.4em] text-blue-500 mb-8 italic">Asset Allocation</h3>
+					<div class="space-y-6">
+						<div class="flex justify-between items-center py-3 border-b border-white/5">
+							<span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Leased Assets</span>
+							<b class="text-lg">{portfolioStats.leasedAssets}</b>
+						</div>
+						<div class="flex justify-between items-center py-3 border-b border-white/5">
+							<span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Ranking Assets</span>
+							<b class="text-lg">{portfolioStats.rankingAssets}</b>
+						</div>
+						<div class="flex justify-between items-center py-3">
+							<span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">States Represented</span>
+							<b class="text-lg">{portfolioStats.states}</b>
+						</div>
 					</div>
 				</div>
 
-				<!-- Territory Summary -->
-				<div class="bg-white border border-slate-200 rounded-[40px] shadow-sm p-8">
-					<h3 class="text-xs font-black uppercase tracking-widest text-slate-950 mb-8">Active Territories</h3>
+				<div class="bg-white border border-slate-200 p-10 rounded-[48px] shadow-sm">
+					<h3 class="text-xs font-black uppercase tracking-[0.4em] text-slate-400 mb-8">Lead Metrics</h3>
 					<div class="space-y-6">
-						{territories.map(t => (
-							<div class="flex justify-between items-center group cursor-pointer">
-								<div>
-									<div class="font-bold text-sm text-slate-950 group-hover:text-blue-600 transition-colors flex items-center gap-2">
-										{t.name}
-										<span class="text-[10px] font-black text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-100">{t.ranking}</span>
-									</div>
-									<div class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">{t.niche} • {t.leads} Leads</div>
+						<div class="flex justify-between items-center py-3 border-b border-slate-50">
+							<span class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Total Leads (30d)</span>
+							<div class="text-right">
+								<b class="text-lg text-slate-950">{portfolioStats.leads30d}</b>
+								<span class="text-[9px] font-bold text-emerald-500 block">+{portfolioStats.leads30d - portfolioStats.prevLeads30d} vs prev</span>
+							</div>
+						</div>
+						<div class="flex justify-between items-center py-3 border-b border-slate-50">
+							<span class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Avg. Cost Per Lead</span>
+							<b class="text-lg text-slate-950">${portfolioStats.avgCPL.toFixed(2)}</b>
+						</div>
+						<div class="flex justify-between items-center py-3">
+							<span class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Network Conversion</span>
+							<b class="text-lg text-slate-950">28.4%</b>
+						</div>
+					</div>
+				</div>
+
+				<div class="bg-white border border-slate-200 p-10 rounded-[48px] shadow-sm flex flex-col justify-center text-center relative overflow-hidden">
+					<div class="absolute inset-0 bg-blue-50/20 pointer-events-none"></div>
+					<span class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 relative z-10">Institutional Yield</span>
+					<div class="text-6xl font-black text-slate-950 relative z-10">214<span class="text-blue-600">%</span></div>
+					<p class="text-slate-400 text-[10px] mt-6 px-4 uppercase font-bold tracking-widest relative z-10">Real-Time Portfolio ROI</p>
+				</div>
+			</div>
+
+			<!-- Market Dominance Pulse -->
+			<div class="bg-white border border-slate-200 rounded-[40px] shadow-sm p-10">
+				<div class="flex justify-between items-center mb-10">
+					<h3 class="text-xs font-black uppercase tracking-widest text-slate-950">Active Digital Deeds</h3>
+					<a href="/dashboard/territories" class="text-[10px] font-black uppercase tracking-widest text-blue-600">Full Portfolio View &rarr;</a>
+				</div>
+				<div class="grid gap-2">
+					{territories.map(t => (
+						<div class="flex justify-between items-center py-5 border-b border-slate-50 last:border-0 group cursor-pointer hover:px-2 transition-all">
+							<div class="flex items-center gap-6">
+								<div class={`w-12 h-12 rounded-2xl flex items-center justify-center font-black text-xs ${t.health >= 80 ? 'bg-emerald-50 text-emerald-600' : 'bg-amber-50 text-amber-600'}`}>
+									{t.health}
 								</div>
-								<div class="flex flex-col items-end">
-									<div class={`text-[9px] font-black uppercase px-2 py-1 rounded-lg ${t.status === 'Leased' ? 'bg-amber-50 text-amber-600' : 'bg-slate-100 text-slate-500'}`}>
-										{t.status}
+								<div>
+									<b class="text-sm text-slate-950 uppercase tracking-tight group-hover:text-blue-600 transition-colors">{t.name}</b>
+									<div class="flex items-center gap-3 mt-1">
+										<span class="text-[10px] text-slate-400 font-mono italic">{t.domain}</span>
+										<span class="w-1 h-1 rounded-full bg-slate-200"></span>
+										<span class="text-[9px] font-black text-emerald-500 uppercase tracking-widest">Rank {t.ranks.google}</span>
 									</div>
 								</div>
 							</div>
-						))}
-					</div>
-					<button class="w-full mt-10 border-2 border-dashed border-slate-200 text-slate-400 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:border-blue-300 hover:text-blue-400 transition-all">
-						+ Map New Territory
-					</button>
+							<div class={`text-[9px] font-black uppercase px-4 py-1.5 rounded-full border ${t.status === 'Leased' ? 'bg-amber-50 border-amber-100 text-amber-600' : 'bg-blue-50 border-blue-100 text-blue-600'}`}>
+								{t.status}
+							</div>
+						</div>
+					))}
 				</div>
 			</div>
 		</div>

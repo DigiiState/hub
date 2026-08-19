@@ -1,0 +1,117 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// PHASE 5: DIGITAL VAULT MASTER DATA
+const deeds = [
+	{ 
+		id: "DEED-PHX-001",
+		domain: "phoenixmdseptic.com", 
+		registrar: "Cloudflare", 
+		acqDate: "Aug 15, 2026", 
+		expDate: "Aug 15, 2027", 
+		autoRenew: "Yes", 
+		purchasePrice: "$10.46",
+		acqSource: "Direct",
+		capital: "$760.46" 
+	},
+	{ 
+		id: "DEED-CLX-002",
+		domain: "clarksvillesepticpros.com", 
+		registrar: "Porkbun", 
+		acqDate: "Aug 16, 2026", 
+		expDate: "Aug 16, 2027", 
+		autoRenew: "Yes", 
+		purchasePrice: "$10.46",
+		acqSource: "Direct",
+		capital: "$360.46" 
+	},
+	{ 
+		id: "DEED-GIB-003",
+		domain: "gibsonislandtreeremoval.com", 
+		registrar: "Cloudflare", 
+		acqDate: "Aug 16, 2026", 
+		expDate: "Aug 16, 2027", 
+		autoRenew: "Yes", 
+		purchasePrice: "$10.46",
+		acqSource: "Direct",
+		capital: "$360.46" 
+	}
+];
+---
+
+<Layout title="Digital Vault | DigiiState OS">
+	<main class="min-h-screen bg-slate-50 flex">
+		<!-- Standard Sidebar -->
+		<aside class="w-64 bg-slate-950 text-white flex flex-col p-6 fixed h-full shadow-2xl overflow-y-auto">
+			<div class="text-2xl font-black tracking-tighter italic mb-12 text-center">Digii<span class="text-blue-500">State</span></div>
+			<div class="space-y-8">
+				<div>
+					<h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Operations</h3>
+					<nav class="space-y-1">
+						<a href="/dashboard" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Command Center</a>
+						<a href="/dashboard/portfolio" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Portfolio</a>
+						<a href="/dashboard/vault" class="flex items-center gap-3 px-4 py-2.5 bg-blue-600 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all">Digital Vault</a>
+						<a href="/dashboard/leads" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Lead Ledger</a>
+					</nav>
+				</div>
+			</div>
+		</aside>
+
+		<div class="flex-1 ml-64 p-12">
+			<header class="flex justify-between items-end mb-16">
+				<div>
+					<h1 class="text-4xl font-[900] text-slate-950 uppercase tracking-tighter leading-none">DIGITAL VAULT</h1>
+					<p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.3em] mt-3">Asset Inventory & Registry Governance</p>
+				</div>
+				<div class="bg-slate-950 text-white px-8 py-4 rounded-xl flex items-center gap-6 shadow-xl">
+					<div class="text-center border-r border-white/10 pr-6">
+						<span class="text-[8px] font-black text-slate-500 uppercase block">Total Capital</span>
+						<b class="text-sm text-emerald-400">$2,562.76</b>
+					</div>
+					<div class="text-center">
+						<span class="text-[8px] font-black text-slate-500 uppercase block">Portfolio Equity</span>
+						<b class="text-sm text-blue-400">$21,000.00</b>
+					</div>
+				</div>
+			</header>
+
+			<!-- Institutional Deed Grid -->
+			<div class="bg-white border border-slate-200 rounded-[40px] shadow-sm overflow-hidden">
+				<table class="w-full text-left text-sm">
+					<thead>
+						<tr class="bg-slate-50 text-[9px] font-black uppercase tracking-widest text-slate-400 border-b border-slate-100">
+							<th class="px-8 py-5">Asset ID / Domain</th>
+							<th class="px-8 py-5">Registrar / Source</th>
+							<th class="px-8 py-5">Acquisition Date</th>
+							<th class="px-8 py-5">Exp. Date</th>
+							<th class="px-8 py-5">Auto-Renew</th>
+							<th class="px-8 py-5 text-right">Cap. Invested</th>
+						</tr>
+					</thead>
+					<tbody class="divide-y divide-slate-50">
+						{deeds.map(d => (
+							<tr class="hover:bg-slate-50/50 transition-colors group">
+								<td class="px-8 py-6">
+									<b class="text-slate-950 block uppercase tracking-tight italic">{d.domain}</b>
+									<span class="text-[9px] text-slate-400 font-mono font-bold uppercase">{d.id}</span>
+								</td>
+								<td class="px-8 py-6">
+									<span class="text-[10px] font-bold text-slate-950 uppercase tracking-widest">{d.registrar}</span>
+									<span class="text-[8px] text-slate-400 font-bold block uppercase">{d.acqSource}</span>
+								</td>
+								<td class="px-8 py-6 text-xs text-slate-600 font-medium">{d.acqDate}</td>
+								<td class="px-8 py-6 text-xs text-amber-600 font-bold">{d.expDate}</td>
+								<td class="px-8 py-6">
+									<span class="px-2 py-1 bg-emerald-50 text-emerald-600 text-[8px] font-black uppercase rounded-lg border border-emerald-100">{d.autoRenew}</span>
+								</td>
+								<td class="px-8 py-6 text-right font-black text-slate-950 font-mono text-base">
+									{d.capital}
+								</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</main>
+</Layout>
