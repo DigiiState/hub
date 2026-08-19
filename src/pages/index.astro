@@ -1,14 +1,15 @@
----
 import Layout from '../layouts/Layout.astro';
+import { portfolioStats, assets } from '../lib/db';
 
-// National Territory Data
-const territories = [
-	{ name: "Phoenix MD Septic", status: "Occupied", niche: "Septic", top: "38%", left: "86%", state: "MD" },
-	{ name: "Austin TX Junk Removal", status: "Open", niche: "Junk", top: "68%", left: "48%", state: "TX" },
-	{ name: "Miami FL Water Damage", status: "Occupied", niche: "Water", top: "85%", left: "82%", state: "FL" },
-	{ name: "Seattle WA Tree Service", status: "Open", niche: "Tree", top: "18%", left: "12%", state: "WA" },
-	{ name: "Chicago IL DUI Law", status: "Open", niche: "Law", top: "35%", left: "62%", state: "IL" },
-];
+// National Territory Data (Top performers for Map)
+const mapTerritories = assets.slice(0, 5).map((a, i) => ({
+    name: a.name,
+    status: a.stage === 'Leased' ? 'Occupied' : 'Open',
+    niche: a.name.split(' ')[2] || 'Service',
+    top: ["38%", "68%", "85%", "18%", "35%"][i],
+    left: ["86%", "48%", "82%", "12%", "62%"][i],
+    state: a.state
+}));
 
 const liveLeads = [
 	{ time: "4m ago", niche: "SEPTIC", city: "PHOENIX, MD", ticker: "LEAD.MD.PHX", val: "+$450.00" },
@@ -18,7 +19,7 @@ const liveLeads = [
 ];
 ---
 
-<Layout title="DigiiState | Premier US Lead Generation & Marketing Agency">
+<Layout title="DigiiState | Digital Real Estate Infrastructure">
 	<main class="relative bg-white border-t-4 border-[#0040ff]">
 		
 		<!-- 1. LIVE LEAD TICKER -->
@@ -53,16 +54,16 @@ const liveLeads = [
 						Digii<span class="text-[#0040ff]">State</span>
 					</div>
 					<nav class="hidden lg:flex gap-8 text-[11px] font-bold uppercase tracking-wider text-slate-500">
-						<a href="#map" class="hover:text-[#0040ff] transition-colors">Network</a>
-						<a href="#economics" class="hover:text-[#0040ff] transition-colors">Performance</a>
-						<a href="/about" class="hover:text-[#0040ff] transition-colors">Agency</a>
+						<a href="#map" class="hover:text-[#0040ff] transition-colors">Infrastructure</a>
+						<a href="#economics" class="hover:text-[#0040ff] transition-colors">Yield Logic</a>
+						<a href="/about" class="hover:text-[#0040ff] transition-colors">Governance</a>
 					</nav>
 				</div>
 				<div class="flex items-center gap-4">
-					<a href="/admin" class="text-[11px] font-bold uppercase text-slate-500 hover:text-black">Partner Login</a>
+					<a href="/admin" class="text-[11px] font-bold uppercase text-slate-500 hover:text-black">Operator Login</a>
 					<div class="h-4 w-px bg-slate-200 mx-2"></div>
 					<a href="#apply" class="bg-[#0040ff] text-white px-5 py-2 font-bold text-[11px] uppercase tracking-wider hover:bg-blue-700 transition-colors">
-						Apply for Partnership
+						Apply for Territory
 					</a>
 				</div>
 			</header>
@@ -72,25 +73,25 @@ const liveLeads = [
 				<div class="lg:col-span-7">
 					<div class="inline-block px-2 py-1 bg-slate-100 text-[10px] font-bold text-slate-600 uppercase mb-6">Market Update: Aug 2026</div>
 					<h1 class="text-6xl md:text-8xl font-bold mb-8 leading-[0.9] tracking-tighter text-[#0f172a]">
-						USA LEAD GEN <br/>
-						<span class="text-[#0040ff]">& MARKETING.</span>
+						DIGITAL REAL <br/>
+						<span class="text-[#0040ff]">ESTATE INFRA.</span>
 					</h1>
 					<p class="text-slate-500 text-xl leading-relaxed mb-10 max-w-xl">
-						DigiiState is a premier marketing agency. We build, rank, and manage high-density lead generation assets across all 50 states to drive rapid business expansion.
+						DigiiState develops and operates high-yield digital territories. We own the "Digital Deeds" to high-ranking local properties and lease exclusive lead flow to premium service providers.
 					</p>
 					
 					<div class="grid grid-cols-3 gap-8 pt-8 border-t border-slate-100">
 						<div>
-							<span class="text-[10px] font-bold text-slate-400 uppercase block mb-1">Lead Portfolio</span>
-							<span class="text-3xl font-bold text-slate-900">$2.4M+</span>
+							<span class="text-[10px] font-bold text-slate-400 uppercase block mb-1">Portfolio Equity</span>
+							<span class="text-3xl font-bold text-slate-900">${(portfolioStats.portfolioValue / 1000).toFixed(0)}k</span>
 						</div>
 						<div>
 							<span class="text-[10px] font-bold text-slate-400 uppercase block mb-1">Monthly Leads</span>
-							<span class="text-3xl font-bold text-slate-900">2.4K</span>
+							<span class="text-3xl font-bold text-slate-900">{portfolioStats.leads30d}</span>
 						</div>
 						<div>
 							<span class="text-[10px] font-bold text-slate-400 uppercase block mb-1">Retention</span>
-							<span class="text-3xl font-bold text-slate-900">98%</span>
+							<span class="text-3xl font-bold text-slate-900">{portfolioStats.retentionRate}%</span>
 						</div>
 					</div>
 				</div>
@@ -98,29 +99,19 @@ const liveLeads = [
 				<div class="lg:col-span-5">
 					<div class="border border-slate-200 p-8 bg-slate-50">
 						<div class="flex justify-between items-center mb-6">
-							<h3 class="text-xs font-bold uppercase text-slate-900">Market Performance</h3>
-							<span class="text-[10px] font-mono text-emerald-600 font-bold">UP +12.4%</span>
+							<h3 class="text-xs font-bold uppercase text-slate-900">Portfolio Performance</h3>
+							<span class="text-[10px] font-mono text-emerald-600 font-bold">OS STATUS: NOMINAL</span>
 						</div>
 						<div class="space-y-4 font-['IBM_Plex_Mono'] text-xs">
-							<div class="flex justify-between border-b border-slate-200 pb-2">
-								<span class="text-slate-400">PHOENIX.SEPTIC.MD</span>
-								<span class="font-bold text-slate-900">RANK #1</span>
-							</div>
-							<div class="flex justify-between border-b border-slate-200 pb-2">
-								<span class="text-slate-400">AUSTIN.JUNK.TX</span>
-								<span class="font-bold text-slate-900">RANK #4</span>
-							</div>
-							<div class="flex justify-between border-b border-slate-200 pb-2">
-								<span class="text-slate-400">MIAMI.WATER.FL</span>
-								<span class="font-bold text-slate-900">RANK #2</span>
-							</div>
-							<div class="flex justify-between">
-								<span class="text-slate-400">ANNAPOLIS.LAW.MD</span>
-								<span class="font-bold text-slate-900">RANK #11</span>
-							</div>
+							{assets.slice(0, 4).map(a => (
+                                <div class="flex justify-between border-b border-slate-200 pb-2">
+                                    <span class="text-slate-400 uppercase">{a.name.replace(/ /g, '.')}</span>
+                                    <span class="font-bold text-slate-900">RANK {a.rank}</span>
+                                </div>
+                            ))}
 						</div>
 						<button class="w-full mt-8 border border-slate-300 py-3 text-[10px] font-bold uppercase tracking-widest hover:bg-white transition-colors">
-							View Full Network
+							View Available Deeds
 						</button>
 					</div>
 				</div>
@@ -130,12 +121,12 @@ const liveLeads = [
 			<section id="map" class="pt-20 border-t border-slate-100">
 				<div class="flex justify-between items-end mb-12">
 					<div>
-						<h3 class="text-[10px] font-bold uppercase tracking-widest text-[#0040ff] mb-2">US Lead Network Monitor</h3>
-						<h2 class="text-4xl font-bold uppercase text-slate-900">National Lead Flow</h2>
+						<h3 class="text-[10px] font-bold uppercase tracking-widest text-[#0040ff] mb-2">US Digital Territory Monitor</h3>
+						<h2 class="text-4xl font-bold uppercase text-slate-900">Infrastructure Map</h2>
 					</div>
 					<div class="flex gap-4 text-[10px] font-bold uppercase tracking-widest text-slate-400">
 						<span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Open</span>
-						<span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-500"></span> Partnered</span>
+						<span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-500"></span> Leased</span>
 					</div>
 				</div>
 				
@@ -145,7 +136,7 @@ const liveLeads = [
 							<path d="M968.12,185.08 L958.01,177.01 L942.87,175 L933.28,162.89 L924.71,165.91 L921.68,155.82 L904,151.28 L897.44,142.2 L897.44,129.59 L881.3,131.61 L874.24,142.2 L863.64,142.2 L859.6,155.32 L840.43,158.85 L840.43,165.91 L831.35,166.41 L823.28,155.82 L814.71,155.32 L807.64,142.2 L794.52,142.2 L787.46,153.3 L778.38,150.28 L773.34,142.2 L756.19,142.2 L756.19,150.28 L749.12,150.28 L745.09,142.2 L737.52,142.2 L730.46,145.22 L722.89,142.2 L715.32,142.2 L708.26,145.22 L700.69,142.2 L689.59,145.22 L682.02,142.2 L664.87,142.2 L657.31,145.22 L649.74,142.2 L634.61,142.2 L627.04,145.22 L619.47,142.2 L604.34,142.2 L596.77,145.22 L589.21,142.2 L574.07,142.2 L566.5,145.22 L558.94,142.2 L543.81,142.2 L536.24,145.22 L528.67,142.2 L513.54,142.2 L505.97,145.22 L498.41,142.2 L483.27,142.2 L475.7,145.22 L468.14,142.2 L453,142.2 L445.43,145.22 L437.87,142.2 L422.73,142.2 L415.17,145.22 L407.6,142.2 L392.47,142.2 L384.9,145.22 L377.34,142.2 L362.2,142.2 L354.64,145.22 L347.07,142.2 L331.94,142.2 L324.37,145.22 L316.8,142.2 L301.67,142.2 L294.1,145.22 L286.54,142.2 L271.4,142.2 L263.84,145.22 L256.27,142.2 L241.14,142.2 L233.57,145.22 L226,142.2 L210.87,142.2 L203.3,145.22 L195.74,142.2 L180.6,142.2 L173.04,145.22 L165.47,142.2 L150.34,142.2 L142.77,145.22 L135.21,142.2 L120.07,142.2 L112.51,145.22 L104.94,142.2 L89.81,142.2 L82.24,145.22 L74.67,142.2 L59.54,142.2 L51.97,145.22 L44.41,142.2 L29.27,142.2 L21.71,145.22 L14.14,142.2 L0,142.2 L0,589 L1000,589 L1000,185.08 L968.12,185.08 Z"></path>
 						</svg>
 
-						{territories.map(t => (
+						{mapTerritories.map(t => (
 							<div 
 								class="absolute group cursor-pointer"
 								style={`top: ${t.top}; left: ${t.left};`}
@@ -164,34 +155,34 @@ const liveLeads = [
 			<!-- 4. YIELD LOGIC -->
 			<section id="economics" class="py-24 grid md:grid-cols-2 gap-20 border-t border-slate-100">
 				<div>
-					<h3 class="text-[10px] font-bold uppercase tracking-widest text-[#0040ff] mb-2">Expansion Logic</h3>
-					<h2 class="text-4xl font-bold uppercase text-slate-900 mb-8 leading-tight">PRE-QUALIFIED LEADS <br/>VS. PPC TAXATION.</h2>
+					<h3 class="text-[10px] font-bold uppercase tracking-widest text-[#0040ff] mb-2">Acquisition Logic</h3>
+					<h2 class="text-4xl font-bold uppercase text-slate-900 mb-8 leading-tight">FIXED LEASES <br/>VS. PPC TAXATION.</h2>
 					<p class="text-slate-500 leading-relaxed mb-8">
-						Google Ads sells temporary clicks. We build high-performing marketing assets. Our network provide 100% exclusive local lead flow at a predictable weekly rate.
+						Google Ads sells temporary clicks. We build permanent digital assets. Our territories provide 100% exclusive local demand at a predictable fixed monthly rent.
 					</p>
 					<div class="space-y-4 text-xs font-bold uppercase tracking-wider">
 						<div class="flex items-center gap-3 text-red-500">
-							<span class="w-4 h-px bg-red-500"></span> [X] GOOGLE ADS: VARIABLE / SHARED / UNQUALIFIED
+							<span class="w-4 h-px bg-red-500"></span> [X] PAY-PER-CLICK: VARIABLE / SHARED / RENTED
 						</div>
 						<div class="flex items-center gap-3 text-emerald-600">
-							<span class="w-4 h-px bg-emerald-600"></span> [✓] DIGIISTATE: FIXED / EXCLUSIVE / PRE-QUALIFIED
+							<span class="w-4 h-px bg-emerald-600"></span> [✓] DIGIISTATE DEEDS: FIXED / EXCLUSIVE / OWNED
 						</div>
 					</div>
 				</div>
 				<div class="bg-slate-50 p-10 border border-slate-200">
-					<h4 class="text-[10px] font-bold text-slate-400 uppercase mb-10 text-center tracking-[0.2em]">Target Marketing Performance</h4>
+					<h4 class="text-[10px] font-bold text-slate-400 uppercase mb-10 text-center tracking-[0.2em]">Target Asset Performance</h4>
 					<div class="space-y-8 font-['IBM_Plex_Mono']">
 						<div class="flex justify-between border-b border-slate-200 pb-4">
-							<span class="text-slate-500 text-xs">AVG REV / CONV</span>
-							<span class="text-xl font-bold">$2,400.00</span>
+							<span class="text-slate-500 text-xs uppercase tracking-widest">Avg Lease / Mo</span>
+							<span class="text-xl font-bold">$1,250.00</span>
 						</div>
 						<div class="flex justify-between border-b border-slate-200 pb-4">
-							<span class="text-slate-500 text-xs">LEADS / MONTH</span>
-							<span class="text-xl font-bold">15-20</span>
+							<span class="text-slate-500 text-xs uppercase tracking-widest">Avg Leads / Mo</span>
+							<span class="text-xl font-bold">15-30</span>
 						</div>
 						<div class="flex justify-between">
-							<span class="text-slate-500 text-xs uppercase">Weekly Performance Fee</span>
-							<span class="text-3xl font-bold text-[#0040ff]">$312.50</span>
+							<span class="text-slate-500 text-xs uppercase tracking-widest">Operator Equity</span>
+							<span class="text-3xl font-bold text-[#0040ff]">100%</span>
 						</div>
 					</div>
 				</div>
@@ -200,8 +191,8 @@ const liveLeads = [
 			<!-- 5. PARTNERSHIP APPLICATION -->
 			<section id="apply" class="py-24 border-t border-slate-900 pt-32">
 				<div class="max-w-4xl mx-auto text-center mb-16">
-					<h2 class="text-5xl font-bold uppercase tracking-tighter text-slate-950 mb-6">Partnership Protocol</h2>
-					<p class="text-slate-500 text-lg max-w-2xl mx-auto">Exclusive lead flow is limited to one partner per niche per city. Submit credentials below for partnership approval.</p>
+					<h2 class="text-5xl font-bold uppercase tracking-tighter text-slate-950 mb-6">Secure Your Territory</h2>
+					<p class="text-slate-500 text-lg max-w-2xl mx-auto">Digital deeds are limited to one partner per niche per city. Submit credentials below for acquisition approval.</p>
 				</div>
 				
 				<div class="max-w-4xl mx-auto border border-slate-200 p-12 bg-slate-50">
@@ -222,23 +213,23 @@ const liveLeads = [
 								<input type="text" class="w-full bg-transparent outline-none font-bold text-slate-950" placeholder="City, State" />
 							</div>
 							<div class="border-b border-slate-200 py-2">
-								<label class="block text-[10px] font-bold uppercase text-slate-400 mb-2">Current Marketing Spend</label>
+								<label class="block text-[10px] font-bold uppercase text-slate-400 mb-2">Current Ads Spend</label>
 								<input type="text" class="w-full bg-transparent outline-none font-bold text-slate-950" placeholder="$2,500 - $10k" />
 							</div>
 						</div>
 						<button class="md:col-span-2 bg-[#0040ff] text-white py-6 font-bold uppercase tracking-[0.3em] text-xs hover:bg-blue-700 transition-all">
-							Apply for Partnership
+							Request Asset Audit
 						</button>
 					</form>
 				</div>
 			</section>
 
 			<footer class="mt-32 pt-12 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-8 text-[10px] font-bold uppercase tracking-widest text-slate-400">
-				<div>&copy; 2026 DIGIISTATE AGENCY CORP</div>
+				<div>&copy; 2026 DIGIISTATE INFRASTRUCTURE CORP</div>
 				<div class="flex gap-12">
-					<a href="#" class="hover:text-black">Governance</a>
-					<a href="#" class="hover:text-black">Terms of Service</a>
-					<a href="#" class="hover:text-black">Privacy</a>
+					<a href="/governance" class="hover:text-black">Governance</a>
+					<a href="/tos" class="hover:text-black">Terms of Service</a>
+					<a href="/privacy" class="hover:text-black">Privacy</a>
 				</div>
 			</footer>
 		</div>

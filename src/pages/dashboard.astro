@@ -3,28 +3,11 @@ import Layout from '../layouts/Layout.astro';
 import Sidebar from '../components/Sidebar.astro';
 import { portfolioStats, assets, managementAttention } from '../lib/db';
 
-// PHASE 14: INSTITUTIONAL HEALTH SCORING ALGORITHM
-const calculateHealth = (asset) => {
-    let score = 50; // Base score for presence
-    if (asset.status === 'Leased') score += 10;
-    
-    const rank = parseInt(asset.ranks.google.replace('#', ''));
-    if (rank <= 1) score += 20;
-    else if (rank <= 3) score += 18;
-    else if (rank <= 10) score += 15;
-    else if (rank <= 20) score += 10;
-    
-    // Lead velocity simulation
-    const leadVelocity = asset.status === 'Leased' ? 20 : 5;
-    score += Math.min(20, leadVelocity);
-    
-    return Math.min(100, score);
-};
-
+// AUTHORITATIVE ASSET SYNC
 const territories = assets.slice(0, 5).map(a => ({
     ...a,
     ranks: a.ranks,
-    health: calculateHealth(a)
+    health: a.health
 }));
 ---
 
@@ -36,7 +19,7 @@ const territories = assets.slice(0, 5).map(a => ({
 			<!-- Command Center Header -->
 			<header class="flex justify-between items-end mb-16">
 				<div>
-					<h1 class="text-4xl font-black text-slate-950 uppercase tracking-tighter leading-none">COMMAND CENTER v1.1</h1>
+					<h1 class="text-4xl font-black text-slate-950 uppercase tracking-tighter leading-none">COMMAND CENTER</h1>
 					<p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.3em] mt-3">Executive Oversight & Portfolio Performance</p>
 				</div>
 				<div class="flex gap-4">
