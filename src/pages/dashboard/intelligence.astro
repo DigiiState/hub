@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Sidebar from '../../components/Sidebar.astro';
-
+import { assets } from '../../lib/db';
 
 // PHASE 14: INTELLIGENCE ENGINE
 const recommendations = [
@@ -11,7 +11,8 @@ const recommendations = [
 		impact: "High risk of renter churn due to perceived value loss.",
 		action: "Audit call tracking and conversion performance. Verify AI Triage logic on 'Swift Roof' landing page.",
 		priority: "Critical",
-		asset: "roofprosbaltimore.com"
+		asset: "DEED-ROC-013",
+        target: "/dashboard/portfolio"
 	},
 	{ 
 		id: "IQ-002",
@@ -19,7 +20,8 @@ const recommendations = [
 		impact: "Market dominance achieved ahead of schedule.",
 		action: "Asset supports a rent increase of $150/mo. Consider upsell to National Expansion strategy.",
 		priority: "Opportunity",
-		asset: "phoenixmdseptic.com"
+		asset: "DEED-PHX-001",
+        target: "/dashboard/portfolio"
 	},
 	{ 
 		id: "IQ-003",
@@ -27,7 +29,8 @@ const recommendations = [
 		impact: "Low-competition blue ocean detected via Serper data.",
 		action: "Initiate Acquisition Protocol. Secure 'columbiasepticpros.com' and deploy 45-page blanket.",
 		priority: "Growth",
-		asset: "TBD - Columbia, MD"
+		asset: "TBD - Columbia, MD",
+        target: "/dashboard/acquisitions"
 	}
 ];
 ---
@@ -72,7 +75,7 @@ const recommendations = [
 							<div class="lg:col-span-1 flex flex-col justify-center items-end text-right border-l border-slate-50 pl-10">
 								<span class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Target Asset</span>
 								<b class="text-xs text-slate-950 uppercase italic mb-6">{r.asset}</b>
-								<button class="text-[10px] font-black uppercase tracking-widest text-blue-600 border-2 border-blue-600 px-6 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-all active:scale-95">Execute &rarr;</button>
+								<a href={r.target} class="text-[10px] font-black text-center uppercase tracking-widest text-blue-600 border-2 border-blue-600 px-6 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-all active:scale-95">Execute &rarr;</a>
 							</div>
 						</div>
 					</div>

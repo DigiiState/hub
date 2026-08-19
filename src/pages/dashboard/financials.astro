@@ -1,19 +1,19 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Sidebar from '../../components/Sidebar.astro';
-
+import { portfolioStats } from '../../lib/db';
 
 // PHASE 13: FINANCIAL DATA
 const financials = {
-	monthlyRentRoll: 3750.00,
+	monthlyRentRoll: portfolioStats.monthlyRentRoll,
 	accountsReceivable: 625.00,
-	capitalInvested: 199.40,
-	infrastructureOpex: 60.50,
+	capitalInvested: portfolioStats.monthlyExpenses,
+	infrastructureOpex: portfolioStats.monthlyExpenses,
 	developmentSpend: 156.90,
 	seoSpend: 20.00,
-	noi: 3689.50,
-	annualizedNOI: 44274.00,
-	portfolioValue: 21000.00,
+	noi: portfolioStats.monthlyNOI,
+	annualizedNOI: portfolioStats.annualizedNOI,
+	portfolioValue: portfolioStats.portfolioValue,
 	portfolioROI: "10,500%",
     rdTaxCredit: 105.12 // Estimated 67% capture of Dev Spend
 };
@@ -55,7 +55,7 @@ const revenueStream = [
 					<div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl"></div>
 					<span class="text-[9px] font-black text-blue-500 uppercase tracking-widest mb-4 block">Portfolio Equity</span>
 					<div class="text-4xl font-black text-white">${financials.portfolioValue.toLocaleString()}</div>
-					<div class="text-[10px] font-bold text-emerald-400 mt-4 uppercase italic">719% Unrealized ROI</div>
+					<div class="text-[10px] font-bold text-emerald-400 mt-4 uppercase italic">{financials.portfolioROI} Unrealized ROI</div>
 				</div>
 				<div class="bg-white p-10 rounded-[48px] shadow-sm border border-slate-200">
 					<span class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-4 block">Annualized NOI</span>

@@ -1,15 +1,14 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Sidebar from '../../components/Sidebar.astro';
-
+import { portfolioStats } from '../../lib/db';
 
 // PHASE 8: NATIONAL INFRASTRUCTURE DATA
 const infrastructure = [
-	{ provider: "Cloudflare", service: "Enterprise Network", cost: "$125.00/mo", next: "Aug 15, 2027", status: "Healthy" },
-	{ provider: "Twilio", service: "Number Provisioning", cost: "Consumption", next: "N/A", status: "Healthy" },
-	{ provider: "Vapi.ai", service: "Voice AI Receptionist", cost: "$99.00/mo", next: "Aug 20, 2026", status: "Healthy" },
-	{ provider: "Make.com", service: "Workflow Triage", cost: "$10.50/mo", next: "Sept 14, 2026", status: "Healthy" },
-	{ provider: "Serper.dev", service: "SERP Monitoring", cost: "$50.00/mo", next: "Sept 1, 2026", status: "Healthy" },
+	{ provider: "Cloudflare", service: "Enterprise Network", cost: "$20.00/mo", next: "Aug 15, 2027", status: "Healthy" },
+	{ provider: "Twilio", service: "Number Provisioning", cost: "$20.00/mo", next: "N/A", status: "Healthy" },
+	{ provider: "Make.com", service: "Workflow Triage", cost: "$10.59/mo", next: "Sept 14, 2026", status: "Healthy" },
+	{ provider: "Serper.dev", service: "SERP Monitoring", cost: "$9.91/mo", next: "Sept 1, 2026", status: "Healthy" },
 ];
 ---
 
@@ -26,7 +25,7 @@ const infrastructure = [
 				</div>
 				<div class="bg-white border border-slate-200 px-6 py-3 rounded-2xl flex items-center gap-3 shadow-sm">
 					<span class="text-[9px] font-black uppercase text-slate-400">Total Opex</span>
-					<b class="text-sm text-slate-950">$284.50/mo</b>
+					<b class="text-sm text-slate-950">${portfolioStats.monthlyExpenses.toLocaleString()}/mo</b>
 				</div>
 			</header>
 

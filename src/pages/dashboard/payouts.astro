@@ -1,17 +1,17 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Sidebar from '../../components/Sidebar.astro';
-
+import { portfolioStats } from '../../lib/db';
 
 // Calculate pay based on the 60/30/10 split logic
-const weeklyRevenue = 1875.00; // Mock current weekly revenue
-const founderPay = weeklyRevenue * 0.60;
-const taxReserve = weeklyRevenue * 0.30;
-const growthOps = weeklyRevenue * 0.10;
+const monthlyRevenue = portfolioStats.monthlyRentRoll;
+const founderPay = monthlyRevenue * 0.60;
+const taxReserve = monthlyRevenue * 0.30;
+const growthOps = monthlyRevenue * 0.10;
 
 const payoutHistory = [
-	{ date: "Aug 10, 2026", amount: "$1,125.00", status: "Transferred", method: "Owner's Draw" },
-	{ date: "Aug 03, 2026", amount: "$1,050.00", status: "Transferred", method: "Owner's Draw" },
+	{ date: "Aug 10, 2026", amount: "$4,500.00", status: "Transferred", method: "Owner's Draw" },
+	{ date: "Aug 03, 2026", amount: "$1,875.00", status: "Transferred", method: "Owner's Draw" },
 ];
 ---
 

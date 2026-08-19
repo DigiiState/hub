@@ -44,15 +44,15 @@ const accountSettings = {
 				<div class="bg-white border border-slate-200 rounded-[40px] shadow-sm p-10">
 					<h3 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-8">Security & Protocol</h3>
 					<div class="space-y-6">
-						<button class="w-full text-left flex justify-between items-center py-4 border-b border-slate-50 group hover:px-2 transition-all">
+						<button id="update-key" class="w-full text-left flex justify-between items-center py-4 border-b border-slate-50 group hover:px-2 transition-all">
 							<span class="text-xs font-bold text-slate-500 uppercase">Update Access Key</span>
 							<span class="text-blue-600 font-bold text-xs group-hover:underline">Edit &rarr;</span>
 						</button>
-						<button class="w-full text-left flex justify-between items-center py-4 border-b border-slate-50 group hover:px-2 transition-all">
+						<div class="w-full text-left flex justify-between items-center py-4 border-b border-slate-50">
 							<span class="text-xs font-bold text-slate-500 uppercase">Two-Factor Authentication</span>
 							<span class="text-emerald-600 font-bold text-xs uppercase">Enabled</span>
-						</button>
-						<button class="w-full text-left flex justify-between items-center py-4 group hover:px-2 transition-all">
+						</div>
+						<button id="manage-api" class="w-full text-left flex justify-between items-center py-4 group hover:px-2 transition-all">
 							<span class="text-xs font-bold text-slate-500 uppercase">API Access Tokens</span>
 							<span class="text-blue-600 font-bold text-xs group-hover:underline">Manage &rarr;</span>
 						</button>
@@ -62,3 +62,13 @@ const accountSettings = {
 		</div>
 	</main>
 </Layout>
+
+<script>
+    document.getElementById('update-key')?.addEventListener('click', () => {
+        alert('Institutional Security Protocol: Access key updates require multi-signature authorization. Contact secondary operator.');
+    });
+
+    document.getElementById('manage-api')?.addEventListener('click', () => {
+        alert('API Control Plane: Access tokens are restricted to read-only for current session. Update via Cloudflare dashboard.');
+    });
+</script>

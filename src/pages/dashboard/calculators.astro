@@ -1,7 +1,6 @@
----
 import Layout from '../../layouts/Layout.astro';
 import Sidebar from '../../components/Sidebar.astro';
-
+import { portfolioStats } from '../../lib/db';
 ---
 
 <Layout title="Strategic Calculators | DigiiState OS">
@@ -54,7 +53,7 @@ import Sidebar from '../../components/Sidebar.astro';
 							<div id="result-market" class="text-4xl font-black text-white mb-6">$840.00</div>
 							<div class="pt-6 border-t border-white/5">
 								<div class="text-[10px] font-black text-amber-500 uppercase tracking-widest mb-1">DigiiState Monopoly Lease</div>
-								<div class="text-2xl font-black text-white">$1,250.00</div>
+								<div class="text-2xl font-black text-white">${(portfolioStats.monthlyRentRoll / portfolioStats.leasedAssets).toLocaleString()}</div>
 							</div>
 						</div>
 					</div>
@@ -71,9 +70,9 @@ import Sidebar from '../../components/Sidebar.astro';
 						<div class="space-y-4">
 							<div class="flex justify-between text-[10px] font-black uppercase text-slate-500 tracking-widest">
 								<span>Total Assets Managed</span>
-								<span id="label-assets" class="text-emerald-600">20</span>
+								<span id="label-assets" class="text-emerald-600">{portfolioStats.totalAssets}</span>
 							</div>
-							<input type="range" id="input-assets" min="1" max="150" value="20" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-emerald-500" />
+							<input type="range" id="input-assets" min="1" max="150" value={portfolioStats.totalAssets} class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-emerald-500" />
 						</div>
 
 						<div class="space-y-4">

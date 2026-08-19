@@ -1,40 +1,32 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import Sidebar from '../../../components/Sidebar.astro';
+import { assets } from '../../../lib/db';
 
 export function getStaticPaths() {
-  return [
-    { params: { id: 'DEED-PHX-001' } },
-    { params: { id: 'DEED-CLX-002' } },
-    { params: { id: 'DEED-GIB-003' } },
-    { params: { id: 'DEED-ANN-004' } },
-    { params: { id: 'DEED-CLX-005' } },
-    { params: { id: 'DEED-ANN-006' } },
-    { params: { id: 'DEED-MON-007' } },
-    { params: { id: 'DEED-HNT-008' } },
-    { params: { id: 'DEED-BET-009' } },
-    { params: { id: 'DEED-SEV-010' } },
-    { params: { id: 'DEED-ELL-011' } },
-    { params: { id: 'DEED-SIL-012' } },
-    { params: { id: 'DEED-ROC-013' } },
-    { params: { id: 'DEED-TOW-014' } },
-    { params: { id: 'DEED-TRA-015' } }
-  ];
+  return assets.map(a => ({ params: { id: a.id } }));
 }
 
 const { id } = Astro.params;
 
-// PHASE 5: DIGITAL DEED DATA
+// AUTHORITATIVE ASSET RECORD
+const assetData = assets.find(a => a.id === id);
+
+if (!assetData) {
+    return Astro.redirect('/404');
+}
+
 const asset = {
-	id: "DEED-PHX-001",
-	domain: "phoenixmdseptic.com",
-	vertical: "Septic Pumping",
-	city: "Phoenix",
-	county: "Baltimore",
-	state: "MD",
-	territory: "MD-North-01",
-	registrar: "Cloudflare",
+	id: assetData.id,
+	domain: assetData.domain,
+	vertical: "National Pilot",
+	city: assetData.city,
+	county: "Baltimore", // Placeholder
+	state: assetData.state,
+	territory: assetData.id,
+	registrar: assetData.registrar,
 	regDate: "Aug 15, 2026",
-	expDate: "Aug 15, 2027",
+	expDate: assetData.expDate,
 	autoRenew: true,
 	acqSource: "Direct Registration",
 	purchasePrice: 10.46,
@@ -46,48 +38,19 @@ const asset = {
 	devCost: 250.00,
 	seoInvestment: 500.00,
 	totalCapital: 760.46,
-	renter: "Young Septic Services",
+	renter: assetData.renter,
 	monthlyRent: 1250.00,
-	healthScore: 94,
-	lifecycleStage: "Leased"
+	healthScore: assetData.health,
+	lifecycleStage: assetData.stage
 };
-
-// PHASE 3: HEALTH SCORE WEIGHTING
-const healthMetrics = [
-	{ label: "Search Rankings", score: 92, weight: 20 },
-	{ label: "Lead Volume", score: 88, weight: 15 },
-	{ label: "Revenue", score: 100, weight: 15 },
-	{ label: "SEO Health", score: 95, weight: 15 },
-	{ label: "Lease Status", score: 100, weight: 10 },
-	{ label: "Conversion Rate", score: 82, weight: 10 },
-	{ label: "Profit Margin", score: 98, weight: 10 },
-	{ label: "Technical Health", score: 100, weight: 5 },
-];
-
-// PHASE 6: 16-STAGE LIFECYCLE
-const lifecycleStages = [
-	"Research", "Underwriting", "Acq. Approved", "Domain Acquired", 
-	"Development", "Indexed", "Ranking", "Generating Leads", 
-	"Lease Ready", "Available", "Leased", "Stabilized", 
-	"Expansion", "Distressed", "Exit / Sale", "Retired"
-];
-const currentStageIndex = lifecycleStages.indexOf(asset.lifecycleStage);
 ---
 
 <Layout title={`${asset.domain} | Digital Deed`}>
 	<main class="min-h-screen bg-slate-50 flex">
-		<!-- Standard Sidebar -->
-		<aside class="w-64 bg-slate-950 text-white flex flex-col p-6 fixed h-full shadow-2xl">
-			<div class="text-2xl font-black tracking-tighter italic mb-12 text-center">Digii<span class="text-blue-500">State</span></div>
-			<nav class="space-y-1">
-				<a href="/dashboard" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Command Center</a>
-				<a href="/dashboard/territories" class="flex items-center gap-3 px-4 py-2.5 bg-blue-600 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all">Portfolio</a>
-				<a href="/dashboard/leads" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Lead Ledger</a>
-				<a href="/dashboard/payouts" class="flex items-center gap-3 px-4 py-2.5 text-slate-400 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all">Financials</a>
-			</nav>
-		</aside>
+		<Sidebar activePath="/dashboard/portfolio" />
 
 		<div class="flex-1 ml-64 p-12">
+
 			<!-- Header -->
 			<header class="flex justify-between items-end mb-16">
 				<div>

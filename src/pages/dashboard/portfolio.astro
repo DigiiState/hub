@@ -1,7 +1,6 @@
----
 import Layout from '../../layouts/Layout.astro';
 import Sidebar from '../../components/Sidebar.astro';
-
+import { assets, portfolioStats } from '../../lib/db';
 
 // PHASE 6: LIFECYCLE STAGES DEFINITION
 const lifecycleStages = [
@@ -9,25 +8,6 @@ const lifecycleStages = [
 	"Development", "Indexed", "Ranking", "Generating Leads", 
 	"Lease Ready", "Available", "Leased", "Stabilized", 
 	"Expansion", "Distressed", "Exit / Sale", "Retired"
-];
-
-// PORTFOLIO MASTER DATA (PHASE 5 & 6)
-const assets = [
-	{ id: "DEED-PHX-001", domain: "phoenixmdseptic.com", city: "Phoenix", state: "MD", health: 94, stage: "Leased", rank: "#1", leads: 31, capital: "$10.46" },
-	{ id: "DEED-CLX-002", domain: "clarksvillesepticpros.com", city: "Clarksville", state: "MD", health: 78, stage: "Ranking", rank: "#8", leads: 12, capital: "$10.46" },
-	{ id: "DEED-GIB-003", domain: "gibsonislandtreeremoval.com", city: "Gibson Island", state: "MD", health: 64, stage: "Development", rank: "#24", leads: 0, capital: "$10.46" },
-	{ id: "DEED-ANN-004", domain: "annapolistreepros.com", city: "Annapolis", state: "MD", health: 88, stage: "Lease Ready", rank: "#3", leads: 42, capital: "$10.46" },
-	{ id: "DEED-CLX-005", domain: "clarksvillewaterdamage.com", city: "Clarksville", state: "MD", health: 91, stage: "Stabilized", rank: "#2", leads: 28, capital: "$10.46" },
-	{ id: "DEED-ANN-006", domain: "annapolisduidefense.com", city: "Annapolis", state: "MD", health: 42, stage: "Distressed", rank: "#52", leads: 2, capital: "$10.46" },
-    { id: "DEED-MON-007", domain: "monktonsepticpumping.com", city: "Monkton", state: "MD", health: 50, stage: "Development", rank: "#--", leads: 0, capital: "$10.46" },
-    { id: "DEED-HNT-008", domain: "huntvalleyseptic.com", city: "Hunt Valley", state: "MD", health: 50, stage: "Development", rank: "#--", leads: 0, capital: "$10.46" },
-    { id: "DEED-BET-009", domain: "bethesdawaterpros.com", city: "Bethesda", state: "MD", health: 50, stage: "Development", rank: "#--", leads: 0, capital: "$10.46" },
-    { id: "DEED-SEV-010", domain: "severnaparktreeremoval.com", city: "Severna Park", state: "MD", health: 50, stage: "Development", rank: "#--", leads: 0, capital: "$10.46" },
-    { id: "DEED-ELL-011", domain: "ellicottcitytreepros.com", city: "Ellicott City", state: "MD", health: 50, stage: "Development", rank: "#--", leads: 0, capital: "$10.46" },
-    { id: "DEED-SIL-012", domain: "silverspringroofingexperts.com", city: "Silver Spring", state: "MD", health: 50, stage: "Development", rank: "#--", leads: 0, capital: "$10.46" },
-    { id: "DEED-ROC-013", domain: "rockvilleroofingpros.com", city: "Rockville", state: "MD", health: 50, stage: "Development", rank: "#--", leads: 0, capital: "$10.46" },
-    { id: "DEED-TOW-014", domain: "towsonduiattorney.com", city: "Towson", state: "MD", health: 50, stage: "Development", rank: "#--", leads: 0, capital: "$10.46" },
-    { id: "DEED-TRA-015", domain: "marylandtrafficdefensepros.com", city: "Maryland", state: "MD", health: 50, stage: "Development", rank: "#--", leads: 0, capital: "$10.46" }
 ];
 ---
 
@@ -45,7 +25,7 @@ const assets = [
 				<div class="flex gap-4">
 					<div class="bg-white border border-slate-200 px-6 py-3 rounded-2xl flex items-center gap-3 shadow-sm">
 						<span class="text-[9px] font-black uppercase text-slate-400">Total Portfolio Value</span>
-						<b class="text-sm text-blue-600">$21,000.00</b>
+						<b class="text-sm text-blue-600">${portfolioStats.portfolioValue.toLocaleString()}</b>
 					</div>
 				</div>
 			</header>
@@ -96,7 +76,7 @@ const assets = [
 									{a.capital}
 								</td>
 								<td class="px-8 py-6 text-right">
-									<a href={`/dashboard/territories/1`} class="text-blue-600 hover:text-blue-800 font-black text-[10px] uppercase tracking-widest">View Deed &rarr;</a>
+									<a href={`/dashboard/territories/${a.id}`} class="text-blue-600 hover:text-blue-800 font-black text-[10px] uppercase tracking-widest">View Deed &rarr;</a>
 								</td>
 							</tr>
 						))}

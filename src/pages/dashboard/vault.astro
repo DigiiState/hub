@@ -1,44 +1,20 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Sidebar from '../../components/Sidebar.astro';
-
+import { assets, portfolioStats } from '../../lib/db';
 
 // PHASE 5: DIGITAL VAULT MASTER DATA
-const deeds = [
-	{ 
-		id: "DEED-PHX-001",
-		domain: "phoenixmdseptic.com", 
-		registrar: "Cloudflare", 
-		acqDate: "Aug 15, 2026", 
-		expDate: "Aug 15, 2027", 
-		autoRenew: "Yes", 
-		purchasePrice: "$10.46",
-		acqSource: "Direct",
-		capital: "$760.46" 
-	},
-	{ 
-		id: "DEED-CLX-002",
-		domain: "clarksvillesepticpros.com", 
-		registrar: "Porkbun", 
-		acqDate: "Aug 16, 2026", 
-		expDate: "Aug 16, 2027", 
-		autoRenew: "Yes", 
-		purchasePrice: "$10.46",
-		acqSource: "Direct",
-		capital: "$360.46" 
-	},
-	{ 
-		id: "DEED-GIB-003",
-		domain: "gibsonislandtreeremoval.com", 
-		registrar: "Cloudflare", 
-		acqDate: "Aug 16, 2026", 
-		expDate: "Aug 16, 2027", 
-		autoRenew: "Yes", 
-		purchasePrice: "$10.46",
-		acqSource: "Direct",
-		capital: "$360.46" 
-	}
-];
+const deeds = assets.map(a => ({
+    id: a.id,
+    domain: a.domain,
+    registrar: a.registrar,
+    acqDate: "Aug 15, 2026", 
+    expDate: a.expDate,
+    autoRenew: "Yes",
+    purchasePrice: "$10.46",
+    acqSource: "Direct",
+    capital: a.capital
+}));
 ---
 
 <Layout title="Digital Vault | DigiiState OS">
@@ -55,11 +31,11 @@ const deeds = [
 				<div class="bg-slate-950 text-white px-8 py-4 rounded-xl flex items-center gap-6 shadow-xl">
 					<div class="text-center border-r border-white/10 pr-6">
 						<span class="text-[8px] font-black text-slate-500 uppercase block">Total Capital</span>
-						<b class="text-sm text-emerald-400">$2,562.76</b>
+						<b class="text-sm text-emerald-400">${portfolioStats.monthlyExpenses.toLocaleString()}</b>
 					</div>
 					<div class="text-center">
 						<span class="text-[8px] font-black text-slate-500 uppercase block">Portfolio Equity</span>
-						<b class="text-sm text-blue-400">$21,000.00</b>
+						<b class="text-sm text-blue-400">${portfolioStats.portfolioValue.toLocaleString()}</b>
 					</div>
 				</div>
 			</header>

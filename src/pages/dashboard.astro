@@ -1,27 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Sidebar from '../components/Sidebar.astro';
-
-// EXECUTIVE COMMAND CENTER DATA (Aligned with Directive)
-const portfolioStats = {
-	totalAssets: 20,
-	territories: 20,
-	states: 5,
-	leasedAssets: 3,
-	availableAssets: 17,
-	rankingAssets: 5,
-	monthlyRentRoll: 3750.00,
-	monthlyExpenses: 60.50,
-	monthlyNOI: 3689.50,
-	annualizedRevenue: 45000.00,
-	annualizedNOI: 44274.00,
-	portfolioValue: 20000.00, // Based on $1k/deed
-	leads30d: 142,
-	avgCPL: 0.42,
-	avgHealthScore: 88,
-	prevLeads30d: 128,
-	prevRentRoll: 3125.00
-};
+import { portfolioStats, assets, managementAttention } from '../lib/db';
 
 // PHASE 14: INSTITUTIONAL HEALTH SCORING ALGORITHM
 const calculateHealth = (asset) => {
@@ -34,61 +14,18 @@ const calculateHealth = (asset) => {
     else if (rank <= 10) score += 15;
     else if (rank <= 20) score += 10;
     
-    // Lead velocity simulation (to be replaced by live query)
+    // Lead velocity simulation
     const leadVelocity = asset.status === 'Leased' ? 20 : 5;
     score += Math.min(20, leadVelocity);
     
     return Math.min(100, score);
 };
 
-const managementAttention = [
-	{ type: 'warning', message: 'Domain "phoenixmdseptic.com" expires in 60 days.', action: 'Renew Asset' },
-	{ type: 'critical', message: 'Leads declined 12% for "Annapolis DUI Law" in previous 30 days.', action: 'Audit SEO' },
-	{ type: 'positive', message: 'Asset "Clarksville Septic" is now lease ready (#8 Google).', action: 'Trigger Outreach' },
-];
-
-const territories = [
-	{ 
-		name: "Phoenix Septic", 
-		domain: "phoenixmdseptic.com", 
-		registrar: "Cloudflare",
-		ranks: { google: "#1", bing: "#2", yahoo: "#1", ddg: "#4" },
-		status: "Leased", 
-		health: calculateHealth({ status: 'Leased', ranks: { google: '#1' } })
-	},
-	{ 
-		name: "Clarksville Septic", 
-		domain: "clarksvillesepticpros.com", 
-		registrar: "Cloudflare",
-		ranks: { google: "#2", bing: "#5", yahoo: "#2", ddg: "#8" },
-		status: "Leased", 
-		health: calculateHealth({ status: 'Leased', ranks: { google: '#2' } })
-	},
-	{ 
-		name: "Austin Junk", 
-		domain: "austin-junk.pages.dev", 
-		registrar: "Cloudflare",
-		ranks: { google: "#8", bing: "#12", yahoo: "#9", ddg: "#5" },
-		status: "Ranking", 
-		health: calculateHealth({ status: 'Ranking', ranks: { google: '#8' } })
-	},
-	{ 
-		name: "Annapolis DUI Law", 
-		domain: "annapolisduidefense.com", 
-		registrar: "Cloudflare",
-		ranks: { google: "#11", bing: "#18", yahoo: "#10", ddg: "#14" },
-		status: "Trial", 
-		health: calculateHealth({ status: 'Trial', ranks: { google: '#11' } })
-	},
-	{ 
-		name: "Gibson Island Tree", 
-		domain: "gibsonislandtreeremoval.com", 
-		registrar: "Cloudflare",
-		ranks: { google: "#4", bing: "#8", yahoo: "#3", ddg: "#6" },
-		status: "Ranking", 
-		health: calculateHealth({ status: 'Ranking', ranks: { google: '#4' } })
-	}
-];
+const territories = assets.slice(0, 5).map(a => ({
+    ...a,
+    ranks: a.ranks,
+    health: calculateHealth(a)
+}));
 ---
 
 <Layout title="Command Center | DigiiState OS">
@@ -104,6 +41,11 @@ const territories = [
 				</div>
 				<div class="flex gap-4">
 					<div class="bg-white border border-slate-200 p-6 rounded-3xl flex gap-12 shadow-sm">
+						<div>
+							<span class="text-[9px] font-black text-slate-400 uppercase block mb-1">Pipeline Value</span>
+							<b class="text-xl text-blue-600">${portfolioStats.totalPipelineValue.toLocaleString()}</b>
+						</div>
+						<div class="w-px h-8 bg-slate-100"></div>
 						<div>
 							<span class="text-[9px] font-black text-slate-400 uppercase block mb-1">Portfolio Health</span>
 							<b class="text-xl text-emerald-500">{portfolioStats.avgHealthScore}</b>
@@ -121,7 +63,7 @@ const territories = [
 			<section class="mb-16">
 				<div class="flex items-center gap-3 mb-8">
 					<h3 class="text-xs font-black uppercase tracking-[0.2em] text-red-600 border-l-4 border-red-600 pl-4">Management Attention</h3>
-					<span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">3 Issues Requiring Action</span>
+					<span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Action Required</span>
 				</div>
 				<div class="grid gap-4">
 					{managementAttention.map(item => (
@@ -130,7 +72,7 @@ const territories = [
 								<div class={`w-2.5 h-2.5 rounded-full ${item.type === 'critical' ? 'bg-red-500 animate-pulse' : item.type === 'warning' ? 'bg-amber-500' : 'bg-emerald-500'}`}></div>
 								<span class="text-sm font-bold text-slate-800">{item.message}</span>
 							</div>
-							<button class="bg-slate-50 text-blue-600 px-4 py-2 rounded-lg font-black text-[10px] uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all">{item.action} &rarr;</button>
+							<a href={item.target} class="bg-slate-50 text-blue-600 px-4 py-2 rounded-lg font-black text-[10px] uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all">{item.action} &rarr;</a>
 						</div>
 					))}
 				</div>
@@ -217,7 +159,7 @@ const territories = [
 			<div class="bg-white border border-slate-200 rounded-[40px] shadow-sm p-10">
 				<div class="flex justify-between items-center mb-10">
 					<h3 class="text-xs font-black uppercase tracking-widest text-slate-950">Active Digital Deeds</h3>
-					<a href="/dashboard/territories" class="text-[10px] font-black uppercase tracking-widest text-blue-600">Full Portfolio View &rarr;</a>
+					<a href="/dashboard/portfolio" class="text-[10px] font-black uppercase tracking-widest text-blue-600">Full Portfolio View &rarr;</a>
 				</div>
 				<div class="grid gap-2">
 					{territories.map(t => (

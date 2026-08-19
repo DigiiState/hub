@@ -3,21 +3,35 @@ import Layout from '../../layouts/Layout.astro';
 import Sidebar from '../../components/Sidebar.astro';
 
 
-// PHASE 11: ALERT CENTER DATA
+import Layout from '../../layouts/Layout.astro';
+import Sidebar from '../../components/Sidebar.astro';
+import { managementAttention } from '../../lib/db';
+
+// PHASE 11: ALERT CENTER DATA (Consolidated with Management Attention)
 const alerts = {
-	critical: [
-		{ id: "AL-001", type: "Ranking Collapse", target: "annapolisduidefense.com", impact: "High", message: "Google Rank dropped from #2 to #45 in 24 hours.", action: "Audit Backlinks" },
-		{ id: "AL-002", type: "Domain Expiration", target: "phoenixmdseptic.com", impact: "Total Loss", message: "Registry renewal failed. 48h until asset suspension.", action: "Force Renewal" },
-		{ id: "AL-003", type: "Site Offline", target: "clarksvillesepticpros.com", impact: "No Leads", message: "Server returning 522 Timeout from Cloudflare edge.", action: "Re-Deploy" }
-	],
-	warning: [
-		{ id: "AL-101", type: "Lease Expiry", target: "Young Septic Services", message: "Monopoly agreement expires in 14 days.", action: "Send Renewal" },
-		{ id: "AL-102", type: "Margin Decay", target: "Gibson Island Tree", message: "Infrastructure cost allocation exceeded 15% threshold.", action: "Optimize API" }
-	],
-	milestones: [
-		{ id: "AL-201", type: "Google #1", target: "phoenixmdseptic.com", message: "Dominant search position achieved for core keyword." },
-		{ id: "AL-202", type: "Breakeven", target: "annapolisduidefense.com", message: "Asset has recovered 100% of initial capital investment." }
-	]
+	critical: managementAttention.filter(m => m.type === 'critical').map((m, i) => ({
+        id: `AL-00${i+1}`,
+        type: "System Critical",
+        target: m.message.match(/"([^"]+)"/)?.[1] || "Portfolio",
+        impact: "High",
+        message: m.message,
+        action: m.action,
+        targetUrl: m.target
+    })),
+	warning: managementAttention.filter(m => m.type === 'warning').map((m, i) => ({
+        id: `AL-10${i+1}`,
+        type: "Risk Warning",
+        target: m.message.match(/"([^"]+)"/)?.[1] || "Portfolio",
+        message: m.message,
+        action: m.action,
+        targetUrl: m.target
+    })),
+	milestones: managementAttention.filter(m => m.type === 'positive').map((m, i) => ({
+        id: `AL-20${i+1}`,
+        type: "Performance Milestone",
+        target: m.message.match(/"([^"]+)"/)?.[1] || "Portfolio",
+        message: m.message
+    }))
 };
 ---
 
@@ -54,9 +68,9 @@ const alerts = {
 								<span>Impact: {a.impact}</span>
 							</div>
 						</div>
-						<button class="bg-red-600 text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-[11px] shadow-2xl shadow-red-600/30 hover:bg-slate-950 transition-all active:scale-95">
+						<a href={a.targetUrl} class="bg-red-600 text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-center text-[11px] shadow-2xl shadow-red-600/30 hover:bg-slate-950 transition-all active:scale-95">
 							{a.action} &rarr;
-						</button>
+						</a>
 					</div>
 				))}
 			</div>
@@ -69,7 +83,7 @@ const alerts = {
 						<div class="bg-white border border-slate-200 rounded-[32px] p-8 shadow-sm">
 							<b class="text-slate-950 uppercase block mb-3">{w.type} | {w.target}</b>
 							<p class="text-sm text-slate-500 leading-relaxed mb-6 italic">“{w.message}”</p>
-							<button class="text-[10px] font-black uppercase tracking-widest text-blue-600 hover:text-blue-800 transition-colors">{w.action} &rarr;</button>
+							<a href={w.targetUrl} class="text-[10px] font-black uppercase tracking-widest text-blue-600 hover:text-blue-800 transition-colors">{w.action} &rarr;</a>
 						</div>
 					))}
 				</div>

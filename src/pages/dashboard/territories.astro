@@ -1,13 +1,17 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Sidebar from '../../components/Sidebar.astro';
+import { assets } from '../../lib/db';
 
-const territories = [
-	{ id: "DEED-PHX-001", name: "Phoenix MD Septic", domain: "phoenixmdseptic.com", status: "Leased", owner: "Young Septic Services", ranking: "#1", health: 94 },
-	{ id: "DEED-CLX-002", name: "Clarksville Septic", domain: "clarksvillesepticpros.com", status: "Ranking", owner: "None", ranking: "#8", health: 78 },
-	{ id: "DEED-GIB-003", name: "Gibson Island Tree", domain: "gibsonislandtreeremoval.com", status: "Ranking", owner: "None", ranking: "#14", health: 64 },
-    { id: "DEED-ANN-004", name: "Annapolis Tree", domain: "annapolistreepros.com", status: "Available", owner: "None", ranking: "#22", health: 82 },
-];
+const territories = assets.map(a => ({
+    id: a.id,
+    name: a.name,
+    domain: a.domain,
+    status: a.stage,
+    owner: a.renter,
+    ranking: a.rank,
+    health: a.health
+}));
 ---
 
 <Layout title="Territory Manager | DigiiState OS">

@@ -1,62 +1,6 @@
----
 import Layout from '../../layouts/Layout.astro';
 import Sidebar from '../../components/Sidebar.astro';
-
-
-// PHASE 10: ENHANCED LEAD LEDGER DATA
-const leads = [
-	{ 
-		id: "L-9021", 
-		date: "Aug 16, 2:14 PM",
-		asset: "phoenixmdseptic.com",
-		territory: "Phoenix, MD",
-		renter: "Young Septic Services",
-		name: "John Harrison",
-		phone: "(410) 555-0199",
-		source: "Google Search",
-		keyword: "emergency septic pump phoenix",
-		duration: "4:12",
-		status: "Qualified",
-		appointment: "Scheduled",
-		jobWon: "Pending",
-		estValue: "$1,200",
-		revenue: "$0.00"
-	},
-	{ 
-		id: "L-9022", 
-		date: "Aug 16, 4:45 PM",
-		asset: "clarksvillesepticpros.com",
-		territory: "Clarksville, MD",
-		renter: "Young Septic Services",
-		name: "Sarah Miller",
-		phone: "(443) 555-9821",
-		source: "Google Map Pack",
-		keyword: "septic riser repair",
-		duration: "2:08",
-		status: "Qualified",
-		appointment: "Booked",
-		jobWon: "Yes",
-		estValue: "$2,800",
-		revenue: "$2,800.00"
-	},
-    { 
-		id: "L-9023", 
-		date: "Aug 16, 6:12 PM",
-		asset: "annapolisduidefense.com",
-		territory: "Annapolis, MD",
-		renter: "Portner & Shure",
-		name: "Confidential",
-		phone: "(410) 555-7788",
-		source: "Direct",
-		keyword: "dui lawyer annapolis",
-		duration: "12:45",
-		status: "Qualified",
-		appointment: "Scheduled",
-		jobWon: "Pending",
-		estValue: "$5,000",
-		revenue: "$0.00"
-	}
-];
+import { leads, portfolioStats } from '../../lib/db';
 ---
 
 <Layout title="Lead Ledger | DigiiState OS">
@@ -73,7 +17,7 @@ const leads = [
 				<div class="flex gap-4">
 					<div class="bg-white border border-slate-200 px-6 py-3 rounded-2xl flex items-center gap-3 shadow-sm">
 						<span class="text-[9px] font-black uppercase text-slate-400">Total Pipeline Value</span>
-						<b class="text-sm text-emerald-600">$18,400.00</b>
+						<b class="text-sm text-emerald-600">${portfolioStats.totalPipelineValue.toLocaleString()}</b>
 					</div>
 				</div>
 			</header>
