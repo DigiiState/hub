@@ -15,11 +15,11 @@ const { title } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body class="bg-white text-slate-950 font-['Inter',_sans-serif] selection:bg-blue-600 selection:text-white antialiased">
+	<body class="bg-white text-[#0f172a] font-['IBM_Plex_Sans',_sans-serif] selection:bg-[#0040ff] selection:text-white antialiased">
 		<slot />
 	</body>
 </html>
@@ -30,7 +30,7 @@ const { title } = Astro.props;
 	@tailwind utilities;
 
 	:root {
-		--accent: 37, 99, 235;
+		--accent: 0, 64, 255;
 	}
 
 	body {
@@ -38,18 +38,27 @@ const { title } = Astro.props;
 		padding: 0;
 	}
 
+	/* Bloomberg-style typography polish */
+	h1, h2, h3, h4 {
+		font-weight: 700;
+		letter-spacing: -0.02em;
+	}
+
+	.mono {
+		font-family: 'IBM Plex Mono', monospace;
+	}
+
 	/* Custom Scrollbar */
 	::-webkit-scrollbar {
-		width: 8px;
+		width: 6px;
 	}
 	::-webkit-scrollbar-track {
-		background: #f8fafc;
+		background: #ffffff;
 	}
 	::-webkit-scrollbar-thumb {
-		background: #cbd5e1;
-		border-radius: 10px;
+		background: #e2e8f0;
 	}
 	::-webkit-scrollbar-thumb:hover {
-		background: #94a3b8;
+		background: #cbd5e1;
 	}
 </style>
