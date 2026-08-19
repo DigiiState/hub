@@ -1,3 +1,4 @@
+---
 import Layout from '../../layouts/Layout.astro';
 import Sidebar from '../../components/Sidebar.astro';
 import { portfolioStats } from '../../lib/db';
@@ -5,51 +6,54 @@ import { portfolioStats } from '../../lib/db';
 
 <Layout title="Strategic Calculators | DigiiState OS">
 	<main class="min-h-screen bg-slate-50 flex">
-		<!-- Sidebar -->
 		<Sidebar activePath="/dashboard/calculators" />
 
-		<div class="flex-1 ml-64 p-10">
-			<header class="mb-12">
-				<h1 class="text-3xl font-black text-slate-950 uppercase tracking-tight">Strategic Calculators</h1>
-				<p class="text-slate-400 text-sm font-medium">Ippei-Kanehara 2026 Profit Logic Models</p>
+		<div class="flex-1 ml-64 p-12">
+			<header class="flex justify-between items-end mb-16">
+				<div>
+					<h1 class="text-4xl font-[900] text-slate-950 uppercase tracking-tighter leading-none">CALCULATORS</h1>
+					<p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.3em] mt-3">Strategic Modeling & Yield Projections</p>
+				</div>
 			</header>
 
-			<div class="grid lg:grid-cols-2 gap-8">
-				<!-- 1. The Monopoly Justifier (7% Logic) -->
-				<div class="bg-white border border-slate-200 rounded-[40px] shadow-sm p-10">
-					<div class="flex items-center justify-between mb-8">
-						<h3 class="text-xs font-black uppercase tracking-widest text-slate-400">The 7% Market Justifier</h3>
-						<span class="px-3 py-1 bg-amber-50 text-amber-600 text-[10px] font-black rounded-full uppercase tracking-widest">Sales Tool</span>
-					</div>
-					
-					<div class="space-y-8">
-						<div class="space-y-4">
-							<div class="flex justify-between text-[10px] font-black uppercase text-slate-500 tracking-widest">
-								<span>Monthly Leads</span>
-								<span id="label-leads" class="text-blue-600">20</span>
-							</div>
-							<input type="range" id="input-leads" min="5" max="100" value="20" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600" />
+			<div class="grid lg:grid-cols-2 gap-12">
+				<!-- 1. The Monopoly Rent Calculator -->
+				<div class="bg-slate-950 text-white rounded-[48px] p-12 shadow-2xl relative overflow-hidden">
+					<div class="absolute top-0 right-0 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl translate-x-32 -translate-y-32"></div>
+					<div class="relative z-10">
+						<div class="flex items-center justify-between mb-12">
+							<h3 class="text-xs font-black uppercase tracking-[0.4em] text-blue-500 italic">Monopoly Yield</h3>
+							<span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-[10px] font-black rounded-full uppercase tracking-widest border border-blue-500/20">Active Model</span>
 						</div>
 
-						<div class="space-y-4">
-							<div class="flex justify-between text-[10px] font-black uppercase text-slate-500 tracking-widest">
-								<span>Avg. Job Value</span>
-								<span id="label-job" class="text-blue-600">$2,400</span>
+						<div class="space-y-10">
+							<div class="space-y-4">
+								<div class="flex justify-between text-[10px] font-black uppercase text-slate-500 tracking-widest">
+									<span>Avg. Ticket Value</span>
+									<span id="label-ticket" class="text-white">$2,800</span>
+								</div>
+								<input type="range" id="input-ticket" min="500" max="15000" step="100" value="2800" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500" />
 							</div>
-							<input type="range" id="input-job" min="500" max="10000" step="100" value="2400" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600" />
+
+							<div class="space-y-4">
+								<div class="flex justify-between text-[10px] font-black uppercase text-slate-500 tracking-widest">
+									<span>Closing Rate</span>
+									<span id="label-close" class="text-white">25%</span>
+								</div>
+								<input type="range" id="input-close" min="5" max="100" step="1" value="25" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500" />
+							</div>
+
+							<div class="space-y-4">
+								<div class="flex justify-between text-[10px] font-black uppercase text-slate-500 tracking-widest">
+									<span>Monthly Leads</span>
+									<span id="label-leads" class="text-white">20</span>
+								</div>
+								<input type="range" id="input-leads" min="1" max="100" step="1" value="20" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500" />
+							</div>
 						</div>
 
-						<div class="space-y-4">
-							<div class="flex justify-between text-[10px] font-black uppercase text-slate-500 tracking-widest">
-								<span>Close Rate</span>
-								<span id="label-close" class="text-blue-600">25%</span>
-							</div>
-							<input type="range" id="input-close" min="5" max="100" value="25" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600" />
-						</div>
-
-						<div class="mt-12 bg-slate-950 p-8 rounded-[32px] text-center relative overflow-hidden">
-							<div class="absolute top-0 right-0 w-24 h-24 bg-blue-600/10 rounded-full blur-2xl"></div>
-							<div class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Fair Market Value (7%)</div>
+						<div class="mt-16 pt-12 border-t border-white/5">
+							<div class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Est. Market Value / Lead</div>
 							<div id="result-market" class="text-4xl font-black text-white mb-6">$840.00</div>
 							<div class="pt-6 border-t border-white/5">
 								<div class="text-[10px] font-black text-amber-500 uppercase tracking-widest mb-1">DigiiState Monopoly Lease</div>
@@ -77,26 +81,30 @@ import { portfolioStats } from '../../lib/db';
 
 						<div class="space-y-4">
 							<div class="flex justify-between text-[10px] font-black uppercase text-slate-500 tracking-widest">
-								<span>Estimated Success Rate</span>
-								<span id="label-success" class="text-emerald-600">90%</span>
+								<span>Target Lease / Asset</span>
+								<span id="label-rent" class="text-emerald-600">$1,250</span>
 							</div>
-							<input type="range" id="input-success" min="50" max="100" value="90" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-emerald-500" />
+							<input type="range" id="input-rent" min="500" max="5000" step="50" value="1250" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-emerald-500" />
 						</div>
 
-						<div class="mt-12 p-8 bg-emerald-50 border-2 border-emerald-100 rounded-[32px] text-center">
-							<div class="text-[10px] font-black text-emerald-600 uppercase tracking-widest mb-2">Projected Monthly Revenue</div>
-							<div id="result-revenue" class="text-5xl font-black text-slate-950 mb-2">$22,500</div>
-							<div class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter italic">Based on $1,250 avg weekly lease equivalent</div>
+						<div class="space-y-4">
+							<div class="flex justify-between text-[10px] font-black uppercase text-slate-500 tracking-widest">
+								<span>OpEx / Asset</span>
+								<span id="label-opex" class="text-red-500">$50</span>
+							</div>
+							<input type="range" id="input-opex" min="10" max="500" step="5" value="50" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-red-500" />
 						</div>
 
-						<div class="grid grid-cols-2 gap-4">
-							<div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
-								<span class="text-[9px] font-black text-slate-400 uppercase tracking-widest block mb-1">Annual Gross</span>
-								<div id="result-annual" class="text-xl font-black text-slate-950">$270,000</div>
-							</div>
-							<div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
-								<span class="text-[9px] font-black text-slate-400 uppercase tracking-widest block mb-1">Retained Net (Est)</span>
-								<div id="result-net" class="text-xl font-black text-blue-600">$209,250</div>
+						<div class="mt-12 p-8 bg-slate-50 rounded-3xl border border-slate-100">
+							<div class="grid grid-cols-2 gap-8 text-center">
+								<div>
+									<span class="text-[9px] font-black text-slate-400 uppercase block mb-2">Monthly NOI</span>
+									<b id="result-noi" class="text-2xl text-slate-950 font-black">$24,000</b>
+								</div>
+								<div>
+									<span class="text-[9px] font-black text-slate-400 uppercase block mb-2">Portfolio Value</span>
+									<b id="result-val" class="text-2xl text-blue-600 font-black">$240k</b>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -107,57 +115,49 @@ import { portfolioStats } from '../../lib/db';
 </Layout>
 
 <script>
-	// 1. Justifier Logic
-	const iLeads = document.getElementById('input-leads') as HTMLInputElement;
-	const iJob = document.getElementById('input-job') as HTMLInputElement;
-	const iClose = document.getElementById('input-close') as HTMLInputElement;
-	const lLeads = document.getElementById('label-leads');
-	const lJob = document.getElementById('label-job');
-	const lClose = document.getElementById('label-close');
-	const rMarket = document.getElementById('result-market');
+	// Reactive Logic for Calculators
+	const inputs = {
+		ticket: document.getElementById('input-ticket'),
+		close: document.getElementById('input-close'),
+		leads: document.getElementById('input-leads'),
+		assets: document.getElementById('input-assets'),
+		rent: document.getElementById('input-rent'),
+		opex: document.getElementById('input-opex')
+	};
 
-	function updateJustifier() {
-		const leads = parseInt(iLeads.value);
-		const job = parseInt(iJob.value);
-		const close = parseInt(iClose.value) / 100;
-		lLeads!.textContent = leads.toString();
-		lJob!.textContent = `$${job.toLocaleString()}`;
-		lClose!.textContent = `${(close * 100).toFixed(0)}%`;
-		
-		const marketVal = (leads * job * close * 0.07);
-		rMarket!.textContent = `$${marketVal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+	const labels = {
+		ticket: document.getElementById('label-ticket'),
+		close: document.getElementById('label-close'),
+		leads: document.getElementById('label-leads'),
+		assets: document.getElementById('label-assets'),
+		rent: document.getElementById('label-rent'),
+		opex: document.getElementById('label-opex')
+	};
+
+	const results = {
+		market: document.getElementById('result-market'),
+		noi: document.getElementById('result-noi'),
+		val: document.getElementById('result-val')
+	};
+
+	function update() {
+		// Monopoly Model
+		labels.ticket.innerText = `$${Number(inputs.ticket.value).toLocaleString()}`;
+		labels.close.innerText = `${inputs.close.value}%`;
+		labels.leads.innerText = inputs.leads.value;
+
+		const revenuePerLead = (inputs.ticket.value * (inputs.close.value / 100));
+		results.market.innerText = `$${revenuePerLead.toFixed(2)}`;
+
+		// Empire Model
+		labels.assets.innerText = inputs.assets.value;
+		labels.rent.innerText = `$${Number(inputs.rent.value).toLocaleString()}`;
+		labels.opex.innerText = `$${inputs.opex.value}`;
+
+		const monthlyNOI = (inputs.rent.value - inputs.opex.value) * inputs.assets.value;
+		results.noi.innerText = `$${monthlyNOI.toLocaleString()}`;
+		results.val.innerText = `$${(monthlyNOI * 12 * 0.1).toFixed(0)}k`; // 10% Yield Valuation
 	}
 
-	// 2. Empire Logic
-	const iAssets = document.getElementById('input-assets') as HTMLInputElement;
-	const iSuccess = document.getElementById('input-success') as HTMLInputElement;
-	const lAssets = document.getElementById('label-assets');
-	const lSuccess = document.getElementById('label-success');
-	const rRev = document.getElementById('result-revenue');
-	const rAnn = document.getElementById('result-annual');
-	const rNet = document.getElementById('result-net');
-
-	function updateEmpire() {
-		const assets = parseInt(iAssets.value);
-		const success = parseInt(iSuccess.value) / 100;
-		lAssets!.textContent = assets.toString();
-		lSuccess!.textContent = `${(success * 100).toFixed(0)}%`;
-
-		const monthly = (assets * success * 1250);
-		const annual = monthly * 12;
-		const net = annual * 0.775; // Rough estimate after tax/ops
-
-		rRev!.textContent = `$${monthly.toLocaleString(undefined, {maximumFractionDigits: 0})}`;
-		rAnn!.textContent = `$${annual.toLocaleString(undefined, {maximumFractionDigits: 0})}`;
-		rNet!.textContent = `$${net.toLocaleString(undefined, {maximumFractionDigits: 0})}`;
-	}
-
-	iLeads.addEventListener('input', updateJustifier);
-	iJob.addEventListener('input', updateJustifier);
-	iClose.addEventListener('input', updateJustifier);
-	iAssets.addEventListener('input', updateEmpire);
-	iSuccess.addEventListener('input', updateEmpire);
-
-	updateJustifier();
-	updateEmpire();
+	Object.values(inputs).forEach(input => input?.addEventListener('input', update));
 </script>
