@@ -16,6 +16,22 @@ if (!assetData) {
     return Astro.redirect('/404');
 }
 
+const lifecycleStages = [
+	"Research", "Underwriting", "Acq. Approved", "Domain Acquired", 
+	"Development", "Indexed", "Ranking", "Generating Leads", 
+	"Lease Ready", "Available", "Leased", "Stabilized", 
+	"Expansion", "Distressed", "Exit / Sale", "Retired"
+];
+
+const currentStageIndex = lifecycleStages.indexOf(assetData.stage);
+
+// HEALTH ALGORITHM REPLICA FOR DETAIL VIEW
+const healthMetrics = [
+    { label: "Search Dominance", weight: 40, score: assetData.rank === '#1' ? 100 : 80 },
+    { label: "Lead Velocity", weight: 30, score: assetData.leads >= 20 ? 95 : 70 },
+    { label: "Partner Stability", weight: 30, score: assetData.renter !== 'None' ? 100 : 50 }
+];
+
 const asset = {
 	id: assetData.id,
 	domain: assetData.domain,
