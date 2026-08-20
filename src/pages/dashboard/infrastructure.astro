@@ -1,7 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Sidebar from '../../components/Sidebar.astro';
-import { portfolioStats } from '../../lib/db';
+import { getPortfolioStats } from '../../lib/db';
+
+const portfolioStats = await getPortfolioStats();
 
 // PHASE 8: NATIONAL INFRASTRUCTURE DATA
 const infrastructure = [

@@ -1,7 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Sidebar from '../../components/Sidebar.astro';
-import { leads, portfolioStats } from '../../lib/db';
+import { getLeads, getPortfolioStats } from '../../lib/db';
+
+const leads = await getLeads();
+const portfolioStats = await getPortfolioStats();
 ---
 
 <Layout title="Lead Ledger | DigiiState OS">

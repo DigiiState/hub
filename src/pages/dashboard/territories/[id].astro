@@ -1,13 +1,15 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import Sidebar from '../../../components/Sidebar.astro';
-import { assets } from '../../../lib/db';
+import { getAssets } from '../../../lib/db';
 
-export function getStaticPaths() {
+export async function getStaticPaths() {
+  const assets = await getAssets();
   return assets.map(a => ({ params: { id: a.id } }));
 }
 
 const { id } = Astro.params;
+const assets = await getAssets();
 
 // AUTHORITATIVE ASSET RECORD
 const assetData = assets.find(a => a.id === id);

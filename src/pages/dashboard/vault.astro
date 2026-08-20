@@ -1,7 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Sidebar from '../../components/Sidebar.astro';
-import { assets, portfolioStats } from '../../lib/db';
+import { getAssets, getPortfolioStats } from '../../lib/db';
+
+const assets = await getAssets();
+const portfolioStats = await getPortfolioStats();
 
 // PHASE 5: DIGITAL VAULT MASTER DATA
 const deeds = assets.map(a => ({

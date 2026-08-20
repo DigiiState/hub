@@ -1,7 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Sidebar from '../../components/Sidebar.astro';
-import { renters, portfolioStats } from '../../lib/db';
+import { getRenters, getPortfolioStats } from '../../lib/db';
+
+const renters = await getRenters();
+const portfolioStats = await getPortfolioStats();
 ---
 
 <Layout title="Renter Management | DigiiState OS">

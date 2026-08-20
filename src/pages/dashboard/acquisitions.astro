@@ -1,7 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Sidebar from '../../components/Sidebar.astro';
-import { assets } from '../../lib/db';
+import { getAssets } from '../../lib/db';
+
+const assets = await getAssets();
 
 // PHASE 4: TERRITORY ACQUISITION ENGINE
 const industries = ["Septic", "Tree Removal", "Water Damage", "Roofing", "DUI Law", "HVAC", "Junk Removal"];

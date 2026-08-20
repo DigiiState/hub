@@ -1,7 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Sidebar from '../components/Sidebar.astro';
-import { portfolioStats, assets, managementAttention } from '../lib/db';
+import { getPortfolioStats, getAssets, managementAttention } from '../lib/db';
+
+const portfolioStats = await getPortfolioStats();
+const assets = await getAssets();
 
 // AUTHORITATIVE ASSET SYNC
 const territories = assets.slice(0, 5).map(a => ({

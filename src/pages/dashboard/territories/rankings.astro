@@ -1,7 +1,9 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import Sidebar from '../../../components/Sidebar.astro';
-import { assets } from '../../../lib/db';
+import { getAssets } from '../../../lib/db';
+
+const assets = await getAssets();
 
 // PHASE 9: SEARCH ENGINE QUAD-PULSE DATA
 const rankings = assets.filter(a => a.rank !== "#--").map(a => ({

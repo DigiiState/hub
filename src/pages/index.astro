@@ -1,6 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { portfolioStats, assets } from '../lib/db';
+import { getPortfolioStats, getAssets } from '../lib/db';
+
+const portfolioStats = await getPortfolioStats();
+const assets = await getAssets();
 
 // National Territory Data (Top performers for Map)
 const mapTerritories = assets.slice(0, 5).map((a, i) => ({
