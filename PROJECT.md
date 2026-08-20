@@ -27,5 +27,9 @@
 - **Infrastructure**: Cloudflare Pages
 - **Integrations**: Make.com (Leads), Twilio (Voice), Serper.dev (Rankings)
 
+## Legal Classification
+- **Status**: **Updated / Pending Professional Legal Review**
+- **Note**: Documents (Governance, TOS, Privacy) have been updated with OS v1.3.0 boilerplate but have NOT been certified by qualified legal counsel.
+
 ## Approved Decisions
 - 2026-08-20: Engineering Handoff accepted. WebDev OS v1.3.0 standards applied.

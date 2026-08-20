@@ -77,7 +77,12 @@ const recommendations = [
 							<div class="lg:col-span-1 flex flex-col justify-center items-end text-right border-l border-slate-50 pl-10">
 								<span class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Target Asset</span>
 								<b class="text-xs text-slate-950 uppercase italic mb-6">{r.asset}</b>
-								<a href={r.target} class="text-[10px] font-black text-center uppercase tracking-widest text-blue-600 border-2 border-blue-600 px-6 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-all active:scale-95">Execute &rarr;</a>
+								<button 
+									onclick={`promoteToDecision(${JSON.stringify(r)})`}
+									class="text-[10px] font-black text-center uppercase tracking-widest text-amber-600 border-2 border-amber-600 px-6 py-2.5 rounded-xl hover:bg-amber-600 hover:text-white transition-all active:scale-95"
+								>
+									Promote &rarr;
+								</button>
 							</div>
 						</div>
 					</div>
@@ -85,4 +90,43 @@ const recommendations = [
 			</div>
 		</div>
 	</main>
+
+	<script is:inline>
+		window.promoteToDecision = async (rec) => {
+			const btn = event.target;
+			const originalText = btn.innerText;
+			btn.innerText = 'PROMOTING...';
+			btn.disabled = true;
+
+			try {
+				const res = await fetch('/api/decisions/create', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({
+						title: rec.action,
+						rationale: rec.observation,
+						type: rec.priority === 'Critical' ? 'ARCHITECTURE_CHANGE' : 'OTHER',
+						priority: rec.priority.toUpperCase(),
+						cost: rec.priority === 'Critical' ? 1250 : 0,
+						payback: '3 Months',
+						risk: 'LOW',
+						evidence: { observation: rec.observation, impact: rec.impact }
+					})
+				});
+
+				const result = await res.json();
+				if (result.error) {
+					alert(`Error: ${result.error}`);
+				} else {
+					alert('Successfully promoted to Decision Queue.');
+					window.location.href = '/dashboard';
+				}
+			} catch (e) {
+				alert('System Error: Failed to promote recommendation.');
+			} finally {
+				btn.innerText = originalText;
+				btn.disabled = false;
+			}
+		};
+	</script>
 </Layout>

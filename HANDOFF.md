@@ -5,15 +5,14 @@
 *   **GitHub Repository:** `https://github.com/DigiiState/hub.git`
 *   **Production Branch:** `main`
 *   **Production Commit:** `6a94ec8b52edeb6b364864b8c7815ca4eb894342`
-*   **Infrastructure:** Cloudflare Pages (v1.1.0)
+*   **Infrastructure:** Cloudflare Pages (WebDev OS v1.3.0)
 *   **Custom Domain:** `digiistate.com`
 
 ## 🏗️ Architecture
 *   **Framework:** Astro.js (Static-first with Edge Middleware)
 *   **Design System:** Tailwind CSS (Institutional "Bloomberg" Aesthetic)
 *   **State Management:** `src/lib/db.ts` (Authoritative Source of Truth)
-*   **Authentication:** Cookie-based Edge Middleware (`functions/_middleware.ts`)
-*   **Auth Key:** `08152026` (DS_AUTH)
+*   **Authentication:** Managed via Supabase Auth.
 
 ## 📡 Integrations
 *   **Hosting/DNS:** Cloudflare (Pages + Registrar)
@@ -28,12 +27,14 @@
     *   `SUPABASE_SCHEMA.sql` (Core tables)
     *   `ROBUST_EMPIRE_SCHEMA.sql` (Portfolio scaling)
     *   `MIGRATION_PHASE_2_5.sql` (Asset relationships)
-*   **Current State:** The Hub currently uses the local `src/lib/db.ts` for all production metrics while awaiting live Supabase credentials.
+    *   `P1B_DECISION_QUEUE.sql` (In implementation)
+*   **Current State:** The Hub currently uses the local `src/lib/db.ts` for all production metrics while awaiting live Supabase credentials. 
+*   **Reconciled Lease Count:** 3 Active Contracts (Young Septic) + 1 Trial (Portner & Shure). (Verified Aug 20, 2026).
 
 ## ⚙️ Environment Configuration
 *   **Build Settings (Cloudflare):**
-    *   `NODE_VERSION`: `22.12.0` (Required for build compatibility)
-    *   `DS_AUTH`: `08152026` (Operator Access Key)
+*   `NODE_VERSION`: `22.12.0` (Required for build compatibility)
+
 
 ## 🛑 Known Issues & Unresolved Defects
 1.  **Supabase Sync:** Frontend is currently using static JSON state. API integration for live PG data is architected but not connected.

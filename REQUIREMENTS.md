@@ -2,10 +2,11 @@
 
 | ID | Requirement Description | Priority | Status | Verified By |
 |----|-------------------------|----------|--------|-------------|
-| R1 | Supabase Live Sync (Replace static JSON) | P0 | REQUESTED | |
-| R2 | Legal Content Updates (Gov, TOS, Privacy) | P1 | REQUESTED | |
-| R3 | Twilio Account SID Injection (SMS Automation)| P1 | REQUESTED | |
-| R4 | Serper.dev API Credits Monitor | P2 | REQUESTED | |
-| R5 | Multi-tenant RLS Enforcement | P0 | PLANNED | |
+| R1 | Multi-tenant RLS Enforcement Audit | P0 | BLOCKED | |
+| R2 | Supabase Project Isolation | P0 | BLOCKED | |
+| R3 | Legal Review (Governance, TOS, Privacy) | P1 | PENDING LEGAL | |
+| R4 | Supabase Live Sync (Data Migration) | P1 | IN DEVELOPMENT | |
+| R5 | Twilio Account SID Injection | P1 | REQUESTED | |
+| R6 | Serper.dev API Credits Monitor | P2 | REQUESTED | |
 
 *Status options: REQUESTED, PLANNED, IN DEVELOPMENT, BUILT, TESTING, FAILED, FIXED, VERIFIED, DEPLOYED.*

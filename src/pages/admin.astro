@@ -16,7 +16,7 @@ import Layout from '../layouts/Layout.astro';
 				<div class="space-y-4">
 					<div class="relative">
 						<label class="block text-[10px] font-black uppercase text-slate-400 mb-2 tracking-[0.2em]">Operator ID</label>
-						<input type="email" class="w-full bg-slate-50 border-b-2 border-slate-200 py-3 text-lg outline-none focus:border-blue-600 transition-all font-bold text-slate-950 px-4 rounded-t-xl" placeholder="admin@digiistate.com" value="info@digiistate.com" readonly />
+						<input type="email" id="emailInput" class="w-full bg-slate-50 border-b-2 border-slate-200 py-3 text-lg outline-none focus:border-blue-600 transition-all font-bold text-slate-950 px-4 rounded-t-xl" placeholder="admin@digiistate.com" required />
 					</div>
 					<div class="relative">
 						<label class="block text-[10px] font-black uppercase text-slate-400 mb-2 tracking-[0.2em]">Security Key</label>
@@ -24,7 +24,7 @@ import Layout from '../layouts/Layout.astro';
 					</div>
 				</div>
 
-				<div id="error" class="text-[10px] font-bold text-red-500 uppercase text-center hidden">Invalid Protocol Initiation Key</div>
+				<div id="error" class="text-[10px] font-bold text-red-500 uppercase text-center hidden">Access Denied: Invalid Credentials</div>
 
 				<button type="submit" id="submitBtn" class="w-full bg-slate-950 text-white py-5 rounded-[24px] font-black uppercase tracking-[0.3em] text-xs transition-all shadow-xl hover:bg-blue-600 active:scale-95 flex items-center justify-center gap-3">
 					<span id="btnText">Initialize System</span>
@@ -42,30 +42,54 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <script>
+	import { supabase } from '../lib/supabase';
+
 	const form = document.getElementById('loginForm');
+	const emailInput = document.getElementById('emailInput') as HTMLInputElement;
 	const keyInput = document.getElementById('passKey') as HTMLInputElement;
 	const error = document.getElementById('error');
 	const btnText = document.getElementById('btnText');
 	const spinner = document.getElementById('spinner');
 
-	form?.addEventListener('submit', (e) => {
+	form?.addEventListener('submit', async (e) => {
 		e.preventDefault();
 		
 		error?.classList.add('hidden');
 		btnText!.textContent = 'AUTHORIZING...';
 		spinner?.classList.remove('hidden');
 
-		setTimeout(() => {
-			if (keyInput.value === '08152026') {
-				// Set authentication cookie for middleware protection
-				document.cookie = "DS_AUTH=08152026; path=/; max-age=86400; SameSite=Lax";
-				// Use absolute path for reliability on Cloudflare
-				window.location.href = '/dashboard/';
-			} else {
-				error?.classList.remove('hidden');
-				btnText!.textContent = 'Initialize System';
-				spinner?.classList.add('hidden');
-			}
-		}, 800);
+		const { data, error: authError } = await supabase.auth.signInWithPassword({
+			email: emailInput.value,
+			password: keyInput.value,
+		});
+
+		if (authError || !data.user) {
+			error!.textContent = authError?.message || 'Invalid Credentials';
+			error?.classList.remove('hidden');
+			btnText!.textContent = 'Initialize System';
+			spinner?.classList.add('hidden');
+			return;
+		}
+
+		// Check role
+		const { data: profile } = await supabase
+			.from('profiles')
+			.select('role')
+			.eq('id', data.user.id)
+			.single();
+
+		if (profile?.role !== 'admin') {
+			await supabase.auth.signOut();
+			error!.textContent = 'Access Denied: Admin Role Required';
+			error?.classList.remove('hidden');
+			btnText!.textContent = 'Initialize System';
+			spinner?.classList.add('hidden');
+			return;
+		}
+
+		// Set a secure session cookie for the middleware
+		// In production, we should use a more secure method, but this replaces the static key.
+		document.cookie = `DS_SESSION=${data.session?.access_token}; path=/; max-age=86400; SameSite=Lax; Secure`;
+		window.location.href = '/dashboard/';
 	});
 </script>

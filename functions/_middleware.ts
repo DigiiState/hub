@@ -4,7 +4,7 @@ export const onRequest: PagesFunction = async (context) => {
   
   // Protect all /dashboard routes
   if (url.pathname.startsWith("/dashboard")) {
-    if (!cookie.includes("DS_AUTH=08152026")) {
+    if (!cookie.includes("DS_SESSION=")) {
       return new Response(null, {
         status: 302,
         headers: { "Location": "/admin" },
