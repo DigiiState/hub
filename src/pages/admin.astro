@@ -15,11 +15,11 @@ import Layout from '../layouts/Layout.astro';
 			<form class="space-y-8" id="loginForm">
 				<div class="space-y-4">
 					<div class="relative">
-						<label class="block text-[10px] font-black uppercase text-slate-400 mb-2 tracking-[0.2em]">Operator ID</label>
+						<label class="block text-[10px] font-black uppercase text-slate-400 mb-2 tracking-[0.2em]">Email</label>
 						<input type="email" id="emailInput" class="w-full bg-slate-50 border-b-2 border-slate-200 py-3 text-lg outline-none focus:border-blue-600 transition-all font-bold text-slate-950 px-4 rounded-t-xl" placeholder="admin@digiistate.com" required />
 					</div>
 					<div class="relative">
-						<label class="block text-[10px] font-black uppercase text-slate-400 mb-2 tracking-[0.2em]">Security Key</label>
+						<label class="block text-[10px] font-black uppercase text-slate-400 mb-2 tracking-[0.2em]">Password</label>
 						<input type="password" id="passKey" class="w-full bg-slate-50 border-b-2 border-slate-200 py-3 text-lg outline-none focus:border-blue-600 transition-all font-bold text-slate-950 px-4 rounded-t-xl" placeholder="••••••••" required />
 					</div>
 				</div>
@@ -27,7 +27,7 @@ import Layout from '../layouts/Layout.astro';
 				<div id="error" class="text-[10px] font-bold text-red-500 uppercase text-center hidden">Access Denied: Invalid Credentials</div>
 
 				<button type="submit" id="submitBtn" class="w-full bg-slate-950 text-white py-5 rounded-[24px] font-black uppercase tracking-[0.3em] text-xs transition-all shadow-xl hover:bg-blue-600 active:scale-95 flex items-center justify-center gap-3">
-					<span id="btnText">Initialize System</span>
+					<span id="btnText">Sign In</span>
 					<div id="spinner" class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin hidden"></div>
 				</button>
 			</form>
