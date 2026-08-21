@@ -66,7 +66,7 @@ import Layout from '../layouts/Layout.astro';
 		if (authError || !data.user) {
 			error!.textContent = authError?.message || 'Invalid Credentials';
 			error?.classList.remove('hidden');
-			btnText!.textContent = 'Initialize System';
+			btnText!.textContent = 'Sign In';
 			spinner?.classList.add('hidden');
 			return;
 		}
@@ -82,7 +82,7 @@ import Layout from '../layouts/Layout.astro';
 			await supabase.auth.signOut();
 			error!.textContent = 'Access Denied: Admin Role Required';
 			error?.classList.remove('hidden');
-			btnText!.textContent = 'Initialize System';
+			btnText!.textContent = 'Sign In';
 			spinner?.classList.add('hidden');
 			return;
 		}
