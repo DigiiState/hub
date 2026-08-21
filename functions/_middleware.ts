@@ -1,4 +1,6 @@
-export const onRequest: PagesFunction = async (context) => {
+interface Env {}
+
+export const onRequest: PagesFunction<Env> = async (context) => {
   const url = new URL(context.request.url);
   const cookie = context.request.headers.get("Cookie") || "";
   

@@ -58,7 +58,7 @@ export async function getAssets() {
             google: `#${a.rankings?.[0]?.google_rank || '--'}`,
             bing: `#${a.rankings?.[0]?.bing_rank || '--'}`,
             yahoo: `#${a.rankings?.[0]?.yahoo_rank || '--'}`,
-            ddg: `#${a.ranks?.[0]?.ddg_rank || '--'}`
+            ddg: `#${a.rankings?.[0]?.ddg_rank || '--'}`
         }
     })) || [];
 }
