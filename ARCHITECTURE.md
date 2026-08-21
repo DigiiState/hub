@@ -19,5 +19,6 @@ DigiiState OS (Hub) is a static-first management portal built with Astro.js and 
 - **External APIs**: Twilio, Serper.dev, Make.com.
 
 ## Security
-- **Auth Key**: `DS_AUTH` env var.
-- **Data Access**: RLS rules (planned) in Supabase.
+- **Auth**: Supabase Auth (Email/Password).
+- **Session**: Secure cookie-based session verification (`DS_SESSION`).
+- **Data Access**: Row Level Security (RLS) in Supabase.
