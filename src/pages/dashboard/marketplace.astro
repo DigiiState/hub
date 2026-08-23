@@ -1,0 +1,133 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Sidebar from '../../components/Sidebar.astro';
+import { getPortfolioStats, getAssets } from '../../lib/db';
+
+const portfolioStats = await getPortfolioStats();
+const allAssets = await getAssets();
+
+// P1 Implementation: Marketplace Logic
+const activeLeases = allAssets.filter(a => a.stage === 'Leased' && a.renter === 'Young Septic Services');
+const availableAssets = allAssets.filter(a => a.stage === 'Lease Ready' || a.stage === 'Stabilized');
+const developmentAssets = allAssets.filter(a => a.stage === 'Development' || a.stage === 'Ranking');
+
+// Territory Progress Calculation (Excluding TRIAL)
+const qualifyingSites = activeLeases.filter(a => a.stage !== 'Trial').length;
+const progressPercentage = Math.min((qualifyingSites / 4) * 100, 100);
+
+---
+
+<Layout title="Expansion Marketplace | DigiiState">
+	<main class="min-h-screen bg-slate-50 flex">
+		<Sidebar activePath="/dashboard/marketplace" />
+
+		<div class="flex-1 ml-64 p-12">
+			<header class="mb-16">
+				<h1 class="text-4xl font-black text-slate-950 uppercase tracking-tighter leading-none">Expansion Marketplace</h1>
+				<p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.3em] mt-3">Renter Growth & Asset Acquisition</p>
+			</header>
+
+			<!-- 1. YOUR DIGITAL FOOTPRINT -->
+			<section class="mb-16">
+				<div class="flex items-center gap-3 mb-8">
+					<h3 class="text-xs font-black uppercase tracking-[0.2em] text-blue-600 border-l-4 border-blue-600 pl-4">Your Digital Footprint</h3>
+				</div>
+				<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+					{activeLeases.map(asset => (
+						<div class="bg-white border border-slate-200 rounded-[32px] p-8 shadow-sm">
+							<div class="flex justify-between items-start mb-6">
+								<div>
+									<b class="text-lg text-slate-950 block">{asset.name}</b>
+									<span class="text-[10px] text-slate-400 font-mono">{asset.domain}</span>
+								</div>
+								<span class="text-[9px] font-black uppercase px-3 py-1 bg-emerald-50 text-emerald-600 rounded-full">Active</span>
+							</div>
+							<div class="grid grid-cols-2 gap-4">
+								<div class="bg-slate-50 p-4 rounded-2xl">
+									<span class="text-[8px] font-black text-slate-400 uppercase block mb-1">Health</span>
+									<b class="text-sm text-slate-950">{asset.health}%</b>
+								</div>
+								<div class="bg-slate-50 p-4 rounded-2xl">
+									<span class="text-[8px] font-black text-slate-400 uppercase block mb-1">Google Rank</span>
+									<b class="text-sm text-blue-600">{asset.rank}</b>
+								</div>
+							</div>
+						</div>
+					))}
+				</div>
+			</section>
+
+			<!-- 2. TERRITORY PROGRESS -->
+			<section class="mb-16 bg-slate-950 text-white p-12 rounded-[48px] shadow-2xl relative overflow-hidden">
+				<div class="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
+				<div class="relative z-10">
+					<div class="flex justify-between items-end mb-8">
+						<div>
+							<h3 class="text-xs font-black uppercase tracking-[0.4em] text-blue-500 mb-2 italic">Territory Dominance</h3>
+							<h2 class="text-3xl font-black">Maryland Septic Cluster</h2>
+						</div>
+						<div class="text-right">
+							<span class="text-[10px] font-black text-slate-500 uppercase tracking-widest block mb-1">Qualifying Sites</span>
+							<b class="text-2xl text-white">{qualifyingSites} / 4</b>
+						</div>
+					</div>
+					
+					<div class="h-4 bg-white/10 rounded-full overflow-hidden mb-6">
+						<div class="h-full bg-blue-600 rounded-full transition-all duration-1000" style={`width: ${progressPercentage}%`}></div>
+					</div>
+					
+					<p class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">
+						{progressPercentage === 100 ? 'Target Achieved: Institutional Yield Multiplier Active' : `Add ${4 - qualifyingSites} more sites to unlock expansion bonuses.`}
+					</p>
+				</div>
+			</section>
+
+			<div class="grid lg:grid-cols-2 gap-12">
+				<!-- 3. AVAILABLE NEAR YOU -->
+				<section>
+					<div class="flex items-center gap-3 mb-8">
+						<h3 class="text-xs font-black uppercase tracking-[0.2em] text-slate-950 border-l-4 border-slate-950 pl-4">Available Near You</h3>
+					</div>
+					<div class="space-y-4">
+						{availableAssets.map(asset => (
+							<div class="bg-white border border-slate-200 p-6 rounded-3xl flex justify-between items-center shadow-sm hover:border-blue-500 transition-all group">
+								<div>
+									<b class="text-sm text-slate-950 uppercase tracking-tight">{asset.name}</b>
+									<div class="flex items-center gap-2 mt-1">
+										<span class="text-[9px] font-black text-emerald-500 uppercase tracking-widest">Lease Ready</span>
+										<span class="text-[9px] text-slate-400 font-mono italic">{asset.domain}</span>
+									</div>
+								</div>
+								<button class="bg-slate-950 text-white px-6 py-3 rounded-xl font-black text-[9px] uppercase tracking-widest hover:bg-blue-600 transition-all">
+									Request Lease
+								</button>
+							</div>
+						))}
+					</div>
+				</section>
+
+				<!-- 4. COMING SOON -->
+				<section>
+					<div class="flex items-center gap-3 mb-8">
+						<h3 class="text-xs font-black uppercase tracking-[0.2em] text-slate-400 border-l-4 border-slate-200 pl-4">Coming Soon</h3>
+					</div>
+					<div class="space-y-4">
+						{developmentAssets.map(asset => (
+							<div class="bg-slate-50 border border-slate-100 p-6 rounded-3xl flex justify-between items-center group opacity-80">
+								<div>
+									<b class="text-sm text-slate-400 uppercase tracking-tight">{asset.name}</b>
+									<div class="flex items-center gap-2 mt-1">
+										<span class="text-[9px] font-black text-blue-400 uppercase tracking-widest">{asset.stage}</span>
+									</div>
+								</div>
+								<button class="bg-white border border-slate-200 text-slate-400 px-6 py-3 rounded-xl font-black text-[9px] uppercase tracking-widest hover:text-blue-600 hover:border-blue-600 transition-all">
+									Join Waitlist
+								</button>
+							</div>
+						))}
+					</div>
+				</section>
+			</div>
+		</div>
+	</main>
+</Layout>

@@ -1,4 +1,5 @@
 import { supabase } from './supabase';
+import type { Call, CallRecording, LeadEvent, RenterOrganization, TrackingNumber } from './types';
 
 export async function getPortfolioStats() {
     const { data: assets } = await supabase.from('assets').select('*');
@@ -36,31 +37,38 @@ export async function getPortfolioStats() {
 }
 
 export async function getAssets() {
-    const { data } = await supabase
+    const { data: assets } = await supabase
         .from('assets')
         .select('*, rankings(*)');
     
-    return data?.map(a => ({
-        id: a.id,
-        name: a.niche + " " + a.city,
-        domain: a.domain,
-        city: a.city,
-        state: a.state,
-        health: a.health_score,
-        stage: a.status,
-        rank: `#${a.rankings?.[0]?.google_rank || '--'}`,
-        leads: 0, // Should fetch from leads table
-        capital: "$10.46",
-        renter: a.status === 'Leased' ? 'Young Septic Services' : 'None',
-        registrar: a.registrar,
-        expDate: a.expiry_date,
-        ranks: {
-            google: `#${a.rankings?.[0]?.google_rank || '--'}`,
-            bing: `#${a.rankings?.[0]?.bing_rank || '--'}`,
-            yahoo: `#${a.rankings?.[0]?.yahoo_rank || '--'}`,
-            ddg: `#${a.rankings?.[0]?.ddg_rank || '--'}`
-        }
-    })) || [];
+    const { data: leases } = await supabase
+        .from('leases')
+        .select('*, profiles(*)');
+    
+    return assets?.map(a => {
+        const lease = leases?.find(l => l.asset_ids?.includes(a.id));
+        return {
+            id: a.id,
+            name: a.niche + " " + a.city,
+            domain: a.domain,
+            city: a.city,
+            state: a.state,
+            health: a.health_score,
+            stage: a.status,
+            rank: `#${a.rankings?.[0]?.google_rank || '--'}`,
+            leads: 0, 
+            capital: "$10.46",
+            renter: lease ? (lease.profiles?.full_name || 'Active Renter') : 'None',
+            registrar: a.registrar,
+            expDate: a.expiry_date,
+            ranks: {
+                google: `#${a.rankings?.[0]?.google_rank || '--'}`,
+                bing: `#${a.rankings?.[0]?.bing_rank || '--'}`,
+                yahoo: `#${a.rankings?.[0]?.yahoo_rank || '--'}`,
+                ddg: `#${a.rankings?.[0]?.ddg_rank || '--'}`
+            }
+        };
+    }) || [];
 }
 
 export async function getLeads() {
@@ -120,6 +128,61 @@ export async function getDecisions() {
         .eq('status', 'PENDING')
         .order('created_at', { ascending: false });
     return data || [];
+}
+
+// CALLS & LEADS CENTER (P0/P1)
+export async function getCalls(orgId?: string) {
+    let query = supabase
+        .from('calls')
+        .select('*, assets(domain, niche, city), call_recordings(*)')
+        .order('started_at', { ascending: false });
+    
+    if (orgId) {
+        query = query.eq('renter_org_id', orgId);
+    }
+    
+    const { data, error } = await query;
+    if (error) throw error;
+    return data;
+}
+
+export async function getLeadTimeline(leadId: string) {
+    const { data, error } = await supabase
+        .from('lead_events')
+        .select('*, profiles(full_name)')
+        .eq('lead_id', leadId)
+        .order('timestamp', { ascending: true });
+    
+    if (error) throw error;
+    return data;
+}
+
+export async function getRenterOrganizations() {
+    const { data, error } = await supabase
+        .from('renter_organizations')
+        .select('*');
+    
+    if (error) throw error;
+    return data;
+}
+
+export async function getTrackingNumbers(orgId?: string) {
+    let query = supabase.from('tracking_numbers').select('*, assets(domain)');
+    if (orgId) query = query.eq('renter_org_id', orgId);
+    const { data } = await query;
+    return data || [];
+}
+
+export async function updateLeadStatus(leadId: string, status: string, actorId: string) {
+    const { error } = await supabase
+        .from('leads')
+        .update({ status })
+        .eq('id', leadId);
+    
+    if (error) throw error;
+
+    // Trigger should handle lead_events, but we manually verify in P0
+    return { success: true };
 }
 
 export async function updateDecisionStatus(decisionId: string, status: string, actorId: string, rationale?: string) {

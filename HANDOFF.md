@@ -5,7 +5,7 @@
 *   **GitHub Repository:** `https://github.com/DigiiState/hub.git`
 *   **Production Branch:** `main`
 *   **Production Commit:** `6a94ec8b52edeb6b364864b8c7815ca4eb894342`
-*   **Infrastructure:** Cloudflare Pages (WebDev OS v1.3.0)
+*   **Infrastructure:** Cloudflare Pages (WebDev OS v1.3.1)
 *   **Custom Domain:** `digiistate.com`
 
 ## 🏗️ Architecture
@@ -28,6 +28,7 @@
     *   `ROBUST_EMPIRE_SCHEMA.sql` (Portfolio scaling)
     *   `MIGRATION_PHASE_2_5.sql` (Asset relationships)
     *   `P1B_DECISION_QUEUE.sql` (In implementation)
+    *   `P0_CALLS_LEADS_CENTER.sql` (Handoff ready)
 *   **Current State:** The Hub currently uses the local `src/lib/db.ts` for all production metrics while awaiting live Supabase credentials. 
 *   **Reconciled Lease Count:** 3 Active Contracts (Young Septic) + 1 Trial (Portner & Shure). (Verified Aug 20, 2026).
 
