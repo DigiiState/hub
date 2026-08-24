@@ -17,7 +17,6 @@ const currentQualifiedNonPaidCalls = monetization.reduce((acc, m) => acc + m.qua
 const monetizationReadyAssets = monetization.filter(m => m.progress >= 100).length;
 ---
 
-
 <Layout title="Command Center | DigiiState OS">
 	<main class="min-h-screen bg-slate-50 flex">
 		<Sidebar activePath="/dashboard" />
@@ -48,6 +47,7 @@ const monetizationReadyAssets = monetization.filter(m => m.progress >= 100).leng
 					</div>
 				</div>
 			</header>
+
 
 			<!-- 0. DECISIONS REQUIRED (P1B) -->
 			{decisions.length > 0 && (
