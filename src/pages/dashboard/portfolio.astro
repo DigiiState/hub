@@ -6,12 +6,10 @@ import { getAssets, getPortfolioStats } from '../../lib/db';
 const assets = await getAssets();
 const portfolioStats = await getPortfolioStats();
 
-// PHASE 6: LIFECYCLE STAGES DEFINITION
+// PHASE 6: AUTHORITATIVE LIFECYCLE STAGES
 const lifecycleStages = [
-	"Research", "Underwriting", "Acq. Approved", "Domain Acquired", 
-	"Development", "Indexed", "Ranking", "Generating Leads", 
-	"Lease Ready", "Available", "Leased", "Stabilized", 
-	"Expansion", "Distressed", "Exit / Sale", "Retired"
+	"BUILDING", "LIVE", "INDEXING", "RANKING", "TRACTION", 
+	"MONETIZATION_READY", "AVAILABLE_FOR_RENT", "OFFER_PENDING", "LEASED"
 ];
 ---
 
@@ -62,18 +60,18 @@ const lifecycleStages = [
 								<td class="px-8 py-6">
 									<div class="flex flex-col gap-1">
 										<div class="flex items-center gap-2">
-											<span class={`w-1.5 h-1.5 rounded-full ${a.stage === 'Leased' ? 'bg-emerald-500' : a.stage === 'Ranking' ? 'bg-blue-500' : 'bg-amber-500'}`}></span>
-											<span class="text-[9px] font-black uppercase text-slate-600">{a.stage}</span>
+											<span class={`w-1.5 h-1.5 rounded-full ${a.current_stage === 'LEASED' ? 'bg-emerald-500' : a.current_stage === 'RANKING' ? 'bg-blue-500' : 'bg-amber-500'}`}></span>
+											<span class="text-[9px] font-black uppercase text-slate-600">{a.current_stage}</span>
 										</div>
 										<div class="w-24 h-1 bg-slate-100 rounded-full overflow-hidden">
-											<div class="h-full bg-blue-600" style={`width: ${(lifecycleStages.indexOf(a.stage) + 1) / lifecycleStages.length * 100}%`}></div>
+											<div class="h-full bg-blue-600" style={`width: ${(lifecycleStages.indexOf(a.current_stage) + 1) / lifecycleStages.length * 100}%`}></div>
 										</div>
 									</div>
 								</td>
 								<td class="px-8 py-6">
 									<div class="flex flex-col">
-										<b class="text-emerald-500 font-black">{a.rank}</b>
-										<span class="text-[10px] text-slate-400 font-bold uppercase">{a.leads} Leads (30d)</span>
+										<b class="text-emerald-500 font-black">{a.rankings?.[0]?.google_rank ? '#' + a.rankings[0].google_rank : '#--'}</b>
+										<span class="text-[10px] text-slate-400 font-bold uppercase">-- Leads (30d)</span>
 									</div>
 								</td>
 								<td class="px-8 py-6 font-black text-slate-950 font-mono text-xs">

@@ -1,12 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Sidebar from '../components/Sidebar.astro';
-import { getPortfolioStats, getAssets, managementAttention, getAutopilotConfigs, getDecisions } from '../lib/db';
+import { getPortfolioStats, getAssets, getAutopilotConfigs, getDecisions, getMonetizationMetrics } from '../lib/db';
 
 const portfolioStats = await getPortfolioStats();
 const assets = await getAssets();
 const configs = await getAutopilotConfigs();
 const decisions = await getDecisions();
+const monetization = await getMonetizationMetrics();
 const globalConfig = configs.find(c => c.id === 'global');
 
 // AUTHORITATIVE ASSET SYNC
@@ -96,7 +97,66 @@ const territories = assets.slice(0, 5).map(a => ({
 				</section>
 			)}
 
-			<!-- 1. MANAGEMENT ATTENTION (Phase 1) -->
+			<!-- 1. MONETIZATION READINESS GATE (New P0 Standard) -->
+			<section class="mb-16">
+				<div class="flex items-center gap-3 mb-8">
+					<h3 class="text-xs font-black uppercase tracking-[0.2em] text-emerald-600 border-l-4 border-emerald-600 pl-4">Monetization Readiness</h3>
+					<span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">10 Qualified Calls / 30 Days</span>
+				</div>
+				<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+					{monetization.map(m => (
+						<div class="bg-white border border-slate-200 rounded-[32px] p-8 shadow-sm">
+							<div class="flex justify-between items-start mb-6">
+								<div>
+									<b class="text-slate-950 block uppercase tracking-tight italic">{m.domain}</b>
+									<span class="text-[9px] font-black text-slate-400 uppercase tracking-widest">{m.stage}</span>
+								</div>
+								<div class={`px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest ${m.progress >= 100 ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-slate-50 text-slate-400'}`}>
+									{m.progress >= 100 ? 'Ready' : 'Traction'}
+								</div>
+							</div>
+
+							<div class="space-y-6">
+								<div class="flex justify-between items-end">
+									<div>
+										<span class="text-[9px] font-black text-slate-400 uppercase block mb-1">Qualified Calls</span>
+										<b class="text-2xl text-slate-950">{m.qualifiedCalls} <small class="text-slate-400 font-medium">/ 10</small></b>
+									</div>
+									<div class="text-right">
+										<span class="text-[9px] font-black text-slate-400 uppercase block mb-1">30D Trend</span>
+										<b class={`text-sm ${m.qualifiedCalls >= m.prevQualifiedCalls ? 'text-emerald-500' : 'text-red-500'}`}>
+											{m.qualifiedCalls >= m.prevQualifiedCalls ? '↑' : '↓'} {Math.abs(m.qualifiedCalls - m.prevQualifiedCalls)}
+										</b>
+									</div>
+								</div>
+
+								<div class="space-y-2">
+									<div class="flex justify-between text-[8px] font-black text-slate-400 uppercase tracking-widest">
+										<span>Progress to monetization</span>
+										<span>{Math.round(m.progress)}%</span>
+									</div>
+									<div class="h-2 bg-slate-50 rounded-full overflow-hidden">
+										<div class={`h-full transition-all duration-1000 ${m.progress >= 100 ? 'bg-emerald-500' : 'bg-blue-600'}`} style={`width: ${m.progress}%`}></div>
+									</div>
+								</div>
+
+								<div class="pt-6 border-t border-slate-50 grid grid-cols-2 gap-4">
+									<div>
+										<span class="text-[8px] font-black text-slate-400 uppercase block mb-1">Qualified Forms</span>
+										<b class="text-xs text-slate-600">{m.qualifiedForms}</b>
+									</div>
+									<div>
+										<span class="text-[8px] font-black text-slate-400 uppercase block mb-1">Invalid/Spam</span>
+										<b class="text-xs text-slate-400">{m.spamCalls}</b>
+									</div>
+								</div>
+							</div>
+						</div>
+					))}
+				</div>
+			</section>
+
+			<!-- 2. MANAGEMENT ATTENTION (Phase 1) -->
 			<section class="mb-16">
 				<div class="flex items-center gap-3 mb-8">
 					<h3 class="text-xs font-black uppercase tracking-[0.2em] text-red-600 border-l-4 border-red-600 pl-4">Management Attention</h3>
