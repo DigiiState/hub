@@ -150,6 +150,21 @@ const territories = assets.slice(0, 5).map(a => ({
 										<b class="text-xs text-slate-400">{m.spamCalls}</b>
 									</div>
 								</div>
+
+                                <div class="pt-4 grid grid-cols-3 gap-2 border-t border-slate-50/50 mt-4">
+                                    <div class="text-center">
+                                        <span class="text-[7px] font-black text-slate-400 uppercase block">Discovered</span>
+                                        <b class="text-[10px] text-slate-500">{m.discovered}</b>
+                                    </div>
+                                    <div class="text-center">
+                                        <span class="text-[7px] font-black text-slate-400 uppercase block">Crawled</span>
+                                        <b class="text-[10px] text-slate-500">{m.crawled}</b>
+                                    </div>
+                                    <div class="text-center">
+                                        <span class="text-[7px] font-black text-slate-400 uppercase block">Indexed</span>
+                                        <b class="text-[10px] text-emerald-500 font-black">{m.indexed}</b>
+                                    </div>
+                                </div>
 							</div>
 						</div>
 					))}

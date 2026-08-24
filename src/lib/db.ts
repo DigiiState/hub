@@ -73,7 +73,10 @@ export async function getMonetizationMetrics() {
         spamCalls: m.spam_calls_30d,
         qualifiedForms: m.qualified_form_leads_30d,
         totalCalls: m.total_calls_30d,
-        progress: Math.min(100, (m.qualified_calls_30d / 10) * 100)
+        progress: Math.min(100, (m.qualified_calls_30d / 10) * 100),
+        discovered: m.discovered_urls || 0,
+        crawled: m.crawled_urls || 0,
+        indexed: m.indexed_urls || 0
     }));
 }
 
