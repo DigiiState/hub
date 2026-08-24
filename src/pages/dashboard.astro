@@ -1,22 +1,22 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Sidebar from '../components/Sidebar.astro';
-import { getPortfolioStats, getAssets, getAutopilotConfigs, getDecisions, getMonetizationMetrics } from '../lib/db';
+import { getPortfolioStats, getAssets, getAutopilotConfigs, getDecisions, getMonetizationMetrics, getManagementAttention } from '../lib/db';
 
 const portfolioStats = await getPortfolioStats();
 const assets = await getAssets();
 const configs = await getAutopilotConfigs();
 const decisions = await getDecisions();
 const monetization = await getMonetizationMetrics();
+const managementAttention = await getManagementAttention();
 const globalConfig = configs.find(c => c.id === 'global');
 
-// AUTHORITATIVE ASSET SYNC
-const territories = assets.slice(0, 5).map(a => ({
-    ...a,
-    ranks: a.ranks,
-    health: a.health
-}));
+// PORTFOLIO PERFORMANCE SUMMARY
+const totalMonetizationTarget = monetization.length * 10;
+const currentQualifiedNonPaidCalls = monetization.reduce((acc, m) => acc + m.qualifiedCalls, 0);
+const monetizationReadyAssets = monetization.filter(m => m.progress >= 100).length;
 ---
+
 
 <Layout title="Command Center | DigiiState OS">
 	<main class="min-h-screen bg-slate-50 flex">
@@ -32,13 +32,13 @@ const territories = assets.slice(0, 5).map(a => ({
 				<div class="flex gap-4">
 					<div class="bg-white border border-slate-200 p-6 rounded-3xl flex gap-12 shadow-sm">
 						<div>
-							<span class="text-[9px] font-black text-slate-400 uppercase block mb-1">Pipeline Value</span>
-							<b class="text-xl text-blue-600">${portfolioStats.totalPipelineValue.toLocaleString()}</b>
+							<span class="text-[9px] font-black text-slate-400 uppercase block mb-1">Monetization Ready</span>
+							<b class="text-xl text-blue-600">{monetizationReadyAssets} <small class="text-slate-400 font-medium">/ {monetization.length}</small></b>
 						</div>
 						<div class="w-px h-8 bg-slate-100"></div>
 						<div>
-							<span class="text-[9px] font-black text-slate-400 uppercase block mb-1">Portfolio Health</span>
-							<b class="text-xl text-emerald-500">{portfolioStats.avgHealthScore}</b>
+							<span class="text-[9px] font-black text-slate-400 uppercase block mb-1">Portfolio Non-Paid Calls</span>
+							<b class="text-xl text-emerald-500">{currentQualifiedNonPaidCalls} <small class="text-slate-400 font-medium">/ {totalMonetizationTarget}</small></b>
 						</div>
 						<div class="w-px h-8 bg-slate-100"></div>
 						<div>
@@ -104,26 +104,30 @@ const territories = assets.slice(0, 5).map(a => ({
 					<span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">10 Qualified Calls / 30 Days</span>
 				</div>
 				<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-					{monetization.map(m => (
-						<div class="bg-white border border-slate-200 rounded-[32px] p-8 shadow-sm">
+					{monetization.sort((a, b) => b.priorityScore - a.priorityScore).map(m => (
+						<div class="bg-white border border-slate-200 rounded-[32px] p-8 shadow-sm relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 p-4">
+                                <div class="text-[7px] font-black uppercase text-slate-300 tracking-[0.3em]">Priority Score</div>
+                                <div class="text-right text-sm font-black text-slate-900">{m.priorityScore}</div>
+                            </div>
 							<div class="flex justify-between items-start mb-6">
 								<div>
 									<b class="text-slate-950 block uppercase tracking-tight italic">{m.domain}</b>
 									<span class="text-[9px] font-black text-slate-400 uppercase tracking-widest">{m.stage}</span>
 								</div>
 								<div class={`px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest ${m.progress >= 100 ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-slate-50 text-slate-400'}`}>
-									{m.progress >= 100 ? 'Ready' : 'Traction'}
+									{m.progress >= 100 ? 'Ready' : 'Indexing'}
 								</div>
 							</div>
 
 							<div class="space-y-6">
 								<div class="flex justify-between items-end">
 									<div>
-										<span class="text-[9px] font-black text-slate-400 uppercase block mb-1">Qualified Calls</span>
+										<span class="text-[9px] font-black text-slate-400 uppercase block mb-1">Non-Paid Qualified Calls</span>
 										<b class="text-2xl text-slate-950">{m.qualifiedCalls} <small class="text-slate-400 font-medium">/ 10</small></b>
 									</div>
 									<div class="text-right">
-										<span class="text-[9px] font-black text-slate-400 uppercase block mb-1">30D Trend</span>
+										<span class="text-[9px] font-black text-slate-400 uppercase block mb-1">Non-Paid Trend</span>
 										<b class={`text-sm ${m.qualifiedCalls >= m.prevQualifiedCalls ? 'text-emerald-500' : 'text-red-500'}`}>
 											{m.qualifiedCalls >= m.prevQualifiedCalls ? '↑' : '↓'} {Math.abs(m.qualifiedCalls - m.prevQualifiedCalls)}
 										</b>
@@ -132,7 +136,7 @@ const territories = assets.slice(0, 5).map(a => ({
 
 								<div class="space-y-2">
 									<div class="flex justify-between text-[8px] font-black text-slate-400 uppercase tracking-widest">
-										<span>Progress to monetization</span>
+										<span>Progress to monetization gate</span>
 										<span>{Math.round(m.progress)}%</span>
 									</div>
 									<div class="h-2 bg-slate-50 rounded-full overflow-hidden">
@@ -142,12 +146,12 @@ const territories = assets.slice(0, 5).map(a => ({
 
 								<div class="pt-6 border-t border-slate-50 grid grid-cols-2 gap-4">
 									<div>
-										<span class="text-[8px] font-black text-slate-400 uppercase block mb-1">Qualified Forms</span>
+										<span class="text-[8px] font-black text-slate-400 uppercase block mb-1">Organic Forms</span>
 										<b class="text-xs text-slate-600">{m.qualifiedForms}</b>
 									</div>
 									<div>
-										<span class="text-[8px] font-black text-slate-400 uppercase block mb-1">Invalid/Spam</span>
-										<b class="text-xs text-slate-400">{m.spamCalls}</b>
+										<span class="text-[8px] font-black text-slate-400 uppercase block mb-1">Paid Qual. Calls</span>
+										<b class="text-xs text-slate-400">{m.paidQualifiedCalls}</b>
 									</div>
 								</div>
 

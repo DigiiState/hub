@@ -1,7 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Sidebar from '../../components/Sidebar.astro';
-import { managementAttention } from '../../lib/db';
+import { getManagementAttention } from '../../lib/db';
+
+const managementAttention = await getManagementAttention();
 
 // PHASE 11: ALERT CENTER DATA (Consolidated with Management Attention)
 const alerts = {

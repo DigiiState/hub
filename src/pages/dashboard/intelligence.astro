@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Sidebar from '../../components/Sidebar.astro';
-import { getAssets } from '../../lib/db';
+import { getAssets, createDecision } from '../../lib/db';
 
 const assets = await getAssets();
 
